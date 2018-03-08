@@ -155,57 +155,27 @@ def run_3pcc_scenario(recorder_addr, local_ip, scenario1, scenario2, timeout):
         Popen(proc_args_2, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     ]
 
-    start_time = datetime.now()
+    # Note: I tried to use subprocess.poll(), but this makes the underlying SIPP process extremely slow (x10 or so).
+    # Probably, it is a bug in SIPP, which gets timing values from non-accurate source, and supprocess.poll() has influence on those timing values
+    # Now, we j
 
-    retcode = 0
-    while running_procs:
-        for proc in running_procs:
-            retcode = proc.poll()
-            if retcode is None:  # Process finished.
-                time.sleep(1)
-                continue
-            else:
+    for i, proc in enumerate(running_procs):
+        output, errors = proc.communicate(timeout=timeout)
+        if proc.returncode != 0:
+            print("SIPP ERROR: %s" % errors)
+            return proc.returncode
+        # elif errors:
+        #     print("SIPP WARNING: %s" % errors)
 
-                if retcode:
-                    # Exit with error.
-                    print("SIPP ERROR: ")
-                    for line in io.TextIOWrapper(proc.stderr, encoding="utf-8"):
-                        print(line.replace('\r', ''))
-                else:
-                    # Exit normally
-                    print('One of process exited')
-                    print("================ STD OUT (last 50 lines) =============")
-                    lines = [line for line in io.TextIOWrapper(proc.stdout, encoding="utf-8")]
-                    for line in lines[-100:]:   # Print last 50 lines
-                        line = line.replace('\r', '').strip()
-                        if line:
-                            print(line)
+        print('Process [%d] finished' % i)
 
-                running_procs.remove(proc)
-                break
-
-        if timeout and datetime.now() - start_time > timeout:
-            print("Timeout expired")
-            for proc in running_procs:
-                proc.kill()
-                print("================ STD OUT (last 50 lines) =============")
-                lines = [line for line in io.TextIOWrapper(proc.stdout, encoding="utf-8")]
-                for line in lines[-100:]:   # Print last 50 lines
-                    line = line.replace('\r', '').strip()
-                    if line:
-                        print(line)
-
-                print("================= STD ERR (last 50 lines) =============")
-                lines = [line for line in io.TextIOWrapper(proc.stderr, encoding="utf-8")]
-                for line in lines[-100:]:   # Print last 50 lines
-                    line = line.replace('\r', '').strip()
-                    if line:
-                        print(line)
-
-            break
+        output = output.decode('utf-8').replace('\r', '')
+        lines = output.split('\n')
+        for line in lines[-50:]:   # Print last 50 lines
+            print(line)
 
     print('FINISHED')
-    return retcode or 0
+    return 0
 
 
 if __name__ == '__main__':
