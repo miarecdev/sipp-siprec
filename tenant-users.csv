@@ -1,7 +1,0 @@
-RANDOM,PRINTF=99
-# metaswitch-extension;metaswitch-user;metaswitch-group;metaswitch-system
-1000000%02d;User 1.%02d;Tenant 1;Provider
-2000000%02d;User 2.%02d;Tenant 2;Provider
-3000000%02d;User 3.%02d;Tenant 3;Provider
-4000000%02d;User 4.%02d;Tenant 4;Provider
-5000000%02d;User 5.%02d;Tenant 5;Provider
