@@ -216,6 +216,10 @@ if __name__ == '__main__':
     # Parse command line arguments
     args = parse_command_line_arguments()
 
+    start_time = datetime.now()
+
     exit_code = run_scenario(**vars(args))
+
+    print('Execution time: %s' % (datetime.now() - start_time))
 
     sys.exit(exit_code)
