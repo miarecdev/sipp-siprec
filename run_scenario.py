@@ -159,15 +159,20 @@ def run_3pcc_scenario(recorder_addr, local_ip, scenario1, scenario2, timeout):
     # Probably, it is a bug in SIPP, which gets timing values from non-accurate source, and supprocess.poll() has influence on those timing values
     # Now, we j
 
+    return_codes = []
+
     for i, proc in enumerate(running_procs):
         output, errors = proc.communicate(timeout=timeout)
+
+        print('=========================================================')
+        print('Process [%d] finished' % i)
+        print('=========================================================')
+
         if proc.returncode != 0:
             print("SIPP ERROR: %s" % errors)
-            return proc.returncode
+            return_codes.append(proc.returncode)
         # elif errors:
         #     print("SIPP WARNING: %s" % errors)
-
-        print('Process [%d] finished' % i)
 
         output = output.decode('utf-8').replace('\r', '')
         lines = output.split('\n')
@@ -175,7 +180,7 @@ def run_3pcc_scenario(recorder_addr, local_ip, scenario1, scenario2, timeout):
             print(line)
 
     print('FINISHED')
-    return 0
+    return next((code for code in return_codes if code != 0), 0)
 
 
 if __name__ == '__main__':

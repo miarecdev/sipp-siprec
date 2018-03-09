@@ -292,6 +292,9 @@
          ]]>
    </sendCmd>
 
+   <!-- Wait till the second instance completes -->
+  <pause milliseconds="8000"/>
+
 
   <timewait milliseconds="4000"/>
 
