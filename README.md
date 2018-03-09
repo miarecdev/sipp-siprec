@@ -7,8 +7,8 @@
 
 # Start 3PCC scenario    
 
-    sipp 192.168.1.106:5080 -i 192.168.1.106 -3pcc 127.0.0.1:7777 -m 1 -t t1 -sf 01a_3way_call_initiator_recorded_[2].xml
-    sipp 192.168.1.106:5080 -i 192.168.1.106 -3pcc 192.168.1.106:7777 -m 1 -t t1 -sf 01a_3way_call_initiator_recorded_[1].xml
+    sipp 192.168.1.106:5080 -i 192.168.1.106 -3pcc 192.168.1.106:7777 -m 1 -t t1 -sf scenarios/01a_3way_call_initiator_recorded_2.xml
+    sipp 192.168.1.106:5080 -i 192.168.1.106 -3pcc 192.168.1.106:7777 -m 1 -t t1 -sf scenarios/01a_3way_call_initiator_recorded_1.xml
     
 Where:
 

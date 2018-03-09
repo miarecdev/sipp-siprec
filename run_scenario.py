@@ -119,7 +119,7 @@ def run_single_scenario(recorder_addr, local_ip, scenario, timeout):
 
     output = output.decode('utf-8').replace('\r', '')
     lines = output.split('\n')
-    for line in lines[-50:]:   # Print last 50 lines
+    for line in lines[-100:]:   # Print last 50 lines
         print(line)
 
     return 0
@@ -171,7 +171,7 @@ def run_3pcc_scenario(recorder_addr, local_ip, scenario1, scenario2, timeout):
 
         output = output.decode('utf-8').replace('\r', '')
         lines = output.split('\n')
-        for line in lines[-50:]:   # Print last 50 lines
+        for line in lines[-100:]:   # Print last 50 lines
             print(line)
 
     print('FINISHED')
