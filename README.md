@@ -7,8 +7,8 @@
 
 # Start 3PCC scenario    
 
-    sipp 192.168.1.106:5080 -i 192.168.1.106 -3pcc 192.168.1.106:7777 -m 1 -t t1 -sf scenarios/01a_3way_call_initiator_recorded_2.xml
-    sipp 192.168.1.106:5080 -i 192.168.1.106 -3pcc 192.168.1.106:7777 -m 1 -t t1 -sf scenarios/01a_3way_call_initiator_recorded_1.xml
+    sipp 192.168.1.106:5080 -i 192.168.1.106 -m 1 -t t1 -3pcc 192.168.1.106:7777 -sf scenarios/01a_3way_call_initiator_recorded_2.xml
+    sipp 192.168.1.106:5080 -i 192.168.1.106 -m 1 -t t1 -3pcc 192.168.1.106:7777 -sf scenarios/01a_3way_call_initiator_recorded_1.xml
     
 Where:
 
@@ -16,7 +16,14 @@ Where:
 - `192.168.1.106:7777` is a listening port of twin SIPP instance (Side B)
 - `127.0.0
 
+# Extended 3PCC scenario
+
+    sipp 192.168.1.106:5080 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 1slave.cfg -slave slave1 -sf scenarios/01a_3way_call_initiator_recorded_ext_2.xml
+    sipp 192.168.1.106:5080 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 1slave.cfg -master master -sf scenarios/01a_3way_call_initiator_recorded_ext_1.xml
     
+# Run python script (basic 3PCC)
+
+    python3 run_scenarios.py -r 192.168.1.106:5080 scenarios/01a_3way_call_initiator_recorded_1.xml scenarios/01a_3way_call_initiator_recorded_2.xml 
     
 # Some important command-line options:
 	-sf filename
