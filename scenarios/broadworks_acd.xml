@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE scenario SYSTEM "sipp.dtd">
+
+<scenario name="MLHG inbound call scenario - Metaswitch CFS SIPREC">
+
+  <send>
+    <![CDATA[
+      INVITE sip:[remote_ip]:[remote_port] SIP/2.0
+      Content-Length:[len]
+      Allow:ACK,BYE,CANCEL,INFO,INVITE,OPTIONS,PRACK,REFER,NOTIFY
+      Contact:<sip:[local_ip]:[local_port]>;src
+      Content-Type:multipart/mixed;boundary=UniqueBroadWorksBoundary
+      Expires: 180 
+      Call-ID: [call_id]
+      CSeq:604674513 INVITE 
+      Via:SIP/2.0/[transport] [local_ip]:[local_port];rport;branch=[branch]
+      Remote-Party-ID:"VVX 600"<sip:+12134174466@masergy.com;user=phone>;screen=yes;party=calling;privacy=off;id-type=subscriber
+      RPID-Privacy:party=calling;privacy=off;id-type=subscriber
+      Proxy-Require:privacy
+      From:"VVX 600"<sip:+12134174466@masergy.com;user=phone>;tag=[pid]SIPpTag00[call_number]
+      Supported:
+      Recv-Info:
+      Max-Forwards: 70
+      To:<sip:[remote_ip]:[remote_port]>
+      MIME-Version:1.0
+
+      --UniqueBroadWorksBoundary
+      Content-Type: application/sdp
+
+      v=0
+      o=- 3449405261 3449405261 IN IP4 [local_ip]
+      s=-
+      c=IN IP4 [local_ip]
+      t=0 0
+      m=audio [auto_media_port] RTP/AVP 8
+      a=ptime:20
+      a=label:1
+
+      --UniqueBroadWorksBoundary
+      Content-Type:application/rs-metadata+xml
+      Content-Disposition:recording-session
+
+      <?xml version="1.0" encoding="UTF-8"?>
+      <recording_metadata
+          xmlns="urn:ietf:params:xml:ns:siprec">
+          <dataMode>complete</dataMode>
+          <recording id="urn:uuid:8edb9763-203b-40f0-bb46-a5014d3bc899">
+              <requestor>SRC</requestor>
+              <type>selective</type>
+          </recording>
+          <group id="urn:uuid:6219893c-d072-43d3-ba6c-8828cf7be472" recording="urn:uuid:8edb9763-203b-40f0-bb46-a5014d3bc899">
+              <initiator>sip:8638254725</initiator>
+          </group>
+          <session id="urn:uuid:139ff134-7094-4ea9-a4a4-73f0c45e6a23" group="urn:uuid:6219893c-d072-43d3-ba6c-8828cf7be472">
+              <start-time>2018-06-26T17:48:23+00:00</start-time>
+          </session>
+          <participant id="urn:uuid:c703d8c4-ac5b-4000-a8ad-a3342ff26072" session="urn:uuid:139ff134-7094-4ea9-a4a4-73f0c45e6a23">
+              <aor>sip:8638254725</aor>
+              <send>
+                  <id>urn:uuid:dc51a81b-aebc-4a09-8f8b-75c13ec5a4fb</id>
+              </send>
+          </participant>
+          <participant id="urn:uuid:c649af2e-0c0f-4015-8230-2734d538fc22" session="urn:uuid:139ff134-7094-4ea9-a4a4-73f0c45e6a23">
+              <aor>sip:+19015783200@broadcore.com;user=phone</aor>
+              <send>
+                  <id>urn:uuid:9b6ad4c2-9901-4387-8659-a366bfb7dc19</id>
+              </send>
+          </participant>
+          <stream id="urn:uuid:dc51a81b-aebc-4a09-8f8b-75c13ec5a4fb" session="urn:uuid:139ff134-7094-4ea9-a4a4-73f0c45e6a23">
+              <label>1</label>
+              <mode>mixed</mode>
+          </stream>
+          <extensiondata id="urn:uuid:8701ccaa-1f10-46d8-b342-835e07d9eb0b" parent="urn:uuid:139ff134-7094-4ea9-a4a4-73f0c45e6a23">
+              <broadWorksRecordingMetadata
+                  xmlns="http://schema.broadsoft.com/broadworksCallRecording" version="3.0">
+                  <extTrackingID>tracking-id-[call_id]</extTrackingID>
+                  <serviceProviderID>434279</serviceProviderID>
+                  <groupID>434279-1</groupID>
+                  <userID>8638254725@broadcore.com</userID>
+                  <callID>callhalf-[call_id]:0</callID>
+                  <callType>
+                      <termCall>
+                          <callingPartyNumber>sip:+19015783200@broadcore.com;user=phone</callingPartyNumber>
+                          <calledPartyNumber>sip:+18638254725@broadcore.com</calledPartyNumber>
+                      </termCall>
+                  </callType>
+                  <recordingType>on</recordingType>
+                  <acd>
+                      <acdUserId>8638254220@broadcore.com</acdUserId>
+                      <acdName>Aralez</acdName>
+                      <acdNumber countryCode="1">tel:+18638254220</acdNumber>
+                  </acd>
+              </broadWorksRecordingMetadata>
+          </extensiondata>
+      </recording_metadata>
+       
+      --UniqueBroadWorksBoundary--
+
+    ]]>
+  </send>
+
+  <recv response="100" optional="true">
+  </recv>
+
+  <recv response="180" optional="true">
+  </recv>
+
+  <recv response="200" rtd="true" crlf="true">
+  </recv>
+
+  <!-- Packet lost can be simulated in any send/recv message by         -->
+  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <send>
+    <![CDATA[
+      ACK sip:[remote_ip]:[remote_port] SIP/2.0
+      Content-Length: 0
+      Contact: sip:7602922410@[local_ip]:[local_port];+sip.src
+      Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name 
+      Call-ID: [call_id]
+      CSeq: 832544241 ACK 
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+      From: <sip:7602922410@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
+      Organization: Metaswitch Networks
+      Max-Forwards: 70
+      To: <sip:7603213214@[remote_ip]:[remote_port]>[peer_tag_param]
+    ]]>
+  </send>
+
+  <pause milliseconds="20"/>
+
+  <!-- Play a pre-recorded audio file (RTP stream)                       -->
+  <nop>
+    <action>
+       <exec rtp_stream="audio_alaw.wav"/>
+    </action>
+  </nop>
+  
+  <pause milliseconds="10000"/>
+
+  <!-- The 'crlf' option inserts a blank line in the statistics report. -->
+  <send retrans="500">
+    <![CDATA[
+
+      BYE sip:[remote_ip]:[remote_port] SIP/2.0
+      Content-Length: 0
+      Require: siprec
+      Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name 
+      Call-ID: [call_id]
+      CSeq: 832544242 BYE 
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+      From: <sip:7602922410@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
+      Organization: Metaswitch Networks
+      Max-Forwards: 70
+      Supported: resource-priority, siprec, 100rel
+      To: <sip:7603213214@[remote_ip]:[remote_port]>[peer_tag_param]
+
+    ]]>
+  </send>
+
+  <recv response="200" crlf="true">
+  </recv>
+
+  <timewait milliseconds="4000"/>
+
+  <!-- definition of the response time repartition table (unit is ms)   -->
+  <ResponseTimeRepartition value="50, 100, 200, 300, 500, 700, 1000, 2000, 5000"/>
+
+  <!-- definition of the call length repartition table (unit is ms)     -->
+  <CallLengthRepartition value="10, 50, 100, 500, 1000, 5000, 10000"/>
+
+</scenario>
+
+
