@@ -23,7 +23,7 @@ Where:
     
 # Run python script (basic 3PCC)
 
-    python3 run_scenarios.py -r 192.168.1.106:5080 scenarios/01a_3way_call_initiator_recorded_1.xml scenarios/01a_3way_call_initiator_recorded_2.xml 
+    python3 run_scenario.py -r 192.168.1.106:5080 scenarios/01a_3way_call_initiator_recorded_1.xml scenarios/01a_3way_call_initiator_recorded_2.xml 
     
 # Some important command-line options:
 	-sf filename
