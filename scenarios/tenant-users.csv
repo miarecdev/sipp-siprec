@@ -1,0 +1,7 @@
+RANDOM,PRINTF=99
+# extension;User Name;Business Group;System Name
+10000000%02d;User %02d;Company1;Provider
+20000000%02d;User %02d;Company2;Provider
+30000000%02d;User %02d;Company3;Provider
+40000000%02d;User %02d;Company4;Provider
+50000000%02d;User %02d;Company5;Provider
