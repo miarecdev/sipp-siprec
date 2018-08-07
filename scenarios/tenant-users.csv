@@ -1,4 +1,4 @@
-RANDOM,PRINTF=99
+SEQUENTIAL,PRINTF=99
 # extension;User Name;Business Group;System Name
 10000000%02d;User %02d;Company1;Provider
 20000000%02d;User %02d;Company2;Provider
