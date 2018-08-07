@@ -3,7 +3,18 @@
 
 # Start single call scenario
 
-    sipp 192.168.1.106:5080 -i 192.168.1.106 -m 1 -t t1 -inf tenant-users.csv -inf callee.csv -l 1 -sf 16b_basic_calls_outbound.xml 
+    sipp 192.168.1.5:5080 -i 192.168.1.106 -t t1 -inf scenarios/tenant-users.csv -inf scenarios/callee.csv -sf scenarios/16b_basic_calls_outbound.xml -m 1000 -r 5 -rp 1s -l 50
+
+This scenarios loads a list of tenants/subsribers from file `tenant-users.csv` and a random remote phone numbers from file `callee.csv`.
+
+With these settings, it will generate maximum 5 calls per second (see `-r 5 -rp 1`) and limit to 50 concurrent sessions (see `-l 50`), maximum 1000 calls (see `-m 1000`).
+
+Replace:
+
+   - 192.168.1.5 with your MiaRec ip-address
+   - 192.168.1.106 with local machine ip-address (where SIPP is running)
+
+
 
 # Start 3PCC scenario    
 
