@@ -141,13 +141,16 @@
   <!-- Play a pre-recorded audio file (RTP stream)                       -->
   <nop>
     <action>
-       <exec rtp_stream="audio_alaw.wav"/>
+       <exec rtp_stream="audio_alaw_2h.wav"/>
     </action>
   </nop>
   
   <!-- Pause 16 seconds-->
   <!-- PCAP file                                                        -->
-  <pause milliseconds="16000"/>
+  <!-- pause milliseconds="16000"/ -->
+  
+  <!-- Normalized pause, average 3 minutes -->
+  <pause distribution="normal" mean="180000" stdev="60000"/>
 
   <!-- The 'crlf' option inserts a blank line in the statistics report. -->
   <send retrans="500">

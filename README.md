@@ -66,5 +66,16 @@ Where:
 	-trace_err
 		Log error message to file (like "Discarding message which can't be mapped to a known SIPp call").
 	-sd
-Dumps one of the default scenarios. Usage example: sipp -sd uas > uas.xml.    
+Dumps one of the default scenarios. Usage example: sipp -sd uas > uas.xml.   
+
+
+# Tips
+
+## How to create very long audio file
+
+Use sox utility, like:
+
+    sox input.wav output.wav repeat 10
+
+
 
