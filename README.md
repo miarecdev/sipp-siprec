@@ -31,10 +31,24 @@ Where:
 
     sipp 192.168.1.106:5080 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 1slave.cfg -slave slave1 -sf scenarios/01a_3way_call_initiator_recorded_ext_2.xml
     sipp 192.168.1.106:5080 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 1slave.cfg -master master -sf scenarios/01a_3way_call_initiator_recorded_ext_1.xml
+
+# Extended 3PCC scenario (Cisco BiB scenario)
+
+    sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 1slave.cfg -slave slave1 -sf scenarios/cisco_bib_call_slave1.xml
+
+    sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 1slave.cfg -master master -sf scenarios/cisco_bib_call_master.xml
+
     
 # Run python script (basic 3PCC)
 
     python3 run_scenario.py -r 192.168.1.106:5080 scenarios/01a_3way_call_initiator_recorded_1.xml scenarios/01a_3way_call_initiator_recorded_2.xml 
+
+# Extended 3PCC scenario (master + 3 slaves)
+
+    sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 3slaves.cfg -slave slave1 -sf scenarios/cisco_bib_call_slave1.xml
+    sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 3slaves.cfg -slave slave2 -sf scenarios/cisco_bib_call_slave2.xml
+    sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 3slaves.cfg -slave slave3 -sf scenarios/cisco_bib_call_slave3.xml
+    sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 3slaves.cfg -master master -sf scenarios/cisco_bib_call_master.xml
     
 # Some important command-line options:
 	-sf filename
