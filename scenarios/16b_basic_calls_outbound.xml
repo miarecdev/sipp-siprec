@@ -28,7 +28,7 @@
       Content-Length: [len]
       Allow: INVITE, ACK, CANCEL, BYE, REGISTER, OPTIONS, PRACK, UPDATE, SUBSCRIBE, NOTIFY, REFER, INFO, PUBLISH 
       Require: siprec
-      Contact: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port];+sip.src
+      Contact: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;+sip.src
       Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name 
       Content-Type: multipart/mixed; boundary=metaswitch-boundary 
       Expires: 180 
