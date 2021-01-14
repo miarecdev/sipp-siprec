@@ -49,6 +49,20 @@ Where:
     sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 3slaves.cfg -slave slave2 -sf scenarios/cisco_bib_call_slave2.xml
     sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 3slaves.cfg -slave slave3 -sf scenarios/cisco_bib_call_slave3.xml
     sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 3slaves.cfg -master master -sf scenarios/cisco_bib_call_master.xml
+
+
+# Cisco CUBE Network-based recording
+
+## Normal call
+
+    sipp 192.168.1.5:5080 -i 192.168.1.106 -m 1 -t t1 -sf scenarios/cisco_cube_network_based_normal_1.xml
+
+## Outbound call, transferred to another party
+
+CUBE sends re-INVITE with the updated call participants info
+
+    sipp 192.168.1.5:5080 -i 192.168.1.106 -m 1 -t t1 -sf scenarios/cisco_cube_network_based_1.xml
+
     
 # Some important command-line options:
 	-sf filename
