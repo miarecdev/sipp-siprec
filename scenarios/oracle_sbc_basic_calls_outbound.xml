@@ -142,7 +142,7 @@
   <!-- Play a pre-recorded audio file (RTP stream)                       -->
   <nop>
     <action>
-       <exec rtp_stream="audio_alaw_2h.wav"/>
+       <exec rtp_stream="audio_alaw_2h.wav,-1,8,PCMA/8000"/>
     </action>
   </nop>
   
