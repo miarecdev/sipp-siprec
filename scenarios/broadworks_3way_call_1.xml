@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE scenario SYSTEM "sipp.dtd">
+
+<scenario name="MLHG inbound call scenario - Metaswitch CFS SIPREC">
+
+  <send>
+    <![CDATA[
+      INVITE sip:[remote_ip]:[remote_port] SIP/2.0
+      Accept: application/media_control+xml,application/sdp,application/x-broadworks-call-center+xml
+      Allow: ACK,BYE,CANCEL,INFO,INVITE,OPTIONS,PRACK,REFER,NOTIFY
+      Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
+      Content-Type: multipart/mixed;boundary=UniqueBroadWorksBoundary
+      Recv-Info:
+      Privacy: none
+      MIME-Version: 1.0
+      Call-ID: [call_id]
+      CSeq: 1038329112 INVITE
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];rport;branch=[branch]
+      From: "Jennifer Beer"<sip:86074075017412@199.59.65.97>;tag=[pid]SIPpTag00[call_number]
+      To:<sip:[remote_ip]:[remote_port]>
+      Supported:
+      Max-Forwards: 69
+      Content-Length:[len]
+
+
+      --UniqueBroadWorksBoundary
+      Content-Type: application/sdp
+
+      v=0
+      o=BroadWorks 2855165233 2 IN IP4 [local_ip]
+      s=-
+      c=IN IP4 [local_ip]
+      t=0 0
+      m=audio [auto_media_port] RTP/AVP 8
+      a=ptime:20
+      a=sendonly
+      a=label:1
+
+      --UniqueBroadWorksBoundary
+      Content-Type:application/rs-metadata+xml
+      Content-Disposition:recording-session
+
+      <?xml version="1.0" encoding="UTF-8"?>
+      <recording_metadata xmlns="urn:ietf:params:xml:ns:siprec">
+        <dataMode>complete</dataMode>
+        <recording id="urn:uuid:57c64971-bb67-4845-9d51-70b7f564bc78">
+          <requestor>SRC</requestor>
+          <type>selective</type>
+        </recording>
+        <group id="urn:uuid:1f241484-942b-499b-9af7-3830ea1c16bc" recording="urn:uuid:57c64971-bb67-4845-9d51-70b7f564bc78">
+          <initiator>sip:86074075017412@cloudcalling-e.onestreamnetworks.com</initiator>
+        </group>
+        <session id="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf" group="urn:uuid:1f241484-942b-499b-9af7-3830ea1c16bc">
+          <start-time>2021-05-17T19:22:08+00:00</start-time>
+        </session>
+        <participant id="urn:uuid:2ecbc3f6-fa52-4ebf-a5f5-3f80b60c1c98" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
+          <aor>sip:86074075017412@cloudcalling-e.onestreamnetworks.com</aor>
+          <send>
+            <id>urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd</id>
+          </send>
+        </participant>
+        <participant id="urn:uuid:4401fd65-c361-49d6-97ea-1c96e68077c3" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
+          <aor>sip:8101@10.21.0.216;user=phone</aor>
+          <send>
+            <id>urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd</id>
+          </send>
+        </participant>
+        <stream id="urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
+          <label>1</label>
+          <mode>mixed</mode>
+        </stream>
+        <extensiondata id="urn:uuid:8009c8f3-ac68-4a98-8efc-6ea687fdfbfd" parent="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
+          <broadWorksRecordingMetadata xmlns="http://schema.broadsoft.com/broadworksCallRecording" version="1.0">
+            <extTrackingID>tracking-id-[call_id]</extTrackingID>
+            <serviceProviderID>ENT152</serviceProviderID>
+            <groupID>Corporate</groupID>
+            <userID>86074075017412@cloudcalling-e.onestreamnetworks.com</userID>
+            <callID>callhalf-[call_id]:1</callID>
+            <callType>
+              <origCall>
+                <callingPartyNumber>sip:7412@10.21.0.216</callingPartyNumber>
+                <calledPartyNumber>sip:8101@10.21.0.216;user=phone</calledPartyNumber>
+                <dialedDigits>sip:8101@10.21.0.216</dialedDigits>
+              </origCall>
+            </callType>
+            <recordingType>on</recordingType>
+          </broadWorksRecordingMetadata>
+        </extensiondata>
+      </recording_metadata>
+       
+      --UniqueBroadWorksBoundary--
+
+    ]]>
+  </send>
+
+  <recv response="100" optional="true">
+  </recv>
+
+  <recv response="180" optional="true">
+  </recv>
+
+  <recv response="200" rtd="true" crlf="true">
+  </recv>
+
+  <!-- Packet lost can be simulated in any send/recv message by         -->
+  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <send>
+    <![CDATA[
+      ACK sip:[remote_ip]:[remote_port] SIP/2.0
+      Content-Length: 0
+      Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
+      Call-ID: [call_id]
+      CSeq: 1038329112 ACK
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+      From: "Jennifer Beer"<sip:86074075017412@199.59.65.97>;tag=[pid]SIPpTag00[call_number]
+      To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
+      Max-Forwards: 69
+    ]]>
+  </send>
+
+  <pause milliseconds="20"/>
+
+  <!-- Play a pre-recorded audio file (RTP stream)                       -->
+  <nop>
+    <action>
+      <exec rtp_stream="audio_alaw.wav,-1,8,PCMA/8000"/>
+    </action>
+  </nop>
+  
+  <pause milliseconds="3000"/>
+
+
+  <!-- Send re-INVITE (new SDP, the same metadata) -->
+  <send retrans="500">
+    <![CDATA[
+
+      INVITE sip:[remote_ip]:[remote_port] SIP/2.0
+      Accept: application/media_control+xml,application/sdp,application/x-broadworks-call-center+xml
+      Allow: ACK,BYE,CANCEL,INFO,INVITE,OPTIONS,PRACK,REFER,NOTIFY
+      Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
+      Content-Type: multipart/mixed;boundary=UniqueBroadWorksBoundary
+      Call-ID: [call_id]
+      CSeq: 1038329114 INVITE
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];rport;branch=[branch]
+      From: "Jennifer Beer"<sip:86074075017412@199.59.65.97>;tag=[pid]SIPpTag00[call_number]
+      To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
+      Supported:
+      Max-Forwards: 69
+      X-BroadWorks-Correlation-Info: 24f716d9-1035-4eab-91e1-92496d9146a9
+      Content-Length:[len]
+
+
+      --UniqueBroadWorksBoundary
+      Content-Type: application/sdp
+
+      v=0
+      o=BroadWorks 2855165233 3 IN IP4 [local_ip]
+      s=-
+      c=IN IP4 [local_ip]
+      t=0 0
+      m=audio [auto_media_port] RTP/AVP 8
+      a=ptime:20
+      a=sendonly
+      a=label:1
+
+      --UniqueBroadWorksBoundary
+      Content-Type:application/rs-metadata+xml
+      Content-Disposition:recording-session
+
+      <?xml version="1.0" encoding="UTF-8"?>
+      <recording_metadata xmlns="urn:ietf:params:xml:ns:siprec">
+        <dataMode>complete</dataMode>
+        <recording id="urn:uuid:57c64971-bb67-4845-9d51-70b7f564bc78">
+          <requestor>SRC</requestor>
+          <type>selective</type>
+        </recording>
+        <group id="urn:uuid:1f241484-942b-499b-9af7-3830ea1c16bc" recording="urn:uuid:57c64971-bb67-4845-9d51-70b7f564bc78">
+          <initiator>sip:86074075017412@cloudcalling-e.onestreamnetworks.com</initiator>
+        </group>
+        <session id="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf" group="urn:uuid:1f241484-942b-499b-9af7-3830ea1c16bc">
+          <start-time>2021-05-17T19:22:08+00:00</start-time>
+        </session>
+        <participant id="urn:uuid:2ecbc3f6-fa52-4ebf-a5f5-3f80b60c1c98" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
+          <aor>sip:86074075017412@cloudcalling-e.onestreamnetworks.com</aor>
+          <send>
+            <id>urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd</id>
+          </send>
+        </participant>
+        <participant id="urn:uuid:4401fd65-c361-49d6-97ea-1c96e68077c3" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
+          <aor>sip:8101@10.21.0.216;user=phone</aor>
+          <send>
+            <id>urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd</id>
+          </send>
+        </participant>
+        <stream id="urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
+          <label>1</label>
+          <mode>mixed</mode>
+        </stream>
+        <extensiondata id="urn:uuid:8009c8f3-ac68-4a98-8efc-6ea687fdfbfd" parent="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
+          <broadWorksRecordingMetadata xmlns="http://schema.broadsoft.com/broadworksCallRecording" version="1.0">
+            <extTrackingID>tracking-id-[call_id]</extTrackingID>
+            <serviceProviderID>ENT152</serviceProviderID>
+            <groupID>Corporate</groupID>
+            <userID>86074075017412@cloudcalling-e.onestreamnetworks.com</userID>
+            <callID>callhalf-[call_id]:1</callID>
+            <callType>
+              <origCall>
+                <callingPartyNumber>sip:7412@10.21.0.216</callingPartyNumber>
+                <calledPartyNumber>sip:8101@10.21.0.216;user=phone</calledPartyNumber>
+                <dialedDigits>sip:8101@10.21.0.216</dialedDigits>
+              </origCall>
+            </callType>
+            <recordingType>on</recordingType>
+          </broadWorksRecordingMetadata>
+        </extensiondata>
+      </recording_metadata>
+       
+      --UniqueBroadWorksBoundary--
+
+    ]]>
+  </send>
+
+  <recv response="100" optional="true">
+  </recv>
+
+  <recv response="180" optional="true">
+  </recv>
+
+  <recv response="200" rtd="true" crlf="true">
+  </recv>
+
+  <!-- Packet lost can be simulated in any send/recv message by         -->
+  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <send>
+    <![CDATA[
+      ACK sip:[remote_ip]:[remote_port] SIP/2.0
+      Content-Length: 0
+      Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
+      Call-ID: [call_id]
+      CSeq: 1038329114 ACK
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+      From: "Jennifer Beer"<sip:86074075017412@199.59.65.97>;tag=[pid]SIPpTag00[call_number]
+      To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
+      Max-Forwards: 69
+    ]]>
+  </send>
+
+  <pause milliseconds="20"/>
+
+
+  <!-- Send UPDATE (3 participants instead of 2) -->
+  <send retrans="500">
+    <![CDATA[
+
+      UPDATE sip:[remote_ip]:[remote_port] SIP/2.0
+      Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
+      Content-Type: application/rs-metadata+xml
+      Call-ID: [call_id]
+      CSeq: 1038329115 UPDATE
+      Content-Disposition: recording-session
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];rport;branch=[branch]
+      From: "Jennifer Beer"<sip:86074075017412@199.59.65.97>;tag=[pid]SIPpTag00[call_number]
+      To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
+      Supported:
+      Max-Forwards: 69
+      X-BroadWorks-Correlation-Info: 24f716d9-1035-4eab-91e1-92496d9146a9
+      Content-Length:[len]
+
+      <?xml version="1.0" encoding="UTF-8"?>
+      <recording_metadata xmlns="urn:ietf:params:xml:ns:siprec">
+        <dataMode>complete</dataMode>
+        <recording id="urn:uuid:57c64971-bb67-4845-9d51-70b7f564bc78">
+          <requestor>SRC</requestor>
+          <type>selective</type>
+        </recording>
+        <group id="urn:uuid:1f241484-942b-499b-9af7-3830ea1c16bc" recording="urn:uuid:57c64971-bb67-4845-9d51-70b7f564bc78">
+          <initiator>sip:86074075017412@cloudcalling-e.onestreamnetworks.com</initiator>
+        </group>
+        <session id="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf" group="urn:uuid:1f241484-942b-499b-9af7-3830ea1c16bc">
+          <start-time>2021-05-17T19:22:08+00:00</start-time>
+        </session>
+        <participant id="urn:uuid:2ecbc3f6-fa52-4ebf-a5f5-3f80b60c1c98" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
+          <aor>sip:86074075017412@cloudcalling-e.onestreamnetworks.com</aor>
+          <send>
+            <id>urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd</id>
+          </send>
+        </participant>
+        <participant id="urn:uuid:4401fd65-c361-49d6-97ea-1c96e68077c3" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
+          <aor>sip:8101@10.21.0.216;user=phone</aor>
+          <send>
+            <id>urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd</id>
+          </send>
+        </participant>
+        <participant id="urn:uuid:5e217722-1c6d-4544-a786-49a953dd3ee3" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
+          <aor>86074075017701@cloudcalling-e.onestreamnetworks.com</aor>
+          <send>
+            <id>urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd</id>
+          </send>
+        </participant>
+        <stream id="urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
+          <label>1</label>
+          <mode>mixed</mode>
+        </stream>
+        <extensiondata id="urn:uuid:8009c8f3-ac68-4a98-8efc-6ea687fdfbfd" parent="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
+          <broadWorksRecordingMetadata xmlns="http://schema.broadsoft.com/broadworksCallRecording" version="1.0">
+            <extTrackingID>tracking-id-[call_id]</extTrackingID>
+            <serviceProviderID>ENT152</serviceProviderID>
+            <groupID>Corporate</groupID>
+            <userID>86074075017412@cloudcalling-e.onestreamnetworks.com</userID>
+            <callID>callhalf-[call_id]:1</callID>
+            <callType>
+              <origCall>
+                <callingPartyNumber>sip:7412@10.21.0.216</callingPartyNumber>
+                <calledPartyNumber>sip:8101@10.21.0.216;user=phone</calledPartyNumber>
+                <dialedDigits>sip:8101@10.21.0.216</dialedDigits>
+              </origCall>
+            </callType>
+            <recordingType>on</recordingType>
+          </broadWorksRecordingMetadata>
+        </extensiondata>
+      </recording_metadata>
+       
+    ]]>
+  </send>
+
+  <recv response="200" rtd="true" crlf="true">
+  </recv>
+
+  <!-- Play a pre-recorded audio file (RTP stream)                       -->
+  <nop>
+    <action>
+      <exec rtp_stream="audio_alaw.wav,-1,8,PCMA/8000"/>
+    </action>
+  </nop>
+
+
+  <pause milliseconds="3000"/>
+
+
+  <!-- The 'crlf' option inserts a blank line in the statistics report. -->
+  <send retrans="500">
+    <![CDATA[
+
+      BYE sip:[remote_ip]:[remote_port] SIP/2.0
+      Content-Length: 0
+      Call-ID: [call_id]
+      CSeq: 1038329118 BYE
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+      From: "Jennifer Beer"<sip:86074075017412@199.59.65.97>;tag=[pid]SIPpTag00[call_number]
+      To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
+      Max-Forwards: 69
+
+    ]]>
+  </send>
+
+  <recv response="200" crlf="true">
+  </recv>
+
+  <timewait milliseconds="2000"/>
+
+</scenario>
+
+
