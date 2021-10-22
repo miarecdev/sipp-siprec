@@ -16,7 +16,7 @@
       Call-ID: [call_id]
       CSeq: 1038329112 INVITE
       Via: SIP/2.0/[transport] [local_ip]:[local_port];rport;branch=[branch]
-      From: "Jennifer Beer"<sip:86074075017412@199.59.65.97>;tag=[pid]SIPpTag00[call_number]
+      From: "Lisa Smigiel"<sip:86085911415207@199.59.65.97>;tag=[pid]SIPpTag00[call_number]
       To:<sip:[remote_ip]:[remote_port]>
       Supported:
       Max-Forwards: 69
@@ -43,44 +43,44 @@
       <?xml version="1.0" encoding="UTF-8"?>
       <recording_metadata xmlns="urn:ietf:params:xml:ns:siprec">
         <dataMode>complete</dataMode>
-        <recording id="urn:uuid:57c64971-bb67-4845-9d51-70b7f564bc78">
-          <requestor>SRC</requestor>
-          <type>selective</type>
+        <recording id="urn:uuid:55e79a26-d24b-40a5-8800-f206e26bbf93">
+            <requestor>SRC</requestor>
+            <type>selective</type>
         </recording>
-        <group id="urn:uuid:1f241484-942b-499b-9af7-3830ea1c16bc" recording="urn:uuid:57c64971-bb67-4845-9d51-70b7f564bc78">
-          <initiator>sip:86074075017412@cloudcalling-e.onestreamnetworks.com</initiator>
+        <group id="urn:uuid:2c3c849d-0471-479f-8d2c-b3c2bb07dd68" recording="urn:uuid:55e79a26-d24b-40a5-8800-f206e26bbf93">
+            <initiator>sip:86085911415207@cloudcalling-e.onestreamnetworks.com</initiator>
         </group>
-        <session id="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf" group="urn:uuid:1f241484-942b-499b-9af7-3830ea1c16bc">
-          <start-time>2021-05-17T19:22:08+00:00</start-time>
+        <session id="urn:uuid:0c2f6739-8234-4c29-bf69-0805245916b2" group="urn:uuid:2c3c849d-0471-479f-8d2c-b3c2bb07dd68">
+            <start-time>2021-09-21T17:06:13+00:00</start-time>
         </session>
-        <participant id="urn:uuid:2ecbc3f6-fa52-4ebf-a5f5-3f80b60c1c98" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
-          <aor>sip:86074075017412@cloudcalling-e.onestreamnetworks.com</aor>
-          <send>
-            <id>urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd</id>
-          </send>
+        <participant id="urn:uuid:c259ef9f-bc81-47e8-82aa-a350539a36b1" session="urn:uuid:0c2f6739-8234-4c29-bf69-0805245916b2">
+            <aor>sip:86085911415207@cloudcalling-e.onestreamnetworks.com</aor>
+            <send>
+              <id>urn:uuid:8507832b-ac9d-4d12-85bd-4c6ee44f55a6</id>
+            </send>
         </participant>
-        <participant id="urn:uuid:4401fd65-c361-49d6-97ea-1c96e68077c3" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
-          <aor>sip:8101@10.21.0.216;user=phone</aor>
-          <send>
-            <id>urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd</id>
-          </send>
+        <participant id="urn:uuid:3acab058-1ec0-4666-8196-b690c0577c64" session="urn:uuid:0c2f6739-8234-4c29-bf69-0805245916b2">
+            <aor>sip:3000@10.21.0.216;user=phone</aor>
+            <send>
+              <id>urn:uuid:8507832b-ac9d-4d12-85bd-4c6ee44f55a6</id>
+            </send>
         </participant>
-        <stream id="urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
-          <label>1</label>
-          <mode>mixed</mode>
+        <stream id="urn:uuid:8507832b-ac9d-4d12-85bd-4c6ee44f55a6" session="urn:uuid:0c2f6739-8234-4c29-bf69-0805245916b2">
+            <label>1</label>
+            <mode>mixed</mode>
         </stream>
-        <extensiondata id="urn:uuid:8009c8f3-ac68-4a98-8efc-6ea687fdfbfd" parent="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
+        <extensiondata id="urn:uuid:05cd95ca-3bb8-467c-841f-5a759982be84" parent="urn:uuid:0c2f6739-8234-4c29-bf69-0805245916b2">
           <broadWorksRecordingMetadata xmlns="http://schema.broadsoft.com/broadworksCallRecording" version="1.0">
             <extTrackingID>tracking-id-[call_id]</extTrackingID>
             <serviceProviderID>ENT152</serviceProviderID>
-            <groupID>Corporate</groupID>
-            <userID>86074075017412@cloudcalling-e.onestreamnetworks.com</userID>
+            <groupID>Norwich</groupID>
+            <userID>86085911415207@cloudcalling-e.onestreamnetworks.com</userID>
             <callID>callhalf-[call_id]:1</callID>
             <callType>
               <origCall>
-                <callingPartyNumber>sip:7412@10.21.0.216</callingPartyNumber>
-                <calledPartyNumber>sip:8101@10.21.0.216;user=phone</calledPartyNumber>
-                <dialedDigits>sip:8101@10.21.0.216</dialedDigits>
+                <callingPartyNumber>sip:5207@10.21.0.216</callingPartyNumber>
+               <calledPartyNumber>sip:3000@10.21.0.216;user=phone</calledPartyNumber>
+               <dialedDigits>sip:3000@10.21.0.216</dialedDigits>
               </origCall>
             </callType>
             <recordingType>on</recordingType>
@@ -112,7 +112,7 @@
       Call-ID: [call_id]
       CSeq: 1038329112 ACK
       Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
-      From: "Jennifer Beer"<sip:86074075017412@199.59.65.97>;tag=[pid]SIPpTag00[call_number]
+      From: "Lisa Smigiel"<sip:86085911415207@199.59.65.97>;tag=[pid]SIPpTag00[call_number]
       To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
       Max-Forwards: 69
     ]]>
@@ -142,7 +142,7 @@
       Call-ID: [call_id]
       CSeq: 1038329114 INVITE
       Via: SIP/2.0/[transport] [local_ip]:[local_port];rport;branch=[branch]
-      From: "Jennifer Beer"<sip:86074075017412@199.59.65.97>;tag=[pid]SIPpTag00[call_number]
+      From: "Lisa Smigiel"<sip:86085911415207@199.59.65.97>;tag=[pid]SIPpTag00[call_number]
       To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
       Supported:
       Max-Forwards: 69
@@ -170,51 +170,51 @@
       <?xml version="1.0" encoding="UTF-8"?>
       <recording_metadata xmlns="urn:ietf:params:xml:ns:siprec">
         <dataMode>complete</dataMode>
-        <recording id="urn:uuid:57c64971-bb67-4845-9d51-70b7f564bc78">
-          <requestor>SRC</requestor>
-          <type>selective</type>
+        <recording id="urn:uuid:55e79a26-d24b-40a5-8800-f206e26bbf93">
+            <requestor>SRC</requestor>
+            <type>selective</type>
         </recording>
-        <group id="urn:uuid:1f241484-942b-499b-9af7-3830ea1c16bc" recording="urn:uuid:57c64971-bb67-4845-9d51-70b7f564bc78">
-          <initiator>sip:86074075017412@cloudcalling-e.onestreamnetworks.com</initiator>
+        <group id="urn:uuid:2c3c849d-0471-479f-8d2c-b3c2bb07dd68" recording="urn:uuid:55e79a26-d24b-40a5-8800-f206e26bbf93">
+            <initiator>sip:86085911415207@cloudcalling-e.onestreamnetworks.com</initiator>
         </group>
-        <session id="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf" group="urn:uuid:1f241484-942b-499b-9af7-3830ea1c16bc">
-          <start-time>2021-05-17T19:22:08+00:00</start-time>
+        <session id="urn:uuid:0c2f6739-8234-4c29-bf69-0805245916b2" group="urn:uuid:2c3c849d-0471-479f-8d2c-b3c2bb07dd68">
+            <start-time>2021-09-21T17:06:13+00:00</start-time>
         </session>
-        <participant id="urn:uuid:2ecbc3f6-fa52-4ebf-a5f5-3f80b60c1c98" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
-          <aor>sip:86074075017412@cloudcalling-e.onestreamnetworks.com</aor>
-          <send>
-            <id>urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd</id>
-          </send>
+        <participant id="urn:uuid:c259ef9f-bc81-47e8-82aa-a350539a36b1" session="urn:uuid:0c2f6739-8234-4c29-bf69-0805245916b2">
+            <aor>sip:86085911415207@cloudcalling-e.onestreamnetworks.com</aor>
+            <send>
+              <id>urn:uuid:8507832b-ac9d-4d12-85bd-4c6ee44f55a6</id>
+            </send>
         </participant>
-        <participant id="urn:uuid:4401fd65-c361-49d6-97ea-1c96e68077c3" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
-          <aor>sip:8101@10.21.0.216;user=phone</aor>
-          <send>
-            <id>urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd</id>
-          </send>
+        <participant id="urn:uuid:3acab058-1ec0-4666-8196-b690c0577c64" session="urn:uuid:0c2f6739-8234-4c29-bf69-0805245916b2">
+            <aor>sip:3000@10.21.0.216;user=phone</aor>
+            <send>
+              <id>urn:uuid:8507832b-ac9d-4d12-85bd-4c6ee44f55a6</id>
+            </send>
         </participant>
-        <stream id="urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
-          <label>1</label>
-          <mode>mixed</mode>
+        <stream id="urn:uuid:8507832b-ac9d-4d12-85bd-4c6ee44f55a6" session="urn:uuid:0c2f6739-8234-4c29-bf69-0805245916b2">
+            <label>1</label>
+            <mode>mixed</mode>
         </stream>
-        <extensiondata id="urn:uuid:8009c8f3-ac68-4a98-8efc-6ea687fdfbfd" parent="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
+        <extensiondata id="urn:uuid:05cd95ca-3bb8-467c-841f-5a759982be84" parent="urn:uuid:0c2f6739-8234-4c29-bf69-0805245916b2">
           <broadWorksRecordingMetadata xmlns="http://schema.broadsoft.com/broadworksCallRecording" version="1.0">
             <extTrackingID>tracking-id-[call_id]</extTrackingID>
             <serviceProviderID>ENT152</serviceProviderID>
-            <groupID>Corporate</groupID>
-            <userID>86074075017412@cloudcalling-e.onestreamnetworks.com</userID>
+            <groupID>Norwich</groupID>
+            <userID>86085911415207@cloudcalling-e.onestreamnetworks.com</userID>
             <callID>callhalf-[call_id]:1</callID>
             <callType>
               <origCall>
-                <callingPartyNumber>sip:7412@10.21.0.216</callingPartyNumber>
-                <calledPartyNumber>sip:8101@10.21.0.216;user=phone</calledPartyNumber>
-                <dialedDigits>sip:8101@10.21.0.216</dialedDigits>
+                <callingPartyNumber>sip:5207@10.21.0.216</callingPartyNumber>
+               <calledPartyNumber>sip:3000@10.21.0.216;user=phone</calledPartyNumber>
+               <dialedDigits>sip:3000@10.21.0.216</dialedDigits>
               </origCall>
             </callType>
             <recordingType>on</recordingType>
           </broadWorksRecordingMetadata>
         </extensiondata>
       </recording_metadata>
-       
+
       --UniqueBroadWorksBoundary--
 
     ]]>
@@ -239,7 +239,7 @@
       Call-ID: [call_id]
       CSeq: 1038329114 ACK
       Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
-      From: "Jennifer Beer"<sip:86074075017412@199.59.65.97>;tag=[pid]SIPpTag00[call_number]
+      From: "Lisa Smigiel"<sip:86085911415207@199.59.65.97>;tag=[pid]SIPpTag00[call_number]
       To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
       Max-Forwards: 69
     ]]>
@@ -259,7 +259,7 @@
       CSeq: 1038329115 UPDATE
       Content-Disposition: recording-session
       Via: SIP/2.0/[transport] [local_ip]:[local_port];rport;branch=[branch]
-      From: "Jennifer Beer"<sip:86074075017412@199.59.65.97>;tag=[pid]SIPpTag00[call_number]
+      From: "Lisa Smigiel"<sip:86085911415207@199.59.65.97>;tag=[pid]SIPpTag00[call_number]
       To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
       Supported:
       Max-Forwards: 69
@@ -268,54 +268,45 @@
 
       <?xml version="1.0" encoding="UTF-8"?>
       <recording_metadata xmlns="urn:ietf:params:xml:ns:siprec">
-        <dataMode>complete</dataMode>
-        <recording id="urn:uuid:57c64971-bb67-4845-9d51-70b7f564bc78">
-          <requestor>SRC</requestor>
-          <type>selective</type>
-        </recording>
-        <group id="urn:uuid:1f241484-942b-499b-9af7-3830ea1c16bc" recording="urn:uuid:57c64971-bb67-4845-9d51-70b7f564bc78">
-          <initiator>sip:86074075017412@cloudcalling-e.onestreamnetworks.com</initiator>
-        </group>
-        <session id="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf" group="urn:uuid:1f241484-942b-499b-9af7-3830ea1c16bc">
-          <start-time>2021-05-17T19:22:08+00:00</start-time>
+        <dataMode>partial</dataMode>
+        <session id="urn:uuid:0c2f6739-8234-4c29-bf69-0805245916b2" group="urn:uuid:2c3c849d-0471-479f-8d2c-b3c2bb07dd68">
+            <start-time>2021-09-21T17:06:13+00:00</start-time>
         </session>
-        <participant id="urn:uuid:2ecbc3f6-fa52-4ebf-a5f5-3f80b60c1c98" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
-          <aor>sip:86074075017412@cloudcalling-e.onestreamnetworks.com</aor>
-          <send>
-            <id>urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd</id>
-          </send>
+        <participant id="urn:uuid:c259ef9f-bc81-47e8-82aa-a350539a36b1" session="urn:uuid:0c2f6739-8234-4c29-bf69-0805245916b2">
+            <aor>sip:86085911415207@cloudcalling-e.onestreamnetworks.com</aor>
+            <send>
+              <id>urn:uuid:8507832b-ac9d-4d12-85bd-4c6ee44f55a6</id>
+            </send>
         </participant>
-        <participant id="urn:uuid:4401fd65-c361-49d6-97ea-1c96e68077c3" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
-          <aor>sip:8101@10.21.0.216;user=phone</aor>
-          <send>
-            <id>urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd</id>
-          </send>
+        <participant id="urn:uuid:3acab058-1ec0-4666-8196-b690c0577c64" session="urn:uuid:0c2f6739-8234-4c29-bf69-0805245916b2">
+            <aor>sip:3000@10.21.0.216;user=phone</aor>
         </participant>
-        <participant id="urn:uuid:5e217722-1c6d-4544-a786-49a953dd3ee3" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
-          <aor>86074075017701@cloudcalling-e.onestreamnetworks.com</aor>
-          <send>
-            <id>urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd</id>
-          </send>
+        <participant id="urn:uuid:3b84d54f-7473-4e15-a401-ab7d54961dd0" session="urn:uuid:0c2f6739-8234-4c29-bf69-0805245916b2">
+            <aor>sip:7824@10.21.0.216;user=phone</aor>
+            <send>
+              <id>urn:uuid:8507832b-ac9d-4d12-85bd-4c6ee44f55a6</id>
+            </send>
         </participant>
-        <stream id="urn:uuid:d2298e22-a14a-4abb-b794-4ca03f04c7bd" session="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
-          <label>1</label>
-          <mode>mixed</mode>
-        </stream>
-        <extensiondata id="urn:uuid:8009c8f3-ac68-4a98-8efc-6ea687fdfbfd" parent="urn:uuid:d849defb-e04c-4c4f-a414-8e1d5d9a4edf">
+        <extensiondata id="urn:uuid:05cd95ca-3bb8-467c-841f-5a759982be84" parent="urn:uuid:0c2f6739-8234-4c29-bf69-0805245916b2">
           <broadWorksRecordingMetadata xmlns="http://schema.broadsoft.com/broadworksCallRecording" version="1.0">
             <extTrackingID>tracking-id-[call_id]</extTrackingID>
             <serviceProviderID>ENT152</serviceProviderID>
-            <groupID>Corporate</groupID>
-            <userID>86074075017412@cloudcalling-e.onestreamnetworks.com</userID>
+            <groupID>Norwich</groupID>
+            <userID>86085911415207@cloudcalling-e.onestreamnetworks.com</userID>
             <callID>callhalf-[call_id]:1</callID>
             <callType>
-              <origCall>
-                <callingPartyNumber>sip:7412@10.21.0.216</callingPartyNumber>
-                <calledPartyNumber>sip:8101@10.21.0.216;user=phone</calledPartyNumber>
-                <dialedDigits>sip:8101@10.21.0.216</dialedDigits>
-              </origCall>
+                <origCall>
+                  <callingPartyNumber>sip:5207@10.21.0.216</callingPartyNumber>
+                  <calledPartyNumber>sip:3000@10.21.0.216;user=phone</calledPartyNumber>
+                  <dialedDigits>sip:3000@10.21.0.216</dialedDigits>
+                </origCall>
             </callType>
             <recordingType>on</recordingType>
+            <redirectedCall>
+                <newExtTrackingID>5e15dd60-b102-460c-8af5-96b09fbd3ce0</newExtTrackingID>
+                <redirectedFromPartyNumber>sip:3000@10.21.0.216;user=phone</redirectedFromPartyNumber>
+                <redirectedToPartynumber>sip:7824@10.21.0.216;user=phone</redirectedToPartynumber>
+            </redirectedCall>
           </broadWorksRecordingMetadata>
         </extensiondata>
       </recording_metadata>
@@ -346,7 +337,7 @@
       Call-ID: [call_id]
       CSeq: 1038329118 BYE
       Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
-      From: "Jennifer Beer"<sip:86074075017412@199.59.65.97>;tag=[pid]SIPpTag00[call_number]
+      From: "Lisa Smigiel"<sip:86085911415207@199.59.65.97>;tag=[pid]SIPpTag00[call_number]
       To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
       Max-Forwards: 69
 

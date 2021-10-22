@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
-<scenario name="MLHG inbound call scenario - Metaswitch CFS SIPREC">
+<scenario name="Broadworks 3-way confernece calls and transfer">
 
   <send>
     <![CDATA[
