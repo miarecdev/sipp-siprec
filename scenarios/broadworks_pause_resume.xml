@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
-<scenario name="MLHG inbound call scenario - Metaswitch CFS SIPREC">
+<scenario name="Broadworks call scenario with pause/resume">
 
   <send>
     <![CDATA[
       INVITE sip:[remote_ip]:[remote_port] SIP/2.0
-      Content-Length:[len]
       Allow:ACK,BYE,CANCEL,INFO,INVITE,OPTIONS,PRACK,REFER,NOTIFY
       Contact:<sip:[local_ip]:[local_port]>;src
-      Content-Type:multipart/mixed;boundary=UniqueBroadWorksBoundary
+      Recv-Info: 
       Expires: 180 
       Call-ID: [call_id]
       CSeq:604674513 INVITE 
-      Via:SIP/2.0/[transport] [local_ip]:[local_port];rport;branch=[branch]
-      Remote-Party-ID:"VVX 600"<sip:+12134174466@masergy.com;user=phone>;screen=yes;party=calling;privacy=off;id-type=subscriber
-      RPID-Privacy:party=calling;privacy=off;id-type=subscriber
-      Proxy-Require:privacy
-      From:"VVX 600"<sip:+12134174466@masergy.com;user=phone>;tag=[pid]SIPpTag00[call_number]
-      Supported:
-      Recv-Info:
       Max-Forwards: 70
+      Via:SIP/2.0/[transport] [local_ip]:[local_port];rport;branch=[branch]
+      From:"VVX 600"<sip:+12134174466@masergy.com;user=phone>;tag=[pid]SIPpTag00[call_number]
       To:<sip:[remote_ip]:[remote_port]>
-      MIME-Version:1.0
+      Content-Type:multipart/mixed;boundary=UniqueBroadWorksBoundary
+      Content-Length:[len]
 
       --UniqueBroadWorksBoundary
       Content-Type: application/sdp
@@ -85,11 +80,6 @@
                       </termCall>
                   </callType>
                   <recordingType>on</recordingType>
-                  <acd>
-                      <acdUserId>8638254220@broadcore.com</acdUserId>
-                      <acdName>Aralez</acdName>
-                      <acdNumber countryCode="1">tel:+18638254220</acdNumber>
-                  </acd>
               </broadWorksRecordingMetadata>
           </extensiondata>
       </recording_metadata>
@@ -114,7 +104,7 @@
     <![CDATA[
       ACK sip:[remote_ip]:[remote_port] SIP/2.0
       Content-Length: 0
-      Contact: sip:7602922410@[local_ip]:[local_port];+sip.src
+      Contact:<sip:[local_ip]:[local_port]>;src
       Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name 
       Call-ID: [call_id]
       CSeq: 832544241 ACK 
@@ -137,22 +127,146 @@
   
   <pause milliseconds="10000"/>
 
+
+  <!-- Send re-INVITE with a=inactive (user initiated pause recording) -->
+  <send retrans="500">
+    <![CDATA[
+
+      INVITE sip:[remote_ip]:[remote_port] SIP/2.0
+      Accept: application/media_control+xml,application/sdp,application/x-broadworks-call-center+xml
+      Allow: ACK,BYE,CANCEL,INFO,INVITE,OPTIONS,PRACK,REFER,NOTIFY
+      Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
+      Call-ID: [call_id]
+      CSeq: 604674514 INVITE 
+      Max-Forwards: 70
+      Via:SIP/2.0/[transport] [local_ip]:[local_port];rport;branch=[branch]
+      From:"VVX 600"<sip:+12134174466@masergy.com;user=phone>;tag=[pid]SIPpTag00[call_number]
+      To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
+      Content-Type: application/sdp
+      Content-Length:[len]
+
+      v=0
+      o=- 3449405261 3449405262 IN IP4 [local_ip]
+      s=-
+      c=IN IP4 0.0.0.0
+      t=0 0
+      m=audio [auto_media_port] RTP/AVP 8
+      a=ptime:20
+      a=label:1
+    ]]>
+  </send>
+
+  <recv response="100" optional="true">
+  </recv>
+
+  <recv response="180" optional="true">
+  </recv>
+
+  <recv response="200" rtd="true" crlf="true">
+  </recv>
+
+  <!-- Packet lost can be simulated in any send/recv message by         -->
+  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <send>
+    <![CDATA[
+      ACK sip:[remote_ip]:[remote_port] SIP/2.0
+      Content-Length: 0
+      Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
+      Call-ID: [call_id]
+      CSeq: 166154034 ACK
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+      From:"VVX 600"<sip:+12134174466@masergy.com;user=phone>;tag=[pid]SIPpTag00[call_number]
+      To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
+      Max-Forwards: 69
+    ]]>
+  </send>
+
+  <nop>
+    <action>
+      <exec rtp_stream="pause"/>
+    </action>
+  </nop>
+
+  <!-- No audio for 5s -->
+  <pause milliseconds="5000"/>
+
+  <!-- Send re-INVITE with a=sendonly (user initiated resume recording) -->
+  <send retrans="500">
+    <![CDATA[
+
+      INVITE sip:[remote_ip]:[remote_port] SIP/2.0
+      Accept: application/media_control+xml,application/sdp,application/x-broadworks-call-center+xml
+      Allow: ACK,BYE,CANCEL,INFO,INVITE,OPTIONS,PRACK,REFER,NOTIFY
+      Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
+      Call-ID: [call_id]
+      CSeq: 604674515 INVITE 
+      Max-Forwards: 70
+      Via:SIP/2.0/[transport] [local_ip]:[local_port];rport;branch=[branch]
+      From:"VVX 600"<sip:+12134174466@masergy.com;user=phone>;tag=[pid]SIPpTag00[call_number]
+      To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
+      Content-Type: application/sdp
+      Content-Length:[len]
+
+      v=0
+      o=- 3449405261 3449405263 IN IP4 [local_ip]
+      s=-
+      c=IN IP4 [local_ip]
+      t=0 0
+      m=audio [auto_media_port] RTP/AVP 8
+      a=ptime:20
+      a=label:1
+    ]]>
+  </send>
+
+  <recv response="100" optional="true">
+  </recv>
+
+  <recv response="180" optional="true">
+  </recv>
+
+  <recv response="200" rtd="true" crlf="true">
+  </recv>
+
+  <!-- Packet lost can be simulated in any send/recv message by         -->
+  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <send>
+    <![CDATA[
+      ACK sip:[remote_ip]:[remote_port] SIP/2.0
+      Content-Length: 0
+      Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
+      Call-ID: [call_id]
+      CSeq: 604674515 INVITE 
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+      From:"VVX 600"<sip:+12134174466@masergy.com;user=phone>;tag=[pid]SIPpTag00[call_number]
+      To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
+      Max-Forwards: 69
+    ]]>
+  </send>
+
+  <!-- Play a pre-recorded audio file (RTP stream)                       -->
+
+  <nop>
+    <action>
+      <exec rtp_stream="resume"/>
+    </action>
+  </nop>
+  
+  <pause milliseconds="5000"/>
+
+
+
   <!-- The 'crlf' option inserts a blank line in the statistics report. -->
   <send retrans="500">
     <![CDATA[
 
       BYE sip:[remote_ip]:[remote_port] SIP/2.0
-      Content-Length: 0
-      Require: siprec
-      Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name 
       Call-ID: [call_id]
-      CSeq: 832544242 BYE 
-      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
-      From: <sip:7602922410@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
-      Organization: Metaswitch Networks
+      CSeq: 604674516 INVITE 
       Max-Forwards: 70
-      Supported: resource-priority, siprec, 100rel
-      To: <sip:7603213214@[remote_ip]:[remote_port]>[peer_tag_param]
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+      From:"VVX 600"<sip:+12134174466@masergy.com;user=phone>;tag=[pid]SIPpTag00[call_number]
+      To:<sip:[remote_ip]:[remote_port]>
+      Content-Length: 0
 
     ]]>
   </send>
