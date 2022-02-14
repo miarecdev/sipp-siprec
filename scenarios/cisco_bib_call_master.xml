@@ -12,6 +12,8 @@
          ]]>
    </sendCmd>
 
+  <pause milliseconds="200"/>
+
   <send>
     <![CDATA[
       INVITE sip:7777@[remote_ip]:[remote_port] SIP/2.0
@@ -90,7 +92,7 @@
   <!-- Play a pre-recorded audio file (RTP stream)                       -->
   <nop>
     <action>
-       <exec rtp_stream="audio_alaw.wav"/>
+      <exec rtp_stream="audio_alaw.wav,-1,8,PCMA/8000"/>
     </action>
   </nop>
   
@@ -119,12 +121,10 @@
   <recv response="200" crlf="true">
   </recv>
   
-
-
   <recvCmd src="slave1">
   </recvCmd>
 
-  <pause milliseconds="10000"/>
+  <pause milliseconds="500"/>
   
   
 </scenario>

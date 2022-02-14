@@ -34,9 +34,18 @@ Where:
 
 # Extended 3PCC scenario (Cisco BiB scenario)
 
-    sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 1slave.cfg -slave slave1 -sf scenarios/cisco_bib_call_slave1.xml
+With Cisco BIB, we need to create two separte SIP sessions. Each session includes voice of one of two participants.
 
-    sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 1slave.cfg -master master -sf scenarios/cisco_bib_call_master.xml
+SIPP capabilities are quite limited. It is doable, but not 100% accurate.
+
+First, run the slave instance:
+
+    sipp 192.168.1.111:5070 -m 1 -t t1 -slave_cfg 1slave.cfg -slave slave1 -sf scenarios/cisco_bib_call_slave1.xml
+
+
+Then, start a master instance:
+
+    sipp 192.168.1.111:5070 -m 1 -t t1 -slave_cfg 1slave.cfg -master master -sf scenarios/cisco_bib_call_master.xml
 
     
 # Run python script (basic 3PCC)

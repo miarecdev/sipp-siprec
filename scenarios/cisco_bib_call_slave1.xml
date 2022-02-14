@@ -5,8 +5,14 @@
 
   <recvCmd src="master">
        <action>
-            <ereg regexp="Call-ID: new_([^\r]+)\r" search_in="msg" assign_to="1,callid" check_it="true"/>
-            <log message="Call-ID: [$callid]"/>
+            <ereg 
+              regexp="new_(.*)" 
+              search_in="hdr" 
+              header="Call-ID:"
+              assign_to="1,2" 
+              check_it="true"
+            />
+            <log message="Call-ID: [$2]"/>
             <!-- just log the [$1] otherwise SIPp complains that $1 isn't used -->
             <log message="=======\nAll: [$1]\n======="/>
        </action>
@@ -90,7 +96,7 @@
   <!-- Play a pre-recorded audio file (RTP stream)                       -->
   <nop>
     <action>
-       <exec rtp_stream="audio_alaw.wav"/>
+      <exec rtp_stream="audio_alaw.wav,-1,8,PCMA/8000"/>
     </action>
   </nop>
   
@@ -123,11 +129,11 @@
    <sendCmd dest="master">
          <![CDATA[
               From: slave1
-              Call-ID: [call_id]
+              Call-ID: [$2]
          ]]>
    </sendCmd>
 
-  <timewait milliseconds="4000"/>
+  <timewait milliseconds="1000"/>
 
   <!-- definition of the response time repartition table (unit is ms)   -->
   <ResponseTimeRepartition value="50, 100, 200, 300, 500, 700, 1000, 2000, 5000"/>
