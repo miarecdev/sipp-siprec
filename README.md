@@ -1,5 +1,22 @@
 # Start call generator
 
+Build docker image with SIPP:
+
+    docker build -t sipp .
+
+Run the existing scenario:
+
+    docker run -it sipp -t t1 -inf scenarios/tenant-users.csv -inf scenarios/callee.csv -sf scenarios/16b_basic_calls_outbound.xml -m 1000 -r 5 -rp 1s -l 50 1.2.3.4:5080
+
+This scenarios loads a list of tenants/subsribers from file `tenant-users.csv` and a random remote phone numbers from file `callee.csv`.
+
+With these settings, it will generate maximum 5 calls per second (see `-r 5 -rp 1`) and limit to 50 concurrent sessions (see `-l 50`), maximum 1000 calls (see `-m 1000`).
+
+Replace:
+
+   - 1.2.3.4:5080 with your MiaRec ip-address (IP and port)
+
+
 
 # Start single call scenario
 
