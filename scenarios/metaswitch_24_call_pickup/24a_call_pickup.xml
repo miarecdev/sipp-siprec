@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE scenario SYSTEM "sipp.dtd">
+
+<scenario name="24-A Call Pickup - Metaswitch CFS SIPREC">
+
+  <!-- Summary: Recorded party picks up call using Metaswitch Call Pickup feature
+       Setup:  A and B are configured to be in the same pickup group.
+       Description:
+          1. Action: From G call B
+          2. Action: From A dial the call pickup access code (*11) while B is ringing
+          3. Confirm: A and G are in a call
+          4. Confirm: Two way media
+          5. Action: End call
+          6. Confirm Call recorded for A to G  -->
+
+  <send>
+    <![CDATA[
+      INVITE sip:7603213214@162.202.227.197:5070;transport=udp SIP/2.0
+      Via: SIP/2.0/UDP 192.91.191.185:5060;rport;branch=z9hG4bK-ac2c8a2ab1cdc4cd3fa5757d2bf30eb11-10.232.216.25-1
+      Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name
+      Call-ID: 7BFC39EF@10.232.216.25
+      From: <sip:7602922410@192.91.191.185>;tag=10.232.216.25+1+364827+cdce938e;isup-oli=00
+      To: <sip:7603213214@192.91.191.185>
+      CSeq: 589517636 INVITE
+      Expires: 180
+      Organization: Metaswitch Networks
+      Supported: resource-priority, siprec, 100rel
+      Content-Length: 2156
+      Require: siprec
+      Allow: INVITE, ACK, CANCEL, BYE, REGISTER, OPTIONS, PRACK, UPDATE, SUBSCRIBE, NOTIFY, REFER, INFO, PUBLISH
+      Max-Forwards: 70
+      Contact: <sip:7602922410@192.91.191.185>;isup-oli=00;+sip.src
+      P-Asserted-Identity: <sip:7602922410@192.91.191.185>
+      Content-Type: multipart/mixed; boundary=metaswitch-boundary
+
+      --metaswitch-boundary
+      Content-Type: application/sdp
+
+      v=0
+      o=- 3463115807 3463115807 IN IP4 192.91.191.186
+      s=-
+      c=IN IP4 192.91.191.186
+      t=0 0
+      m=audio 20060 RTP/AVP 0 8 101
+      a=rtpmap:101 telephone-event/8000
+      a=ptime:20
+      a=label:1
+
+      --metaswitch-boundary
+      Content-Disposition: recording-session
+      Content-Type: application/rs-metadata
+
+      <?xml version="1.0" encoding="UTF-8"?>
+      <recording id="RWDP8uHhEeaPuOyezQV3BA==" xmlns="urn:ietf:params:xml:ns:recording">
+      <datamode>complete</datamode>
+      <session session_id="RWDQTOHhEeaPuOyezQV3BA==">
+        <start-time>2017-01-24T03:00:32Z</start-time>
+      </session>
+      <participant participant_id="RWDTHOHhEeaPuOyezQV3BA==">
+        <nameID aor="7602922416">
+        <name>7602922416</name>
+        </nameID>
+      </participant>
+      <participantsessionassoc participant_id="RWDTHOHhEeaPuOyezQV3BA==" session_id="RWDQTOHhEeaPuOyezQV3BA==">
+        <associate-time>2017-01-24T03:00:32Z</associate-time>
+      </participantsessionassoc>
+      <participantstreamassoc participant_id="RWDTHOHhEeaPuOyezQV3BA==">
+        <send>RWDQpuHhEeaPuOyezQV3BA==</send>
+        <recv>RWDQpuHhEeaPuOyezQV3BA==</recv>
+      </participantstreamassoc>
+      <participant participant_id="RWDUcOHhEeaPuOyezQV3BA==">
+        <nameID aor="7602922410">
+        <name>7602922410</name>
+        </nameID>
+      </participant>
+      <participantsessionassoc participant_id="RWDUcOHhEeaPuOyezQV3BA==" session_id="RWDQTOHhEeaPuOyezQV3BA==">
+        <associate-time>2017-01-24T03:00:32Z</associate-time>
+      </participantsessionassoc>
+      <participantstreamassoc participant_id="RWDUcOHhEeaPuOyezQV3BA==">
+        <send>RWDQpuHhEeaPuOyezQV3BA==</send>
+        <recv>RWDQpuHhEeaPuOyezQV3BA==</recv>
+      </participantstreamassoc>
+      <stream id="RWDQpuHhEeaPuOyezQV3BA==" session_id="RWDQTOHhEeaPuOyezQV3BA==">
+        <label>1</label>
+      </stream>
+      <extensiondata>
+        <metaswitchRecordingMetadata>
+        <callType>originating</callType>
+        <recordedParty>+17602922410</recordedParty>
+        <businessGroup>MiaRec Inc. - 00004803</businessGroup>
+        <userName></userName>
+        <systemName>mammoth</systemName>
+        <callingPartyNumber>7602922410</callingPartyNumber>
+        <dialedDigits>*11</dialedDigits>
+        </metaswitchRecordingMetadata>
+      </extensiondata>
+      </recording>
+
+      --metaswitch-boundary--
+    ]]>
+  </send>
+
+  <recv response="100" optional="true">
+  </recv>
+
+  <recv response="180" optional="true">
+  </recv>
+
+  <recv response="200" rtd="true" crlf="true">
+  </recv>
+
+  <!-- Packet lost can be simulated in any send/recv message by         -->
+  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <send>
+    <![CDATA[
+      ACK sip:162.202.227.197:5070 SIP/2.0
+      Via: SIP/2.0/UDP 192.91.191.185:5060;branch=z9hG4bK-c8f6636bf2d34efefefb528f923fd9011-10.232.216.25-1
+      Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name
+      Max-Forwards: 70
+      Call-ID: 7BFC39EF@10.232.216.25
+      From: <sip:7602922410@192.91.191.185>;tag=10.232.216.25+1+364827+cdce938e;isup-oli=00
+      To: <sip:7603213214@192.91.191.185>;tag=ecfe02f0-4ee0-e611-8800-000c2998de29
+      CSeq: 589517636 ACK
+      Contact: <sip:7602922410@192.91.191.185>;isup-oli=00;+sip.src
+      Organization: Metaswitch Networks
+      Content-Length: 0
+    ]]>
+  </send>
+
+  <pause milliseconds="20"/>
+
+  <!-- Play a pre-recorded audio file (RTP stream)                       -->
+  <nop>
+    <action>
+       <exec rtp_stream="audio_alaw.wav,-1,8,PCMA/8000"/>
+    </action>
+  </nop>
+
+  <pause milliseconds="10000"/>
+
+  <!-- The 'crlf' option inserts a blank line in the statistics report. -->
+  <send retrans="500">
+    <![CDATA[
+      BYE sip:162.202.227.197:5070 SIP/2.0
+      Via: SIP/2.0/UDP 192.91.191.185:5060;rport;branch=z9hG4bK-ddfc8de530c58e06fcdae2f3a43a25ff1-10.232.216.25-1
+      Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name
+      Max-Forwards: 70
+      Call-ID: 7BFC39EF@10.232.216.25
+      From: <sip:7602922410@192.91.191.185>;tag=10.232.216.25+1+364827+cdce938e;isup-oli=00
+      To: <sip:7603213214@192.91.191.185>;tag=ecfe02f0-4ee0-e611-8800-000c2998de29
+      CSeq: 589517637 BYE
+      Organization: Metaswitch Networks
+      Supported: resource-priority, siprec, 100rel
+      Content-Length: 0
+      Require: siprec
+    ]]>
+  </send>
+
+  <recv response="200" crlf="true">
+  </recv>
+
+  <timewait milliseconds="4000"/>
+
+  <!-- definition of the response time repartition table (unit is ms)   -->
+  <ResponseTimeRepartition value="50, 100, 200, 300, 500, 700, 1000, 2000, 5000"/>
+
+  <!-- definition of the call length repartition table (unit is ms)     -->
+  <CallLengthRepartition value="10, 50, 100, 500, 1000, 5000, 10000"/>
+
+</scenario>
+
+
