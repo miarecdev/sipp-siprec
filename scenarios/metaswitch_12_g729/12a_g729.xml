@@ -2,37 +2,42 @@
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
 <scenario name="12-A G729 call - Metaswitch CFS SIPREC">
-  <!-- Media can be recieved by the recording platform                    -->
-  <!-- using G.729 codec and call is recorded correctly                   -->
+      <!-- Summary: Recording platform is able to receive media in G.729 format - Outbound call with G729
+            Setup: If the recording platform supports G.729 set it up to allow only G.729, otherwise mark this test as not applicable
+            Description:
+              1. Action: Create call between A and B
+              2. Confirm: Two way media
+              3. Confirm: Using packet sniffer (e.g. wireshark) media was sent to teh recording platform using G.729
+              4. Confirm: Recording is made and can be listened to -->
   <send>
     <![CDATA[
-      INVITE sip:7603213214@162.202.227.197:5070;transport=udp SIP/2.0
-      Via: SIP/2.0/UDP 192.91.191.185:5060;rport;branch=z9hG4bK-35f7a858fe58389803c28410f87cb5771-10.232.216.25-1
+      INVITE sip:[field0 file="callee.csv"]@[remote_ip]:[remote_port];transport=udp SIP/2.0
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];rport;branch=[branch]
       Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name
-      Call-ID: 8140517A@10.232.216.25
-      From: <sip:7602922410@192.91.191.185>;tag=10.232.216.25+1+33cd24+b469eb2;isup-oli=00
-      To: <sip:7603213214@192.91.191.185>
+      Call-ID: [call_id]
+      From: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
+      To: <sip:[field0 file="callee.csv"]@[remote_ip]:[remote_port]>
       CSeq: 941056654 INVITE
       Expires: 180
       Organization: Metaswitch Networks
       Supported: resource-priority, siprec, 100rel
-      Content-Length: 2128
+      Content-Length: [len]
       Require: siprec
       Allow: INVITE, ACK, CANCEL, BYE, REGISTER, OPTIONS, PRACK, UPDATE, SUBSCRIBE, NOTIFY, REFER, INFO, PUBLISH
       Max-Forwards: 70
-      Contact: <sip:7602922410@192.91.191.185>;isup-oli=00;+sip.src
-      P-Asserted-Identity: <sip:7602922410@192.91.191.185>
+      Contact: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;+sip.src
+      P-Asserted-Identity: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>
       Content-Type: multipart/mixed; boundary=metaswitch-boundary
 
       --metaswitch-boundary
       Content-Type: application/sdp
 
       v=0
-      o=- 3531057047 3531057047 IN IP4 192.91.191.186
+      o=- 3531057047 3531057047 IN IP4 [local_ip]
       s=-
-      c=IN IP4 192.91.191.186
+      c=IN IP4 [local_ip]
       t=0 0
-      m=audio 16842 RTP/AVP 18 0 8
+      m=audio [auto_media_port] RTP/AVP 18 0 8
       a=ptime:20
       a=label:1
 
@@ -47,8 +52,8 @@
       <start-time>2017-01-24T21:52:54Z</start-time>
       </session>
       <participant participant_id="dYNu2uJ/EeajkuyezQV3BA==">
-      <nameID aor="7602922410">
-      <name>7602922410</name>
+      <nameID aor="[field0 file="tenant-users.csv"]">
+      <name>[field0 file="tenant-users.csv"]</name>
       </nameID>
       </participant>
       <participantsessionassoc participant_id="dYNu2uJ/EeajkuyezQV3BA==" session_id="dYNsyOJ/EeajkuyezQV3BA==">
@@ -59,8 +64,8 @@
       <recv>dYNtBOJ/EeajkuyezQV3BA==</recv>
       </participantstreamassoc>
       <participant participant_id="dYNvouJ/EeajkuyezQV3BA==">
-      <nameID aor="7602922411">
-      <name>7602922411</name>
+      <nameID aor="[field0 file="callee.csv"]">
+      <name>[field0 file="callee.csv"]</name>
       </nameID>
       </participant>
       <participantsessionassoc participant_id="dYNvouJ/EeajkuyezQV3BA==" session_id="dYNsyOJ/EeajkuyezQV3BA==">
@@ -76,12 +81,12 @@
       <extensiondata>
       <metaswitchRecordingMetadata>
       <callType>originating</callType>
-      <recordedParty>+17602922410</recordedParty>
+      <recordedParty>+1[field0 file="tenant-users.csv"]</recordedParty>
       <businessGroup>MiaRec Inc. - 00004803</businessGroup>
       <userName></userName>
       <systemName>mammoth</systemName>
-      <callingPartyNumber>7602922410</callingPartyNumber>
-      <dialedDigits>17602922411</dialedDigits>
+      <callingPartyNumber>[field0 file="tenant-users.csv"]</callingPartyNumber>
+      <dialedDigits>1[field0 file="callee.csv"]</dialedDigits>
       </metaswitchRecordingMetadata>
       </extensiondata>
       </recording>
@@ -104,15 +109,15 @@
   <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
   <send>
     <![CDATA[
-      ACK sip:162.202.227.197:5070 SIP/2.0
-      Via: SIP/2.0/UDP 192.91.191.185:5060;branch=z9hG4bK-dced61732c662c6753b9477e53394ef51-10.232.216.25-1
+      ACK sip:[remote_ip]:[remote_port] SIP/2.0
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];rport;branch=[branch]
       Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name
       Max-Forwards: 70
-      Call-ID: 8140517A@10.232.216.25
-      From: <sip:7602922410@192.91.191.185>;tag=10.232.216.25+1+33cd24+b469eb2;isup-oli=00
-      To: <sip:7603213214@192.91.191.185>;tag=f236c820-ede0-e611-806b-000c2998de29
+      Call-ID: [call_id]
+      From: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
+      To: <sip:[field0 file="callee.csv"]@[remote_ip]:[remote_port]>
       CSeq: 941056654 ACK
-      Contact: <sip:7602922410@192.91.191.185>;isup-oli=00;+sip.src
+      Contact: <sip:[field0 file="tenant-users.csv"]@192.91.191.185>;isup-oli=00;+sip.src
       Organization: Metaswitch Networks
       Content-Length: 0
     ]]>
@@ -132,13 +137,13 @@
   <!-- The 'crlf' option inserts a blank line in the statistics report. -->
   <send retrans="500">
     <![CDATA[
-      BYE sip:162.202.227.197:5070 SIP/2.0
-      Via: SIP/2.0/UDP 192.91.191.185:5060;rport;branch=z9hG4bK-e6dfdde57bd268520b5f96b40dc0383a1-10.232.216.25-1
+      BYE sip:[remote_ip]:[remote_port] SIP/2.0
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];rport;branch=[branch]
       Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name
       Max-Forwards: 70
-      Call-ID: 8140517A@10.232.216.25
-      From: <sip:7602922410@192.91.191.185>;tag=10.232.216.25+1+33cd24+b469eb2;isup-oli=00
-      To: <sip:7603213214@192.91.191.185>;tag=f236c820-ede0-e611-806b-000c2998de29
+      Call-ID: [call_id]
+      From: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
+      To: <sip:[field0 file="callee.csv"]@[remote_ip]:[remote_port]>
       CSeq: 941056655 BYE
       Organization: Metaswitch Networks
       Supported: resource-priority, siprec, 100rel
