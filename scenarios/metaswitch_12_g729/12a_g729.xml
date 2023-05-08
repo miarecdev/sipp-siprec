@@ -117,7 +117,7 @@
       From: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
       To: <sip:[field0 file="callee.csv"]@[remote_ip]:[remote_port]>
       CSeq: 941056654 ACK
-      Contact: <sip:[field0 file="tenant-users.csv"]@192.91.191.185>;isup-oli=00;+sip.src
+      Contact: <sip:[field0 file="tenant-users.csv"]@[local_ip]>;isup-oli=00;+sip.src
       Organization: Metaswitch Networks
       Content-Length: 0
     ]]>
