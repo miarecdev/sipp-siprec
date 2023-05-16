@@ -27,12 +27,12 @@ Provision A on the Recording Server
 
 Start participant B
 ```
-sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -3pcc 2.2.2.2:7777 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_01_3way_call/01a_3way_callB.xml -m 1
+sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -3pcc 2.2.2.2:7777 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_01_3way_call/01a_3way_call_callB.xml -m 1
 ```
 
 Start participant A
 ```
-sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -3pcc 2.2.2.2:7777 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_01_3way_call/01a_3way_callA.xml -m 1
+sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -3pcc 2.2.2.2:7777 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_01_3way_call/01a_3way_call_callA.xml -m 1
 ```
 
 # test case B
@@ -57,6 +57,6 @@ Confirm: Single call recording. Two parts. A - B and A,B,G three way media
 `2.2.2.2` = local ip address
 
 ```
-sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -inf scenarios/callee.csv -sf scenarios/metaswitch_01_3way_call/01b_3way_callA.xml -m 1
+sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -inf scenarios/callee.csv -sf scenarios/metaswitch_01_3way_call/01b_3way_call.xml -m 1
 ```
 

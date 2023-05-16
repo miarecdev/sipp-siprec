@@ -57,17 +57,17 @@ A and C provisioned on Recording Server
 
 Start slave1
 ```
-sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -slave_cfg 2slaves.cfg -slave slave1 -sf scenarios/metaswitch_02_attended_xfer/02b_attended_xfer_slave1_callA.xml -m 1
+sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -slave_cfg 2slaves.cfg -slave slave1 -sf scenarios/metaswitch_02_attended_xfer/02b_attended_xfer_slave1.xml -m 1
 ```
 
 Start slave2
 ```
-sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -slave_cfg 2slaves.cfg -slave slave2 -sf scenarios/metaswitch_02_attended_xfer/02b_attended_xfer_slave2_callC.xml -m 1
+sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -slave_cfg 2slaves.cfg -slave slave2 -sf scenarios/metaswitch_02_attended_xfer/02b_attended_xfer_slave2.xml -m 1
 ```
 
 Start master
 ```
-sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -slave_cfg 2slaves.cfg -master master -sf scenarios/metaswitch_02_attended_xfer/02b_attended_xfer_master_callB.xml -m 1
+sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -slave_cfg 2slaves.cfg -master master -sf scenarios/metaswitch_02_attended_xfer/02b_attended_xfer_master.xml -m 1
 ```
 
 
