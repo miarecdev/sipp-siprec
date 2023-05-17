@@ -18,5 +18,5 @@ Confirm: Call recorded A - G
 `2.2.2.2` = local ip address
 
 ```
-sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -inf scenarios/callee.csv -sf scenarios/metaswitch_06_blf_pickup/06a_blf_pickup.xml -m 1
+sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_06_blf_pickup/06a_blf_pickup.xml -m 1
 ```

@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
-<scenario name="12-A G729 call - Metaswitch CFS SIPREC">
-      <!-- Summary: Recording platform is able to receive media in G.729 format - Outbound call with G729
-            Setup: If the recording platform supports G.729 set it up to allow only G.729, otherwise mark this test as not applicable
-            Description:
-              1. Action: Create call between A and B
-              2. Confirm: Two way media
-              3. Confirm: Using packet sniffer (e.g. wireshark) media was sent to teh recording platform using G.729
-              4. Confirm: Recording is made and can be listened to -->
+<scenario name="10-A DTMF - Metaswitch CFS SIPREC">
+        <!-- Summary: Recording platform is able to receive media in G.729 format
+              Setup: If the recording platform supports G.729 set it up to allow only G.729, otherwise mark this test as not applicable
+              Description:
+                1. Action: Create call between A and B
+                2. Confirm: Two way media
+                3. Confirm: Using packet sniffer (e.g. wireshark) media was sent to teh recording platform using G.729
+              Confirm: Recording is made and can be listened to-->
+
+<!-- A 7602922410 -> [field0 file="tenant-users.csv"]-->
+<!-- b 7602922411 -> [field0 file="tenant-users.csv" line=1]-->
+
+
+<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_12_g729/12a_g729.xml -m 1 -->
+
+
   <send>
     <![CDATA[
-      INVITE sip:[field0 file="callee.csv"]@[remote_ip]:[remote_port];transport=udp SIP/2.0
-      Via: SIP/2.0/[transport] [local_ip]:[local_port];rport;branch=[branch]
+      INVITE sip:7603213214@[remote_ip]:[remote_port] SIP/2.0
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
       Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name
       Call-ID: [call_id]
-      From: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
-      To: <sip:[field0 file="callee.csv"]@[remote_ip]:[remote_port]>
-      CSeq: 941056654 INVITE
+      From: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;tag=[pid]sipptag00[call_number]
+      To: <sip:7603213214@[remote_ip]:[remote_port]>
+      CSeq: 758150463 INVITE
       Expires: 180
       Organization: Metaswitch Networks
       Supported: resource-priority, siprec, 100rel
@@ -33,7 +41,7 @@
       Content-Type: application/sdp
 
       v=0
-      o=- 3531057047 3531057047 IN IP4 [local_ip]
+      o=- 3606297912 3606297912 IN IP4 [local_ip]
       s=-
       c=IN IP4 [local_ip]
       t=0 0
@@ -45,54 +53,53 @@
       Content-Disposition: recording-session
       Content-Type: application/rs-metadata
 
-       <?xml version="1.0" encoding="UTF-8"?>
+      <?xml version="1.0" encoding="UTF-8"?>
       <recording id="dYNsjOJ/EeajkuyezQV3BA==" xmlns="urn:ietf:params:xml:ns:recording">
       <datamode>complete</datamode>
       <session session_id="dYNsyOJ/EeajkuyezQV3BA==">
-      <start-time>2017-01-24T21:52:54Z</start-time>
+        <start-time>2017-01-24T21:52:54Z</start-time>
       </session>
       <participant participant_id="dYNu2uJ/EeajkuyezQV3BA==">
-      <nameID aor="[field0 file="tenant-users.csv"]">
-      <name>[field0 file="tenant-users.csv"]</name>
-      </nameID>
+        <nameID aor="[field0 file="tenant-users.csv"]">
+        <name>[field0 file="tenant-users.csv"]</name>
+        </nameID>
       </participant>
       <participantsessionassoc participant_id="dYNu2uJ/EeajkuyezQV3BA==" session_id="dYNsyOJ/EeajkuyezQV3BA==">
-      <associate-time>2017-01-24T21:52:54Z</associate-time>
+        <associate-time>2017-01-24T21:52:54Z</associate-time>
       </participantsessionassoc>
       <participantstreamassoc participant_id="dYNu2uJ/EeajkuyezQV3BA==">
-      <send>dYNtBOJ/EeajkuyezQV3BA==</send>
-      <recv>dYNtBOJ/EeajkuyezQV3BA==</recv>
+        <send>dYNtBOJ/EeajkuyezQV3BA==</send>
+        <recv>dYNtBOJ/EeajkuyezQV3BA==</recv>
       </participantstreamassoc>
       <participant participant_id="dYNvouJ/EeajkuyezQV3BA==">
-      <nameID aor="[field0 file="callee.csv"]">
-      <name>[field0 file="callee.csv"]</name>
-      </nameID>
+        <nameID aor="[field0 file="tenant-users.csv" line=1]">
+        <name>[field0 file="tenant-users.csv" line=1]</name>
+        </nameID>
       </participant>
       <participantsessionassoc participant_id="dYNvouJ/EeajkuyezQV3BA==" session_id="dYNsyOJ/EeajkuyezQV3BA==">
-      <associate-time>2017-01-24T21:52:54Z</associate-time>
+        <associate-time>2017-01-24T21:52:54Z</associate-time>
       </participantsessionassoc>
       <participantstreamassoc participant_id="dYNvouJ/EeajkuyezQV3BA==">
-      <send>dYNtBOJ/EeajkuyezQV3BA==</send>
-      <recv>dYNtBOJ/EeajkuyezQV3BA==</recv>
+        <send>dYNtBOJ/EeajkuyezQV3BA==</send>
+        <recv>dYNtBOJ/EeajkuyezQV3BA==</recv>
       </participantstreamassoc>
       <stream id="dYNtBOJ/EeajkuyezQV3BA==" session_id="dYNsyOJ/EeajkuyezQV3BA==">
-      <label>1</label>
+        <label>1</label>
       </stream>
       <extensiondata>
-      <metaswitchRecordingMetadata>
-      <callType>originating</callType>
-      <recordedParty>+1[field0 file="tenant-users.csv"]</recordedParty>
-      <businessGroup>MiaRec Inc. - 00004803</businessGroup>
-      <userName></userName>
-      <systemName>mammoth</systemName>
-      <callingPartyNumber>[field0 file="tenant-users.csv"]</callingPartyNumber>
-      <dialedDigits>1[field0 file="callee.csv"]</dialedDigits>
-      </metaswitchRecordingMetadata>
+        <metaswitchRecordingMetadata>
+        <callType>originating</callType>
+        <recordedParty>+1[field0 file="tenant-users.csv"]</recordedParty>
+        <businessGroup>[field2 file="tenant-users.csv"]</businessGroup>
+        <userName>[field1 file="tenant-users.csv"]</userName>
+        <systemName>[field3 file="tenant-users.csv"]</systemName>
+        <callingPartyNumber>[field0 file="tenant-users.csv"]</callingPartyNumber>
+        <dialedDigits>1[field0 file="tenant-users.csv" line=1]</dialedDigits>
+        </metaswitchRecordingMetadata>
       </extensiondata>
       </recording>
 
       --metaswitch-boundary--
-
     ]]>
   </send>
 
@@ -110,14 +117,14 @@
   <send>
     <![CDATA[
       ACK sip:[remote_ip]:[remote_port] SIP/2.0
-      Via: SIP/2.0/[transport] [local_ip]:[local_port];rport;branch=[branch]
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
       Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name
       Max-Forwards: 70
       Call-ID: [call_id]
-      From: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
-      To: <sip:[field0 file="callee.csv"]@[remote_ip]:[remote_port]>
-      CSeq: 941056654 ACK
-      Contact: <sip:[field0 file="tenant-users.csv"]@[local_ip]>;isup-oli=00;+sip.src
+      From: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;tag=[pid]sipptag00[call_number]
+      To: <sip:7603213214@[remote_ip]:[remote_port]>[peer_tag_param]
+      CSeq: 758150463 ACK
+      Contact: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;+sip.src
       Organization: Metaswitch Networks
       Content-Length: 0
     ]]>
@@ -125,32 +132,33 @@
 
   <pause milliseconds="20"/>
 
-  <!-- Play a pre-recorded audio file (RTP stream)                       -->
   <nop>
     <action>
-       <exec rtp_stream="audio_alaw.wav,-1,18"/>
+       <exec play_pcap_audio="12a_g729.pcap"/>
     </action>
   </nop>
 
-  <pause milliseconds="10000"/>
+
+  <pause milliseconds="7000"/>
 
   <!-- The 'crlf' option inserts a blank line in the statistics report. -->
   <send retrans="500">
     <![CDATA[
       BYE sip:[remote_ip]:[remote_port] SIP/2.0
-      Via: SIP/2.0/[transport] [local_ip]:[local_port];rport;branch=[branch]
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
       Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name
       Max-Forwards: 70
       Call-ID: [call_id]
-      From: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
-      To: <sip:[field0 file="callee.csv"]@[remote_ip]:[remote_port]>
-      CSeq: 941056655 BYE
+      From: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;tag=[pid]sipptag00[call_number]
+      To: <sip:7603213214@[remote_ip]:[remote_port]>[peer_tag_param]
+      CSeq: 758150464 BYE
       Organization: Metaswitch Networks
       Supported: resource-priority, siprec, 100rel
       Content-Length: 0
       Require: siprec
     ]]>
   </send>
+
 
   <recv response="200" crlf="true">
   </recv>
@@ -164,5 +172,3 @@
   <CallLengthRepartition value="10, 50, 100, 500, 1000, 5000, 10000"/>
 
 </scenario>
-
-
