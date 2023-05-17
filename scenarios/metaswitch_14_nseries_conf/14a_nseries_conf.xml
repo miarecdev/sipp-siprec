@@ -16,14 +16,17 @@
             7. Action: Speak into B and G
             8. Action: End call
         Confirm: Call recorded from perspective of A - includes only three way conference and not B - G after A leaves -->
+
+<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_14_nseries_conf/14a_nseries_conf.xml -m 1 -->
+
   <send>
     <![CDATA[
-      INVITE sip:[field0 file="callee.csv"]@[remote_ip]:[remote_port];transport=udp SIP/2.0
+      INVITE sip:7603213214@[remote_ip]:[remote_port] SIP/2.0
       Via: SIP/2.0/[transport] [local_ip]:[local_port];rport;branch=[branch]
       Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name
       Call-ID: [call_id]
       From: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
-      To: <sip:[field0 file="callee.csv"]@[remote_ip]:[remote_port]>
+      To: <sip:7603213214@[remote_ip]:[remote_port]>
       CSeq: 301975329 INVITE
       Expires: 180
       Organization: Metaswitch Networks
@@ -90,9 +93,9 @@
       <metaswitchRecordingMetadata>
       <callType>originating</callType>
       <recordedParty>+1[field0 file="tenant-users.csv"]</recordedParty>
-      <businessGroup>MiaRec Inc. - 00004803</businessGroup>
-      <userName></userName>
-      <systemName>mammoth</systemName>
+      <businessGroup>[field2 file="tenant-users.csv"]</businessGroup>
+      <userName>[field1 file="tenant-users.csv"]</userName>
+      <systemName>[field3 file="tenant-users.csv"]</systemName>
       <callingPartyNumber>[field0 file="tenant-users.csv"]</callingPartyNumber>
       <dialedDigits>19703060298</dialedDigits>
       </metaswitchRecordingMetadata>
@@ -123,7 +126,7 @@
       Max-Forwards: 70
       Call-ID: [call_id]
       From: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
-      To: <sip:[field0 file="callee.csv"]@[remote_ip]:[remote_port]>
+      To: <sip:7603213214@[remote_ip]:[remote_port]>[peer_tag_param]
       CSeq: 301975329 ACK
       Contact: <sip:[field0 file="tenant-users.csv"]@[local_ip]>;isup-oli=00;+sip.src
       Organization: Metaswitch Networks
@@ -140,7 +143,7 @@
     </action>
   </nop>
 
-  <pause milliseconds="10000"/>
+  <pause milliseconds="7000"/>
 
   <!-- The 'crlf' option inserts a blank line in the statistics report. -->
   <send retrans="500">
@@ -151,7 +154,7 @@
       Max-Forwards: 70
       Call-ID: [call_id]
       From: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
-      To: <sip:[field0 file="callee.csv"]@[remote_ip]:[remote_port]>
+      To: <sip:7603213214@[remote_ip]:[remote_port]>[peer_tag_param]
       CSeq: 301975330 BYE
       Organization: Metaswitch Networks
       Supported: resource-priority, siprec, 100rel
