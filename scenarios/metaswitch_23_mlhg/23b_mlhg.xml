@@ -18,7 +18,7 @@
 <!-- MLHG 7602922419 - [field0 file="tenant-users.csv"] -->
 
 
-<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_23_mlhg/23a_mlhg.xml -m 1 -->
+<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_23_mlhg/23b_mlhg.xml -m 1 -->
 
 
 
