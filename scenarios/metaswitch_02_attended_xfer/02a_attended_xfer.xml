@@ -15,6 +15,15 @@
                     8. Action: End call
                 Confirm: Single recording including A - B and G – A -->
 
+
+<!-- Value Substitution -->
+<!-- A 7602922410 -> [field0 file="tenant-users.csv"]-->
+<!-- B 7602922411 -> [field0 file="tenant-users.csv" line=1]-->
+
+<!-- Run scenario -->
+<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_02_attended_xfer/02a_attended_xfer.xml -m 1 -->
+
+  <!-- Initial INVITE -->
   <send>
     <![CDATA[
         INVITE sip:7603213214@[remote_ip]:[remote_port] SIP/2.0
@@ -89,7 +98,7 @@
         <metaswitchRecordingMetadata>
         <callType>terminating</callType>
         <recordedParty>+1[field0 file="tenant-users.csv"]</recordedParty>
-        <businessGroup>[field3 file="tenant-users.csv"]</businessGroup>
+        <businessGroup>[field2 file="tenant-users.csv"]</businessGroup>
         <userName>[field1 file="tenant-users.csv"]</userName>
         <systemName>[field3 file="tenant-users.csv"]</systemName>
         <callingPartyNumber>[field0 file="tenant-users.csv" line=1]</callingPartyNumber>
@@ -99,7 +108,6 @@
         </recording>
 
         --metaswitch-boundary--
-
     ]]>
   </send>
 
@@ -112,8 +120,7 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
-  <!-- Packet lost can be simulated in any send/recv message by         -->
-  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <!-- Send ACK -->
   <send>
     <![CDATA[
         ACK sip:[remote_ip]:[remote_port] SIP/2.0
@@ -214,7 +221,7 @@
         <metaswitchRecordingMetadata>
         <callType>terminating</callType>
         <recordedParty>+1[field0 file="tenant-users.csv"]</recordedParty>
-        <businessGroup>[field3 file="tenant-users.csv"]</businessGroup>
+        <businessGroup>[field2 file="tenant-users.csv"]</businessGroup>
         <userName>[field1 file="tenant-users.csv"]</userName>
         <systemName>[field3 file="tenant-users.csv"]</systemName>
         <callingPartyNumber>[field0 file="tenant-users.csv" line=1]</callingPartyNumber>
@@ -224,7 +231,6 @@
         </recording>
 
         --metaswitch-boundary--
-
     ]]>
   </send>
 
@@ -237,8 +243,7 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
-  <!-- Packet lost can be simulated in any send/recv message by         -->
-  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <!-- Send ACK -->
   <send>
     <![CDATA[
         ACK sip:[remote_ip]:[remote_port] SIP/2.0
@@ -252,7 +257,6 @@
         Contact: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port];+sip.src
         Organization: Metaswitch Networks
         Content-Length: 0
-
     ]]>
   </send>
 
@@ -332,7 +336,7 @@
         <metaswitchRecordingMetadata>
         <callType>terminating</callType>
         <recordedParty>+1[field0 file="tenant-users.csv"]</recordedParty>
-        <businessGroup>[field3 file="tenant-users.csv"]</businessGroup>
+        <businessGroup>[field2 file="tenant-users.csv"]</businessGroup>
         <userName>[field1 file="tenant-users.csv"]</userName>
         <systemName>[field3 file="tenant-users.csv"]</systemName>
         <callingPartyNumber>[field0 file="tenant-users.csv" line=1]</callingPartyNumber>
@@ -342,8 +346,6 @@
         </recording>
 
         --metaswitch-boundary--
-
-
     ]]>
   </send>
 
@@ -356,8 +358,7 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
-  <!-- Packet lost can be simulated in any send/recv message by         -->
-  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <!-- Send ACK -->
   <send>
     <![CDATA[
         ACK sip:[remote_ip]:[remote_port] SIP/2.0
@@ -371,15 +372,10 @@
         Contact: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port];+sip.src
         Organization: Metaswitch Networks
         Content-Length: 0
-
-
-
     ]]>
   </send>
 
-  <!-- <pause milliseconds="20"/> -->
-
-  <!-- Stop RTP stream                       -->
+  <!-- pause RTP stream                       -->
   <nop>
     <action>
        <exec rtp_stream="pause"/>
@@ -462,7 +458,7 @@
         <metaswitchRecordingMetadata>
         <callType>terminating</callType>
         <recordedParty>+1[field0 file="tenant-users.csv"]</recordedParty>
-        <businessGroup>[field3 file="tenant-users.csv"]</businessGroup>
+        <businessGroup>[field2 file="tenant-users.csv"]</businessGroup>
         <userName>[field1 file="tenant-users.csv"]</userName>
         <systemName>[field3 file="tenant-users.csv"]</systemName>
         <callingPartyNumber>[field0 file="tenant-users.csv" line=1]</callingPartyNumber>
@@ -472,8 +468,6 @@
         </recording>
 
         --metaswitch-boundary--
-
-
     ]]>
   </send>
 
@@ -486,8 +480,7 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
-  <!-- Packet lost can be simulated in any send/recv message by         -->
-  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <!-- Send ACK -->
   <send>
     <![CDATA[
         ACK sip:[remote_ip]:[remote_port] SIP/2.0
@@ -501,14 +494,13 @@
         Contact: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port];+sip.src
         Organization: Metaswitch Networks
         Content-Length: 0
-
     ]]>
   </send>
 
 
   <pause milliseconds="20"/>
 
-  <!-- Play a pre-recorded audio file (RTP stream)                       -->
+  <!-- Resume RTP stream                       -->
   <nop>
     <action>
        <exec rtp_stream="resume"/>
@@ -517,7 +509,7 @@
 
   <pause milliseconds="18000"/>
 
-  <!-- The 'crlf' option inserts a blank line in the statistics report. -->
+  <!-- send BYE-->
   <send retrans="500">
     <![CDATA[
         BYE sip:[remote_ip]:[remote_port] SIP/2.0

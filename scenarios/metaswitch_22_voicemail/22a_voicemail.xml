@@ -11,12 +11,12 @@
           3. Action: Leave voicemail. Hang up B
               Confirm: Call recorded on recording platform-->
 
+<!-- Value Substitution -->
 <!-- F 7602922415 -> [field0 file="tenant-users.csv"]-->
 <!-- B 7602922411 -> [field0 file="tenant-users.csv" line=1]-->
 
-
+<!-- Run scenario -->
 <!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_22_voicemail/22a_voicemail.xml -m 1 -->
-
 
   <send>
     <![CDATA[

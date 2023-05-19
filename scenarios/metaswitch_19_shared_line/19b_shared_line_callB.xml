@@ -16,13 +16,14 @@
                   - B - E1
                   - B - E2  -->
 
-<!-- B - E2  -->
+<!-- This call: B - E2  -->
 
+<!-- Value substitution -->
 <!-- E 7602922414 -> [field0 file="tenant-users.csv"] -->
 <!-- B 7602922411 -> [field0 file="tenant-users.csv" line=1]-->
 
-
-
+<!-- Run scenario -->
+<!-- See README.md -->
 
   <recvCmd>
        <action>

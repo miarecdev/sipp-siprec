@@ -13,9 +13,12 @@
                 6. Action: End call
               Confirm: Call recorded A - G -->
 
+<!-- Value Substitution -->
 <!-- A 7602922410 -> [field0 file="tenant-users.csv"]-->
 <!-- G 7602922416 -> [field0 file="tenant-users.csv" line=2]-->
 
+<!-- Run scenario -->
+<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_06_blf_pickup/06a_blf_pickup.xml -m 1 -->
 
   <send>
     <![CDATA[

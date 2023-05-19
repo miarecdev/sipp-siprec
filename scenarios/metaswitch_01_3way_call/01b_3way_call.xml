@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
-<scenario name="01-A 3 way call - Metaswitch CFS SIPREC">
+<scenario name="01-B 3 way call - Metaswitch CFS SIPREC">
         <!-- Summary: 3-way call - recorded party conferenced into call
-            Setup:  Provision A on the Recording Server
-            Description:
-                1. Action: Setup call B calling G
-                2. Action: Put G on hold and call A from B
-                3. Action: Conference G into 3 way call
-                4. Action: Speak into all phones
-                5. Confirm: 3 way media
-                6. Action: End call
-            Confirm: Single call recording. Two parts. A - B and A,B,G three way media -->
+              Setup:  Provision A on the Recording Server
+              Description:
+                  1. Action: Setup call B calling G
+                  2. Action: Put G on hold and call A from B
+                  3. Action: Conference G into 3 way call
+                  4. Action: Speak into all phones
+                  5. Confirm: 3 way media
+                  6. Action: End call
+              Confirm: Single call recording. Two parts. A - B and A,B,G three way media -->
 
+<!-- Value Substitution -->
+<!-- E 7602922414 -> [field0 file="tenant-users.csv"]-->
+<!-- B 7602922411 -> [field0 file="tenant-users.csv" line=1]-->
+
+<!-- Run scenario -->
+<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_01_3way_call/01b_3way_call.xml -m 1-->
+
+    <!-- Initial INVITE -->
   <send>
     <![CDATA[
         INVITE sip:7603213214@[remote_ip]:[remote_port] SIP/2.0
@@ -87,9 +95,9 @@
         <metaswitchRecordingMetadata>
         <callType>terminating</callType>
         <recordedParty>+1[field0 file="tenant-users.csv" line=1]</recordedParty>
-        <businessGroup>bg_name</businessGroup>
-        <userName></userName>
-        <systemName>metaswitch_sipp</systemName>
+         <businessGroup>[field2 file="tenant-users.csv" line=1]</businessGroup>
+         <userName>[field1 file="tenant-users.csv" line=1]</userName>
+         <systemName>[field3 file="tenant-users.csv" line=1]</systemName>
         <callingPartyNumber>[field0 file="tenant-users.csv" line=2]</callingPartyNumber>
         <dialedDigits>1[field0 file="tenant-users.csv" line=1]</dialedDigits>
         </metaswitchRecordingMetadata>
@@ -97,8 +105,6 @@
         </recording>
 
         --metaswitch-boundary--
-
-
     ]]>
   </send>
 
@@ -111,8 +117,7 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
-  <!-- Packet lost can be simulated in any send/recv message by         -->
-  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <!-- send ACK -->
   <send>
     <![CDATA[
         ACK sip:[remote_ip]:[remote_port] SIP/2.0
@@ -213,9 +218,9 @@
         <metaswitchRecordingMetadata>
         <callType>terminating</callType>
         <recordedParty>+1[field0 file="tenant-users.csv" line=1]</recordedParty>
-        <businessGroup>bg_name</businessGroup>
-        <userName></userName>
-        <systemName>metaswitch_sipp</systemName>
+        <businessGroup>[field0 file="tenant-users.csv" line=1]</businessGroup>
+        <userName>[field0 file="tenant-users.csv" line=1]</userName>
+        <systemName>[field0 file="tenant-users.csv" line=1]</systemName>
         <callingPartyNumber>[field0 file="tenant-users.csv" line=2]</callingPartyNumber>
         <dialedDigits>1[field0 file="tenant-users.csv" line=1]</dialedDigits>
         </metaswitchRecordingMetadata>
@@ -223,8 +228,6 @@
         </recording>
 
         --metaswitch-boundary--
-
-
     ]]>
   </send>
 
@@ -237,8 +240,7 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
-  <!-- Packet lost can be simulated in any send/recv message by         -->
-  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <!-- send ACK -->
   <send>
     <![CDATA[
         ACK sip:[remote_ip]:[remote_port] SIP/2.0
@@ -252,10 +254,8 @@
         Contact: <sip:[field0 file="tenant-users.csv" line=1]@[local_ip]:[local_port];+sip.src
         Organization: Metaswitch Networks
         Content-Length: 0
-
     ]]>
   </send>
-
 
   <pause milliseconds="20"/>
 
@@ -268,7 +268,7 @@
 
   <pause milliseconds="18000"/>
 
-  <!-- The 'crlf' option inserts a blank line in the statistics report. -->
+  <!-- send BYE -->
   <send retrans="500">
     <![CDATA[
         BYE sip:[remote_ip]:[remote_port] SIP/2.0

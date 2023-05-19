@@ -14,10 +14,11 @@
                 7. Action: Hang up call
               Confirm: One recording made with three parts. A - H1, MoH, A - H2 -->
 
+<!-- Value Substitution -->
 <!-- A 7602922410 -> [field0 file="tenant-users.csv"]-->
 <!-- H 7602922417 -> [field0 file="tenant-users.csv" line=1]-->
 
-
+<!-- Run scenario -->
 <!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_19_shared_line/19c_shared_line.xml -m 1 -->
 
 
@@ -105,7 +106,6 @@
       </recording>
 
       --metaswitch-boundary--
-
     ]]>
   </send>
 

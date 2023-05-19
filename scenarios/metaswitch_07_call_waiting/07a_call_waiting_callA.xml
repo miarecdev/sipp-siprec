@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
-<scenario name="06-A Busy Lamp Field(BLF) Pickup - Metaswitch CFS SIPREC">
+<scenario name="07-A Call Waiting - Call A - Metaswitch CFS SIPREC">
         <!-- Summary: Call waiting on recorded party
-             Setup:
-             - Recording not enabled on A G.
-             - Recording not enabled on B
-             - Recording enabled on E
-             Description:
-              1. Action: From E call G
-              2. Confirm: Two way media
-              3. Action: From B call E
-              4. Action: Answer B on E
-              5. Confirm: Two way media E - B, G is on hold
-              6. Action: On E switch back to first call
-              7. Confirm: Two way media G - E, B is on hold
-              8. Action: End calls
-              9. Confirm: Two recordings:
-                - G - E both parts of call (before G is on hold and after E resumes call with G)
-                - E - B  -->
+              Setup:
+              - Recording not enabled on A G.
+              - Recording not enabled on B
+              - Recording enabled on E
+              Description:
+                1. Action: From E call G
+                2. Confirm: Two way media
+                3. Action: From B call E
+                4. Action: Answer B on E
+                5. Confirm: Two way media E - B, G is on hold
+                6. Action: On E switch back to first call
+                7. Confirm: Two way media G - E, B is on hold
+                8. Action: End calls
+                9. Confirm: Two recordings:
+                  - G - E both parts of call (before G is on hold and after E resumes call with G)
+                  - E - B  -->
 
 <!-- This call: G-E, hold G-E -->
 
+<!-- Value Substitution -->
 <!-- E 7602922414 -> [field0 file="tenant-users.csv"]-->
 <!-- G 7602922416 -> [field0 file="tenant-users.csv" line=2]-->
 
+<!-- Run scenario -->
+<!-- See README.md -->
 
   <send>
     <![CDATA[

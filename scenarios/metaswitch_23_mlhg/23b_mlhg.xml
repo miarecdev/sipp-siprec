@@ -5,22 +5,20 @@
 
   <!-- Summary: Call made to recorded MLHG pilot number and forwarded to voicemail are recorded.
         Description:
-	      1. Action: Turn on DND on A and B
-	      2. Action: From G call the MLHG
-      	3. Confirm: A and B do not ring
-      	4. Confirm: G is forwarded to MLHG's voicemail
-      	5. Action: From G, leave a voicemail and hang up
-      	6. Action: Turn off DND on A and B.
-        7. Confirm: Recording made for the voicemail left by G.  -->
+          1. Action: Turn on DND on A and B
+          2. Action: From G call the MLHG
+          3. Confirm: A and B do not ring
+          4. Confirm: G is forwarded to MLHG's voicemail
+          5. Action: From G, leave a voicemail and hang up
+          6. Action: Turn off DND on A and B.
+        Confirm: Recording made for the voicemail left by G.  -->
 
-
+<!-- Value Substiution -->
 <!-- G 7602922416 -> [field0 file="tenant-users.csv" line=1]-->
 <!-- MLHG 7602922419 - [field0 file="tenant-users.csv"] -->
 
-
+<!-- Run scenario -->
 <!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_23_mlhg/23b_mlhg.xml -m 1 -->
-
-
 
   <send>
     <![CDATA[

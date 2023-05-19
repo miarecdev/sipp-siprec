@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
-<scenario name="04-C Blind Transfer - Metaswitch CFS SIPREC">
+<scenario name="04-C Blind Transfer - Call A - Metaswitch CFS SIPREC">
       <!-- Summary: Both parties recorded
            Description:
               1. Action: Set up call A from B
@@ -14,10 +14,14 @@
                 - A - B
                 - B - C -->
 
-<!--User B 2411 -> User A 17602922410 -->
+<!-- This call: A - B -->
 
+<!-- Value Substitution -->
 <!-- 7602922410 -> [field0 file="tenant-users.csv"] -->
 <!-- 7602922411 -> [field0 file="tenant-users.csv" line=1]-->
+
+<!-- Run scenario -->
+<!-- See README.md -->
 
   <send>
     <![CDATA[

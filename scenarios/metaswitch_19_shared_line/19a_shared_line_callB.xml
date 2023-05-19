@@ -17,14 +17,14 @@
                   - One for B and E2 call
                   Confirm: Entirety of both calls is recorded  -->
 
+<!-- This call: One for B and E2 call -->
 
+<!-- Value Substitution -->
 <!-- E 7602922414 -> [field0 file="tenant-users.csv"] -->
 <!-- B 7602922411 -> [field0 file="tenant-users.csv" line=2]-->
 
-
-
-
-
+<!-- Run scenario -->
+<!-- See README.md -->
 
   <recvCmd>
        <action>
@@ -120,7 +120,6 @@
       </recording>
 
       --metaswitch-boundary--
-
     ]]>
   </send>
 

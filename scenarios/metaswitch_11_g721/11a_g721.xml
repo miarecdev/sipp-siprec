@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
-<scenario name="11-A G.721 (G.726-32) call - Metaswitch CFS SIPREC">
+<scenario name="11-A G.721 (formerly G.726-32) call - Metaswitch CFS SIPREC">
     <!-- Summary: Recording platform is able to recieve media in G.726-32 format - Outbound Call with G.726-32 (G.721) format
           Setup: If the recording platform supports G.726 set it up to allow only G.726, otherwise mark this test as not applicable
           Description:
@@ -10,13 +10,13 @@
             3. Confirm: Using packet sniffer (e.g. wireshark) media was sent to teh recording platform using G.726
             4. nfirm: Recording is made and can be listened to -->
 
+<!-- Value Substitution -->
 <!-- A 7602922410 -> [field0 file="tenant-users.csv"]-->
 <!-- b 7602922411 -> [field0 file="tenant-users.csv" line=1]-->
 
-
+<!-- Run scenario -->
+<!-- NOTE: on WSL, this requires root privledge, https://github.com/SIPp/sipp/issues/369 -->
 <!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_11_g721/11a_g721.xml -m 1 -->
-
-
 
   <send>
     <![CDATA[
@@ -37,7 +37,6 @@
       Contact: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;+sip.src
       P-Asserted-Identity: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>
       Content-Type: multipart/mixed; boundary=metaswitch-boundary
-
 
       --metaswitch-boundary
       Content-Type: application/sdp
@@ -103,7 +102,6 @@
       </recording>
 
       --metaswitch-boundary--
-
     ]]>
   </send>
 

@@ -17,10 +17,14 @@
                   - One for B and E2 call
                   Confirm: Entirety of both calls is recorded  -->
 
+<!-- This Call: One for G and E1 call -->
 
+<!-- Value Substitution -->
 <!-- E 7602922414 -> [field0 file="tenant-users.csv"] -->
 <!-- G 7602922416 -> [field0 file="tenant-users.csv" line=1]-->
 
+<!-- Run scenario -->
+<!-- See README.md -->
 
   <send>
     <![CDATA[
@@ -106,7 +110,6 @@
       </recording>
 
       --metaswitch-boundary--
-
     ]]>
   </send>
 

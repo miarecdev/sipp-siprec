@@ -17,9 +17,11 @@
                         - Silence while call was on hold
                         - Two way media  -->
 
+<!-- Value Substitution -->
 <!-- A 7602922410 -> [field0 file="tenant-users.csv"]-->
-<!-- b 7602922411 -> [field0 file="tenant-users.csv" line=1]-->
+<!-- B 7602922411 -> [field0 file="tenant-users.csv" line=1]-->
 
+<!-- Run scenario -->
 <!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_16_basic_call_recording/16g_basic_call_hold.xml -m 1 -->
 
 
@@ -107,8 +109,6 @@
         </recording>
 
         --metaswitch-boundary--
-
-
     ]]>
   </send>
 
@@ -234,7 +234,6 @@
         </recording>
 
         --metaswitch-boundary--
-
     ]]>
   </send>
 
@@ -362,9 +361,6 @@
         </recording>
 
         --metaswitch-boundary--
-
-
-
     ]]>
   </send>
 

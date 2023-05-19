@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
-<scenario name="01-A 3 way call - Metaswitch CFS SIPREC">
+<scenario name="01-A 3 way call - Call A - Metaswitch CFS SIPREC">
         <!-- Summary: 3-way call - recorded party in initial call
-        Setup: Provision A on the Recording Server    7603213214 is the DN assigned to miarec
-        Description:
-            1. Action: Setup call B calling A
-            2. Action: Talk into both phones
-            3. Action: Put B on hold and call G from A
-            4. Action: Conference B into 3 way call
-            5. Action: Talk into all phones
-            6. Confirm: 3 way media
-            7. Action: End call
-            8. Confirm: Two recordings:
-                - B - A call and final A,B,G call
-                - A - G call and final A,B,G call -->
+              Setup: Provision A on the Recording Server    7603213214 is the DN assigned to miarec
+              Description:
+                  1. Action: Setup call B calling A
+                  2. Action: Talk into both phones
+                  3. Action: Put B on hold and call G from A
+                  4. Action: Conference B into 3 way call
+                  5. Action: Talk into all phones
+                  6. Confirm: 3 way media
+                  7. Action: End call
+                  8. Confirm: Two recordings:
+                      - B - A call and final A,B,G call
+                      - A - G call and final A,B,G call -->
 
+
+<!-- This call: B - A call and final A,B,G call -->
+
+<!-- Value Substitution -->
+<!-- A 7602922410 -> [field0 file="tenant-users.csv"]-->
+<!-- B 7602922411 -> [field0 file="tenant-users.csv" line=1]-->
+
+<!-- Run scenario -->
+<!-- See README.md -->
+
+  <!-- Initial INVITE -->
   <send>
     <![CDATA[
       INVITE sip:7603213214@[remote_ip]:[remote_port] SIP/2.0
@@ -99,10 +110,10 @@
       </recording>
 
       --metaswitch-boundary--
-
     ]]>
   </send>
 
+  <!-- Wait for response -->
   <recv response="100" optional="true">
   </recv>
 
@@ -112,8 +123,7 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
-  <!-- Packet lost can be simulated in any send/recv message by         -->
-  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <!-- Send ACK -->
   <send>
     <![CDATA[
       ACK sip:[remote_ip]:[remote_port] SIP/2.0
@@ -141,7 +151,7 @@
 
   <pause milliseconds="7000"/>
 
-  <!-- Send re-INVITE (new SDP, new RTP port) -->
+  <!-- Send re-INVITE with new SDP, new RTP port -->
   <send retrans="500">
     <![CDATA[
       INVITE sip:7603213214@[remote_ip]:[remote_port] SIP/2.0
@@ -226,7 +236,6 @@
       </recording>
 
       --metaswitch-boundary--
-
     ]]>
   </send>
 
@@ -239,8 +248,7 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
-  <!-- Packet lost can be simulated in any send/recv message by         -->
-  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <!-- send ACK -->
   <send>
     <![CDATA[
       ACK sip:[remote_ip]:[remote_port] SIP/2.0
@@ -256,7 +264,6 @@
       To: <sip:7603213214@[remote_ip]:[remote_port]>[peer_tag_param]
     ]]>
   </send>
-
 
   <pause milliseconds="20"/>
 
@@ -281,7 +288,7 @@
   <pause milliseconds="10000"/>
 
 
-  <!-- Send re-INVITE (hold) RTP IP is 0.0.0.0 -->
+  <!-- Send re-INVITE (hold) new SDP, c line = 0.0.0.0  -->
   <send retrans="500">
     <![CDATA[
       INVITE sip:7603213214@[remote_ip]:[remote_port] SIP/2.0
@@ -366,7 +373,6 @@
       </recording>
 
       --metaswitch-boundary--
-
     ]]>
   </send>
 
@@ -379,8 +385,7 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
-  <!-- Packet lost can be simulated in any send/recv message by         -->
-  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <!-- send ACK -->
   <send>
     <![CDATA[
       ACK sip:[remote_ip]:[remote_port] SIP/2.0
@@ -397,9 +402,19 @@
     ]]>
   </send>
 
+  <pause milliseconds="20"/>
+
+  <!-- pause RTP stream                       -->
+  <nop>
+    <action>
+       <exec rtp_stream="pause"/>
+    </action>
+  </nop>
+
+
   <pause milliseconds="2000"/>
 
-  <!-- Send re-INVITE (resume) -->
+  <!-- Send re-INVITE (resume) new SDP -->
   <send>
     <![CDATA[
       INVITE sip:7603213214@[remote_ip]:[remote_port] SIP/2.0
@@ -419,7 +434,6 @@
       Supported: resource-priority, siprec, 100rel
       Max-Forwards: 70
       To: <sip:7603213214@[remote_ip]:[remote_port]>[peer_tag_param]
-
 
       --metaswitch-boundary
       Content-Type: application/sdp
@@ -484,7 +498,6 @@
       </recording>
 
       --metaswitch-boundary--
-
     ]]>
   </send>
 
@@ -497,8 +510,7 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
-  <!-- Packet lost can be simulated in any send/recv message by         -->
-  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <!-- send ACK -->
   <send>
     <![CDATA[
       ACK sip:[remote_ip]:[remote_port] SIP/2.0
@@ -517,20 +529,18 @@
 
   <pause milliseconds="20"/>
 
-  <!-- Play a pre-recorded audio file (RTP stream)                       -->
+  <!-- resume RTP stream                     -->
   <nop>
     <action>
-       <exec rtp_stream="audio_alaw.wav"/>
+       <exec rtp_stream="resume"/>
     </action>
   </nop>
 
   <pause milliseconds="18000"/>
 
-
-  <!-- The 'crlf' option inserts a blank line in the statistics report. -->
+  <!-- send BYE -->
   <send retrans="500">
     <![CDATA[
-
       BYE sip:[remote_ip]:[remote_port] SIP/2.0
       Content-Length: 0
       Require: siprec
@@ -543,7 +553,6 @@
       Max-Forwards: 70
       Supported: resource-priority, siprec, 100rel
       To: <sip:7603213214@[remote_ip]:[remote_port]>[peer_tag_param]
-
     ]]>
   </send>
 

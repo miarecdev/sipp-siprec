@@ -19,8 +19,12 @@
 
 <!-- This call: Initial A - C call, C hears music on hold, final A - C call-->
 
+<!-- Value Substitution -->
 <!-- A 7602922410 -> [field0 file="tenant-users.csv"] -->
 <!-- C 7602922412 -> [field0 file="tenant-users.csv" line=2]-->
+
+<!-- Run scenario -->
+<!-- See README.md -->
 
    <!-- Notify the second SIPP instance to start call scenario -->
    <sendCmd dest="slave1">
@@ -30,7 +34,6 @@
               New-call: yes
          ]]>
    </sendCmd>
-
 
   <send>
     <![CDATA[
@@ -149,15 +152,6 @@
   <pause milliseconds="20"/>
 
   <!-- Play a pre-recorded audio file (RTP stream)                       -->
-  <!-- <nop>
-    <action>
-       <exec rtp_stream="audio_alaw.wav"/>
-    </action>
-  </nop>
-
-  <pause milliseconds="21000"/> -->
-
-  <!-- Play a pre-recorded audio file (RTP stream)                       -->
   <nop>
     <action>
        <exec rtp_stream="audio_alaw.wav"/>
@@ -183,8 +177,6 @@
   </nop>
 
   <pause milliseconds="7000"/>
-
-
 
   <!-- The 'crlf' option inserts a blank line in the statistics report. -->
   <send retrans="500">

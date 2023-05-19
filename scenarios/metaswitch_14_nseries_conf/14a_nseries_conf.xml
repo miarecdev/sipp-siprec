@@ -3,20 +3,26 @@
 
 <scenario name="14-A N-Series Conference Call - Metaswitch CFS SIPREC">
       <!-- Summary: Conference call hosted by N-Series recorded correctly - Outbound Call
+            Note: All conferencing is done by N-Series, so single flow
 
-           Note: All conferencing is done by N-Series, so single flow
+            Description:
+              1. Action: Dial into conference from B (in Metaswitch lab use 19703060298, participant code 205234, moderator code 944839)
+              2. Action: Dial into conference from G
+              3. Confirm: two way media
+              4. Action: Dial into conference from A
+              5. Confirm: Three way media
+              6. Action: A leaves conference (hang up)
+              7. Action: Speak into B and G
+              8. Action: End call
+              Confirm: Call recorded from perspective of A - includes only three way conference and not B - G after A leaves -->
 
-           Description:
-            1. Action: Dial into conference from B (in Metaswitch lab use 19703060298, participant code 205234, moderator code 944839)
-            2. Action: Dial into conference from G
-            3. Confirm: two way media
-            4. Action: Dial into conference from A
-            5. Confirm: Three way media
-            6. Action: A leaves conference (hang up)
-            7. Action: Speak into B and G
-            8. Action: End call
-        Confirm: Call recorded from perspective of A - includes only three way conference and not B - G after A leaves -->
 
+
+<!-- Value Substitution -->
+<!-- A 7602922410 -> [field0 file="tenant-users.csv"]-->
+<!-- 9703060298 - N series DN -->
+
+<!-- Run scenario -->
 <!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_14_nseries_conf/14a_nseries_conf.xml -m 1 -->
 
   <send>
@@ -103,7 +109,6 @@
       </recording>
 
       --metaswitch-boundary--
-
     ]]>
   </send>
 

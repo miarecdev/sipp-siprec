@@ -13,9 +13,12 @@
               7) Action: End call
              Confirm: Single call recording of A - B call -->
 
+<!-- Value Substitution -->
 <!-- A 7602922410 -> [field0 file="tenant-users.csv"]-->
 <!-- B 7602922411 -> [field0 file="tenant-users.csv" line=1]-->
 
+<!-- Run scenario -->
+<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_05_call_park/05c_call_park.xml -m 1 -->
 
   <send>
     <![CDATA[

@@ -15,10 +15,12 @@
                 5. Action: End call
               Confirm: Call recording includes key tones -->
 
+<!-- Value Substitution -->
 <!-- A 7602922410 -> [field0 file="tenant-users.csv"]-->
 <!-- b 7602922411 -> [field0 file="tenant-users.csv" line=1]-->
 
-
+<!-- Run scenario -->
+<!-- NOTE: on WSL, this requires root privledge, https://github.com/SIPp/sipp/issues/369 -->
 <!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_09_DTMF/09a_DTMF.xml -m 1 -->
 
 
@@ -106,7 +108,6 @@
       </recording>
 
       --metaswitch-boundary--
-
     ]]>
   </send>
 

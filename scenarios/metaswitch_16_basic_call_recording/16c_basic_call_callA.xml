@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
-<scenario name="16-C Basic Call Recording - Multi Leg - Metaswitch CFS SIPREC">
+<scenario name="16-C Basic Call Recording - Call A - Metaswitch CFS SIPREC">
       <!-- Summary: Both parties subscribed to recording
             Setup:
             These tests should be done with the Recording Server set up to prefer G.711 codec, and to use SIP over UDP Provision A and C on the recording server
@@ -13,8 +13,14 @@
             - one from perspective of A, start and end time accurate
             - one from perspective of C, start and end time accurate (media should be identical in both recordings)     -->
 
+<!-- This call: one from perspective of C, start and end time accurate (media should be identical in both recordings)   -->
+
+<!-- Value Substitution -->
 <!-- A 7602922410 -> [field0 file="tenant-users.csv"]-->
-<!-- b 7602922412 -> [field0 file="tenant-users.csv" line=2]-->
+<!-- C 7602922412 -> [field0 file="tenant-users.csv" line=2]-->
+
+<!-- Run scenario -->
+<!-- See README.md -->
 
       <!-- Notify the second SIPP instance to start call scenario -->
    <sendCmd>

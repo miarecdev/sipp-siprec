@@ -16,11 +16,14 @@
                   - B - E1
                   - B - E2  -->
 
-<!-- B - E1 with Hold -->
+<!-- This call: B - E1 with Hold -->
 
+<!-- Value Substitution -->
 <!-- E 7602922414 -> [field0 file="tenant-users.csv"] -->
 <!-- B 7602922411 -> [field0 file="tenant-users.csv" line=1]-->
 
+<!-- Run scenario -->
+<!-- see README.md -->
 
 <!-- Initial INVITE -->
   <send>
