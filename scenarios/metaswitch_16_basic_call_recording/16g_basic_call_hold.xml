@@ -121,8 +121,7 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
-  <!-- Packet lost can be simulated in any send/recv message by         -->
-  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <!-- Send ACK -->
   <send>
     <![CDATA[
         ACK sip:[remote_ip]:[remote_port] SIP/2.0
@@ -150,9 +149,7 @@
 
   <pause milliseconds="7000"/>
 
-
-
-<!-- RE INVITE with SDP Update -->
+  <!-- RE INVITE with SDP Update -->
   <send>
     <![CDATA[
         INVITE sip:[remote_ip]:[remote_port] SIP/2.0
@@ -246,8 +243,7 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
-  <!-- Packet lost can be simulated in any send/recv message by         -->
-  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <!-- Send ACK -->
   <send>
     <![CDATA[
         ACK sip:[remote_ip]:[remote_port] SIP/2.0
@@ -275,11 +271,7 @@
 
   <pause milliseconds="7000"/>
 
-
-
-
-
-<!-- Call placed on Hold, c line = 0.0.0.0 -->
+  <!-- reINVITE with SDP update, Call placed on Hold, c line = 0.0.0.0 -->
   <send>
     <![CDATA[
         INVITE sip:[remote_ip]:[remote_port] SIP/2.0
@@ -373,8 +365,7 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
-  <!-- Packet lost can be simulated in any send/recv message by         -->
-  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <!-- Send ACK -->
   <send>
     <![CDATA[
         ACK sip:[remote_ip]:[remote_port] SIP/2.0
@@ -393,7 +384,7 @@
 
   <pause milliseconds="20"/>
 
-  <!-- Play a pre-recorded audio file (RTP stream)                       -->
+  <!-- Pause RTP stream                       -->
   <nop>
     <action>
        <exec rtp_stream="pause"/>
@@ -403,9 +394,7 @@
   <pause milliseconds="7000"/>
 
 
-
-
-<!-- RTP is resumed, SDP update -->
+<!-- reINVITE with SDP update, RTP is resumed, SDP update -->
   <send>
     <![CDATA[
         INVITE sip:[remote_ip]:[remote_port] SIP/2.0
@@ -499,8 +488,7 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
-  <!-- Packet lost can be simulated in any send/recv message by         -->
-  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <!-- Send ACK -->
   <send>
     <![CDATA[
         ACK sip:[remote_ip]:[remote_port] SIP/2.0
@@ -519,7 +507,7 @@
 
   <pause milliseconds="20"/>
 
-  <!-- Play a pre-recorded audio file (RTP stream)                       -->
+  <!-- Resume RTP stream                       -->
   <nop>
     <action>
        <exec rtp_stream="resume"/>
@@ -530,7 +518,7 @@
 
 
 
-  <!-- The 'crlf' option inserts a blank line in the statistics report. -->
+  <!-- send BYE -->
   <send retrans="500">
     <![CDATA[
         BYE sip:[remote_ip]:[remote_port] SIP/2.0

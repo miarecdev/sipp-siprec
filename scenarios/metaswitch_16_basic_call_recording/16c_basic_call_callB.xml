@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
-<scenario name="16-C Basic Call Recording - Multi leg - Metaswitch CFS SIPREC">
+<scenario name="16-C Basic Call Recording - Call B - Metaswitch CFS SIPREC">
       <!-- Summary: Both parties subscribed to recording
             Setup:
             These tests should be done with the Recording Server set up to prefer G.711 codec, and to use SIP over UDP Provision A and C on the recording server
@@ -21,6 +21,7 @@
 <!-- Run scenario -->
 <!-- See README.md -->
 
+  <!-- Wait for other SIPP instance to send command -->
   <recvCmd>
        <action>
             <ereg regexp="Call-ID: new_([^\r]+)\r" search_in="msg" assign_to="1,callid" check_it="true"/>
@@ -30,6 +31,7 @@
        </action>
   </recvCmd>
 
+  <!-- Initial INVITE -->
   <send>
     <![CDATA[
       INVITE sip:7603213214@[remote_ip]:[remote_port] SIP/2.0
@@ -113,8 +115,6 @@
       </recording>
 
       --metaswitch-boundary--
-
-
     ]]>
   </send>
 
@@ -127,8 +127,7 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
-  <!-- Packet lost can be simulated in any send/recv message by         -->
-  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <!-- Send ACK -->
   <send>
     <![CDATA[
       ACK sip:[remote_ip]:[remote_port] SIP/2.0
@@ -150,13 +149,13 @@
   <!-- Play a pre-recorded audio file (RTP stream)                       -->
   <nop>
     <action>
-       <exec rtp_stream="audio_alaw.wav,-1,8"/>
+       <exec rtp_stream="audio_alaw.wav"/>
     </action>
   </nop>
 
   <pause milliseconds="7000"/>
 
-  <!-- The 'crlf' option inserts a blank line in the statistics report. -->
+  <!-- send BYE -->
   <send retrans="500">
     <![CDATA[
       BYE sip:[remote_ip]:[remote_port] SIP/2.0

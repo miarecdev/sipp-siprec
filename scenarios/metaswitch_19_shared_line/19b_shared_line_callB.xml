@@ -25,6 +25,7 @@
 <!-- Run scenario -->
 <!-- See README.md -->
 
+  <!-- Wait for other SIPP instance to send command -->
   <recvCmd>
        <action>
             <ereg regexp="Call-ID: new_([^\r]+)\r" search_in="msg" assign_to="1,callid" check_it="true"/>

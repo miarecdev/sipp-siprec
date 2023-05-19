@@ -115,8 +115,6 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
-  <!-- Packet lost can be simulated in any send/recv message by         -->
-  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
   <send>
     <![CDATA[
       ACK sip:[remote_ip]:[remote_port] SIP/2.0
@@ -138,13 +136,12 @@
   <!-- Play a pre-recorded audio file (RTP stream)                       -->
   <nop>
     <action>
-       <exec rtp_stream="audio_alaw.wav,-1,8,PCMA/8000"/>
+       <exec rtp_stream="audio_alaw.wav"/>
     </action>
   </nop>
 
   <pause milliseconds="7000"/>
 
-  <!-- The 'crlf' option inserts a blank line in the statistics report. -->
   <send retrans="500">
     <![CDATA[
       BYE sip:[remote_ip]:[remote_port] SIP/2.0

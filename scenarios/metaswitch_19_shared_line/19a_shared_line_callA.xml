@@ -26,6 +26,7 @@
 <!-- Run scenario -->
 <!-- See README.md -->
 
+  <!-- Intial INVITE -->
   <send>
     <![CDATA[
       INVITE sip:7603213214@[remote_ip]:[remote_port] SIP/2.0
@@ -122,6 +123,7 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
+  <!-- Send ACK -->
   <send>
     <![CDATA[
       ACK sip:[remote_ip]:[remote_port] SIP/2.0

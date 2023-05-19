@@ -23,6 +23,7 @@
 <!-- Run scenario -->
 <!-- See README.md -->
 
+  <!-- Initial INVITE -->
   <send>
     <![CDATA[
       INVITE sip:7603213214@[remote_ip]:[remote_port] SIP/2.0
@@ -119,8 +120,7 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
-  <!-- Packet lost can be simulated in any send/recv message by         -->
-  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <!-- Send ACK -->
   <send>
     <![CDATA[
     ACK sip:[remote_ip]:[remote_port] SIP/2.0
@@ -283,7 +283,7 @@
   <pause milliseconds="7000"/>
 
 
-  <!-- The 'crlf' option inserts a blank line in the statistics report. -->
+  <!-- Send BYE -->
   <send retrans="500">
     <![CDATA[
       BYE sip:[remote_ip]:[remote_port] SIP/2.0

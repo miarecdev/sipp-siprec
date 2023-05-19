@@ -25,7 +25,7 @@
 <!-- Run scenario -->
 <!-- see README.md -->
 
-<!-- Initial INVITE -->
+  <!-- Initial INVITE -->
   <send>
     <![CDATA[
       INVITE sip:7603213214@[remote_ip]:[remote_port] SIP/2.0
@@ -271,8 +271,8 @@
 
   <pause milliseconds="7000"/>
 
-<!-- Call On Hold - c line = 0.0.0.0 -->
-    <send>
+  <!-- reINVITE with SDP update, Call On Hold - c line = 0.0.0.0 -->
+  <send>
     <![CDATA[
       INVITE sip:[remote_ip]:[remote_port] SIP/2.0
       Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
@@ -394,7 +394,7 @@
   <pause milliseconds="7000"/>
 
 
-<!-- Start Second Call  -->
+  <!-- Start Second Call  -->
   <sendCmd>
          <![CDATA[
               Call-ID: new_[call_id]
@@ -404,8 +404,8 @@
 
   <pause milliseconds="20"/>
 
-<!-- Re-INVITE with audio resume -->
-    <send>
+  <!-- Re-INVITE with audio resume -->
+  <send>
     <![CDATA[
       INVITE sip:[remote_ip]:[remote_port] SIP/2.0
       Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
@@ -537,8 +537,6 @@
 
   <recv response="200" crlf="true">
   </recv>
-
-
 
   <timewait milliseconds="4000"/>
 
