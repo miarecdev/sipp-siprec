@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE scenario SYSTEM "sipp.dtd">
+
+<scenario name="02-B Attended Transfer - Master - Metaswitch CFS SIPREC">
+        <!-- Summary: Both parties recorded
+              Setup: A and C provisioned on Recording Server
+              Description
+                1. Action: Set up call from A to C
+                2. Coinfirm: Two way media
+                3. Action: Put C on hold and call B from A
+                4. Confirm: 2-way media between B and A
+                5. Confirm: 0-way media between A and C
+                6. Action: Transfer C to B
+                7. Confirm: A drops out of call, 2-way media between C and B
+                8. Action: Hang up call
+                9. Confirm: Three recordings:
+                      - A - C
+                      - A - B
+                      - C - A and C - B     -->
+
+<!-- This call:  C - A and C - B -->
+
+<!-- Value Substitution -->
+<!-- A 7602922410 -> [field0 file="tenant-users.csv" line=2]-->
+<!-- C 7602922412 -> [field0 file="tenant-users.csv"]-->
+
+<!-- Run scenario -->
+<!-- See README.md -->
+
+   <!-- Notify the second SIPP instance to start call scenario -->
+   <sendCmd dest="slave1">
+         <![CDATA[
+              From: master
+              Call-ID: new_[call_id]
+              New-call: yes
+         ]]>
+   </sendCmd>
+
+  <!-- Inital INVITE -->
+  <send>
+    <![CDATA[
+        INVITE sip:7603213214@[remote_ip]:[remote_port] SIP/2.0
+        Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+        Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name
+        Call-ID: [call_id]
+        From: <sip:[field0 file="tenant-users.csv" line=2]@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
+        To: <sip:7603213214@[remote_ip]:[remote_port]>
+        CSeq: 940630434 INVITE
+        Expires: 180
+        Organization: Metaswitch Networks
+        Supported: resource-priority, siprec, 100rel
+        Content-Length: [len]
+        Require: siprec
+        Allow: INVITE, ACK, CANCEL, BYE, REGISTER, OPTIONS, PRACK, UPDATE, SUBSCRIBE, NOTIFY, REFER, INFO, PUBLISH
+        Max-Forwards: 70
+        Contact: <sip:[field0 file="tenant-users.csv" line=2]@[local_ip]:[local_port]>;+sip.src
+        P-Asserted-Identity: <sip:[field0 file="tenant-users.csv" line=2]@[local_ip]:[local_port]>
+        Content-Type: multipart/mixed; boundary=metaswitch-boundary
+
+        --metaswitch-boundary
+        Content-Type: application/sdp
+
+        v=0
+        o=- 3451553891 3451553891 IN IP4 [local_ip]
+        s=-
+        c=IN IP4 [local_ip]
+        t=0 0
+        m=audio [auto_media_port] RTP/AVP 0 8 101
+        a=rtpmap:101 telephone-event/8000
+        a=ptime:20
+        a=label:1
+
+        --metaswitch-boundary
+        Content-Disposition: recording-session
+        Content-Type: application/rs-metadata
+
+        <?xml version="1.0" encoding="UTF-8"?>
+        <recording id="We76ruHGEea+seyezQV3BA==" xmlns="urn:ietf:params:xml:ns:recording">
+        <datamode>complete</datamode>
+        <session session_id="We77COHGEea+seyezQV3BA==">
+        <start-time>2017-01-23T23:47:50Z</start-time>
+        </session>
+        <participant participant_id="We786OHGEea+seyezQV3BA==">
+        <nameID aor="[field0 file="tenant-users.csv"]">
+        <name>[field0 file="tenant-users.csv"]</name>
+        </nameID>
+        </participant>
+        <participantsessionassoc participant_id="We786OHGEea+seyezQV3BA==" session_id="We77COHGEea+seyezQV3BA==">
+        <associate-time>2017-01-23T23:47:50Z</associate-time>
+        </participantsessionassoc>
+        <participantstreamassoc participant_id="We786OHGEea+seyezQV3BA==">
+        <send>We77YuHGEea+seyezQV3BA==</send>
+        <recv>We77YuHGEea+seyezQV3BA==</recv>
+        </participantstreamassoc>
+        <participant participant_id="We7+MuHGEea+seyezQV3BA==">
+        <nameID aor="[field0 file="tenant-users.csv" line=2]">
+        <name>[field0 file="tenant-users.csv" line=2]</name>
+        </nameID>
+        </participant>
+        <participantsessionassoc participant_id="We7+MuHGEea+seyezQV3BA==" session_id="We77COHGEea+seyezQV3BA==">
+        <associate-time>2017-01-23T23:47:50Z</associate-time>
+        </participantsessionassoc>
+        <participantstreamassoc participant_id="We7+MuHGEea+seyezQV3BA==">
+        <send>We77YuHGEea+seyezQV3BA==</send>
+        <recv>We77YuHGEea+seyezQV3BA==</recv>
+        </participantstreamassoc>
+        <stream id="We77YuHGEea+seyezQV3BA==" session_id="We77COHGEea+seyezQV3BA==">
+        <label>1</label>
+        </stream>
+        <extensiondata>
+        <metaswitchRecordingMetadata>
+        <callType>terminating</callType>
+        <recordedParty>+1[field0 file="tenant-users.csv" line=2]</recordedParty>
+        <businessGroup>[field2 file="tenant-users.csv" line=2]</businessGroup>
+        <userName>[field1 file="tenant-users.csv" line=2]</userName>
+        <systemName>[field3 file="tenant-users.csv" line=2]</systemName>
+        <callingPartyNumber>[field0 file="tenant-users.csv"]</callingPartyNumber>
+        <dialedDigits>1[field0 file="tenant-users.csv" line=2]</dialedDigits>
+        </metaswitchRecordingMetadata>
+        </extensiondata>
+        </recording>
+
+        --metaswitch-boundary--
+    ]]>
+  </send>
+
+  <recv response="100" optional="true">
+  </recv>
+
+  <recv response="180" optional="true">
+  </recv>
+
+  <recv response="200" rtd="true" crlf="true">
+  </recv>
+
+  <!-- Send ACK -->
+  <send>
+    <![CDATA[
+        ACK sip:[remote_ip]:[remote_port] SIP/2.0
+        Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+        Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name
+        Max-Forwards: 70
+        Call-ID: [call_id]
+        From: <sip:[field0 file="tenant-users.csv" line=2]@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
+        To: <sip:7603213214@[remote_ip]:[remote_port]>[peer_tag_param]
+        CSeq: 940630434 ACK
+        Contact: <sip:[field0 file="tenant-users.csv" line=2]@[local_ip]:[local_port]>;+sip.src
+        Organization: Metaswitch Networks
+        Content-Length: 0
+    ]]>
+  </send>
+
+  <pause milliseconds="20"/>
+
+  <!-- Play a pre-recorded audio file (RTP stream)                       -->
+  <nop>
+    <action>
+       <exec rtp_stream="audio_alaw.wav"/>
+    </action>
+  </nop>
+
+  <pause milliseconds="21000"/>
+
+  <!--  send BYE -->
+  <send retrans="500">
+    <![CDATA[
+        BYE sip:[remote_ip]:[remote_port] SIP/2.0
+        Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+        Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name
+        Max-Forwards: 70
+        Call-ID: [call_id]
+        From: <sip:[field0 file="tenant-users.csv" line=2]@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
+        To: <sip:7603213214@[remote_ip]:[remote_port]>[peer_tag_param]
+        CSeq: 940630435 BYE
+        Organization: Metaswitch Networks
+        Supported: resource-priority, siprec, 100rel
+        Content-Length: 0
+        Require: siprec
+    ]]>
+  </send>
+
+  <recv response="200" crlf="true">
+  </recv>
+
+  <timewait milliseconds="4000"/>
+
+  <!-- definition of the response time repartition table (unit is ms)   -->
+  <ResponseTimeRepartition value="50, 100, 200, 300, 500, 700, 1000, 2000, 5000"/>
+
+  <!-- definition of the call length repartition table (unit is ms)     -->
+  <CallLengthRepartition value="10, 50, 100, 500, 1000, 5000, 10000"/>
+
+</scenario>
