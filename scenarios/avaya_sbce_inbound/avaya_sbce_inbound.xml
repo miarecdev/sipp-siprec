@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE scenario SYSTEM "sipp.dtd">
+
+<scenario name="Avaya SBCE outbound call (mono)">
+
+  <!-- Send INVITE with new dummy ASBCE@avaya.com participant -->
+  <send>
+    <![CDATA[
+    INVITE sip:[remote_ip]:[remote_port];transport=[transport] SIP/2.0
+    Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, INFO, UPDATE,REFER
+    Contact: "H323 User 1" <sip:[local_ip]:[local_port];transport=[transport];+sip.src>
+    From: "H323 User 1" <sip:13035381001@[local_ip]>;tag=[pid]SIPpTag00[call_number]
+    To: <sip:[remote_ip]:[remote_port];transport=[transport]>
+    Require: siprec
+    User-to-User: 00FA080001000758A20EFA;encoding=hex
+    P-Asserted-Identity: "H323 User 1" <sip:13035381001@[local_ip]:[local_port]>
+    CSeq: 50 INVITE
+    Call-ID: [call_id]
+    Diversion: "H323 User 1" <sip:13035381001@[local_ip]:[local_port]>;reason=direct;screen=no;privacy=off;counter=1
+    Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+    Supported: replaces, 100rel
+    Max-Forwards: 69
+    Content-Type: multipart/mixed;boundary=foobar
+    Content-Length:[len]
+
+    --foobar
+    Content-Type: application/sdp
+
+    v=0
+    o=- 12756 1 IN IP4 [local_ip]
+    s=Session
+    c=IN IP4 [local_ip]
+    t=0 0
+    m=audio [auto_media_port] RTP/AVP 0 8 18 101
+    a=rtpmap:0 PCMU/8000
+    a=rtpmap:8 PCMA/8000
+    a=rtpmap:18 G729/8000
+    a=fmtp:18 annexb=no
+    a=rtpmap:101 telephone-event/8000
+    a=fmtp:101 0-15
+    a=label:10
+    a=sendonly
+
+    --foobar
+    Content-Type: application/rs-metadata+xml
+    Content-Disposition: recording-session
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <recording xmlns="urn:ietf:params:xml:ns:recording:1">
+    <dataMode>complete</dataMode>
+    <session session_id="00FA080001000758A20EFA"></session>
+    <sessionrecordingassoc session_id="00FA080001000758A20EFA">
+    <associate-time>2017-02-13T12:54:34</associate-time>
+    </sessionrecordingassoc>
+    <participant participant_id="b536ff63b7f3643d4d7b">
+    <nameID aor="sip:13035381001@10.64.110.65"></nameID>
+    </participant>
+    <participantsessionassoc participant_id="b536ff63b7f3643d4d7b" session_id="00FA080001000758A20EFA">
+    <associate-time>2017-02-13T12:54:34</associate-time>
+    </participantsessionassoc>
+    <participantstreamassoc participant_id="b536ff63b7f3643d4d7b">
+    <send>0ccc2d78b71d8a1ea1c7</send>
+    </participantstreamassoc>
+    <participant participant_id="abcdef12345678901234">
+    <nameID aor="sip:ASBCE@asbce.com"></nameID>
+    </participant>
+    <participantsessionassoc participant_id="abcdef12345678901234" session_id="00FA080001000758A20EFA">
+    <associate-time>2017-02-13T12:54:34</associate-time>
+    </participantsessionassoc>
+    <participantstreamassoc participant_id="abcdef12345678901234">
+    </participantstreamassoc>
+    <stream stream_id="0ccc2d78b71d8a1ea1c7" session_id="00FA080001000758A20EFA">
+    <label>10</label>
+    </stream>
+    <stream stream_id="" session_id="00FA080001000758A20EFA">
+    <label>20</label>
+    </stream>
+    </recording>
+    --foobar--
+
+    ]]>
+  </send>
+
+  <recv response="100" optional="true">
+  </recv>
+
+  <recv response="180" optional="true">
+  </recv>
+
+  <recv response="200" rtd="true" crlf="true">
+  </recv>
+
+  <!-- Packet lost can be simulated in any send/recv message by         -->
+  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <send>
+    <![CDATA[
+      ACK sip:[remote_ip]:[remote_port];transport=[transport] SIP/2.0
+      Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, INFO, UPDATE,REFER
+      Content-Length: 0
+      Contact: <sip:[local_ip]:[local_port];transport=[transport];+sip.src>
+      User-to-User: 00FA080001000758A20EFA;encoding=hex
+      P-Asserted-Identity: "H323 User 1" <sip:13035381001@[local_ip]:[local_port]>
+      CSeq: 50 ACK
+      Call-ID: [call_id]
+      Diversion: "H323 User 1" <sip:13035381001@[local_ip]:[local_port]>;reason=direct;screen=no;privacy=off;counter=1
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+      From: "H323 User 1" <sip:13035381001@[local_ip]>;tag=[pid]SIPpTag00[call_number]
+      To:<sip:[remote_ip]:[remote_port];transport=[transport]>[peer_tag_param]
+      Supported: replaces, 100rel
+      Max-Forwards: 69
+    ]]>
+  </send>
+
+  <pause milliseconds="20"/>
+
+  <!-- Play a pre-recorded audio file (RTP stream)                       -->
+  <nop>
+    <action>
+      <exec rtp_stream="audio_alaw.wav,-1,8,PCMA/8000"/>
+    </action>
+  </nop>
+  
+  <pause milliseconds="3000"/>
+
+
+  <!-- Send UPDATE with new participants -->
+  <send retrans="500">
+    <![CDATA[
+    UPDATE sip:[remote_ip]:[remote_port];transport=[transport] SIP/2.0
+    Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, INFO, UPDATE,REFER
+    Contact: "H323 User 1" <sip:[local_ip]:[local_port];transport=[transport];+sip.src>
+    From: "H323 User 1" <sip:13035381001@[local_ip]>;tag=[pid]SIPpTag00[call_number]
+    To: <sip:[remote_ip]:[remote_port];transport=[transport]>[peer_tag_param]
+    Require: siprec
+    User-to-User: 00FA080001000758A20EFA;encoding=hex
+    P-Asserted-Identity: "H323 User 1" <sip:13035381001@[local_ip]:[local_port]>
+    CSeq: 51 UPDATE
+    Call-ID: [call_id]
+    Diversion: "H323 User 1" <sip:13035381001@[local_ip]:[local_port]>;reason=direct;screen=no;privacy=off;counter=1
+    Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+    Supported: replaces, 100rel
+    Max-Forwards: 69
+    Content-Disposition: recording-session
+    Content-Type: application/rs-metadata
+    Content-Length:[len]
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <recording xmlns="urn:ietf:params:xml:ns:recording:1">
+    <dataMode>complete</dataMode>
+    <session session_id="00FA080001000758A20EFA"></session>
+    <sessionrecordingassoc session_id="00FA080001000758A20EFA">
+    <associate-time>2017-02-13T12:54:34</associate-time>
+    </sessionrecordingassoc>
+    <participant participant_id="b536ff63b7f3643d4d7b">
+    <nameID aor="sip:13035381001@10.64.110.65"></nameID>
+    </participant>
+    <participantsessionassoc participant_id="b536ff63b7f3643d4d7b" session_id="00FA080001000758A20EFA">
+    <associate-time>2017-02-13T12:54:34</associate-time>
+    </participantsessionassoc>
+    <participantstreamassoc participant_id="b536ff63b7f3643d4d7b">
+    <send>0ccc2d78b71d8a1ea1c7</send>
+    </participantstreamassoc>
+    <participant participant_id="6add855be46c6970e8fd">
+    <nameID aor="sip:7204541001@10.64.110.32"></nameID>
+    </participant>
+    <participantsessionassoc participant_id="6add855be46c6970e8fd" session_id="00FA080001000758A20EFA">
+    <associate-time>2017-02-13T12:54:36</associate-time>
+    </participantsessionassoc>
+    <participantstreamassoc participant_id="6add855be46c6970e8fd">
+    <send>63a24a2bc6e7c076d738</send>
+    </participantstreamassoc>
+    <stream stream_id="0ccc2d78b71d8a1ea1c7" session_id="00FA080001000758A20EFA">
+    <label>10</label>
+    </stream>
+    <stream stream_id="63a24a2bc6e7c076d738" session_id="00FA080001000758A20EFA">
+    <label>20</label>
+    </stream>
+    </recording>
+    ]]>
+  </send>
+
+  <recv response="200" rtd="true" crlf="true">
+  </recv>
+
+  <pause milliseconds="20"/>
+
+  <!-- Play a pre-recorded audio file (RTP stream)                       -->
+  <nop>
+    <action>
+      <exec rtp_stream="audio_alaw.wav,-1,8,PCMA/8000"/>
+    </action>
+  </nop>
+
+
+  <pause milliseconds="3000"/>
+
+
+  <!-- The 'crlf' option inserts a blank line in the statistics report. -->
+  <send retrans="500">
+    <![CDATA[
+    BYE sip:[remote_ip]:[remote_port];transport=[transport] SIP/2.0
+    Allow: INVITE, ACK, OPTIONS, BYE, CANCEL, REFER, INFO, PRACK, UPDATE
+    Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+    Content-Length: 0
+    Call-ID: [call_id]
+    Contact: "H323 User 1" <sip:[local_ip]:[local_port];transport=[transport];+sip.src>
+    CSeq: 52 BYE
+    From: "H323 User 1" <sip:13035381001@[local_ip]>;tag=[pid]SIPpTag00[call_number]
+    To:<sip:[remote_ip]:[remote_port];transport=[transport]>[peer_tag_param]
+    User-to-User: 00FA080001000758A20EFA;encoding=hex
+    P-Asserted-Identity: "H323 User 1" <sip:13035381001@[local_ip]:[local_port]>
+    Supported: 100rel, replaces
+    Max-Forwards: 69
+    ]]>
+  </send>
+
+  <recv response="200" crlf="true">
+  </recv>
+
+  <timewait milliseconds="2000"/>
+
+</scenario>
+
+
+
