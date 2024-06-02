@@ -25,11 +25,12 @@ RUN curl -LO https://github.com/SIPp/sipp/releases/download/v3.6.1/sipp-3.6.1.ta
   && rm -rf /sipp-3.6.1
 
 # Add scenario files into the container
-ADD scenarios /sipp/scenarios
 ADD audio_alaw_2h.wav /sipp/
 ADD audio_alaw.wav /sipp/
 ADD g711a.pcap /sipp/
 ADD g722.pcap /sipp/
+
+ADD scenarios /sipp/scenarios
 
 WORKDIR /sipp
 

@@ -1,10 +1,10 @@
 # Start call generator
 
-Build docker image with SIPP:
+## Build docker image with SIPP:
 
     docker build -t sipp .
 
-Run the existing scenario:
+## Example 1. Generate bulk calls (with a call concurrency)
 
     docker run -it sipp -t t1 -inf scenarios/tenant-users.csv -inf scenarios/callee.csv -sf scenarios/16b_basic_calls_outbound.xml -m 1000 -r 5 -rp 1s -l 50 1.2.3.4:5080
 
@@ -17,8 +17,26 @@ Replace:
    - 1.2.3.4:5080 with your MiaRec ip-address (IP and port)
 
 
+## Example 2. Generate a single call
 
-# Start single call scenario
+    docker run -it -v $PWD/scenarios:/sipp/scenarios sipp -t t1 -sf scenarios/broadworks_redirect.xml -m 1 1.2.3.4:5080
+
+
+## Tips for running SIPP in docker
+
+SIPP generates Call-ID header becaused on process PID. If running in Docker container, the PID is always 1.
+Thus, the generated Call-ID will not be unique if the scenario is run multiple times.
+
+Solution is to pass a randomly generated UUID as the `-cid_str` parameter to SIPP:
+
+Assuming `uuidgen` is installed on your box you can use something like this:
+
+    docker run -it -v $PWD/scenarios:/sipp/scenarios sipp -t t1 -sf scenarios/broadworks_redirect.xml -cid_str $(uuidgen)@%s -m 1 1.2.3.4:5080
+
+
+# Old example (without docker)
+
+Start single call scenario
 
     sipp 192.168.1.5:5080 -i 192.168.1.106 -t t1 -inf scenarios/tenant-users.csv -inf scenarios/callee.csv -sf scenarios/16b_basic_calls_outbound.xml -m 1000 -r 5 -rp 1s -l 50
 
@@ -33,7 +51,7 @@ Replace:
 
 
 
-# Start 3PCC scenario    
+# 3PCC scenario
 
     sipp 192.168.1.106:5080 -i 192.168.1.106 -m 1 -t t1 -3pcc 192.168.1.106:7777 -sf scenarios/01a_3way_call_initiator_recorded_2.xml
     sipp 192.168.1.106:5080 -i 192.168.1.106 -m 1 -t t1 -3pcc 192.168.1.106:7777 -sf scenarios/01a_3way_call_initiator_recorded_1.xml
@@ -76,7 +94,6 @@ Then, start a master instance:
     sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 3slaves.cfg -slave slave3 -sf scenarios/cisco_bib_call_slave3.xml
     sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 3slaves.cfg -master master -sf scenarios/cisco_bib_call_master.xml
 
-
 # Cisco CUBE Network-based recording
 
 ## Normal call
@@ -91,6 +108,7 @@ CUBE sends re-INVITE with the updated call participants info
 
     
 # Some important command-line options:
+
 	-sf filename
 		Load test scenario from specified file.
 	-inf filename
@@ -120,7 +138,8 @@ CUBE sends re-INVITE with the updated call participants info
 	-trace_err
 		Log error message to file (like "Discarding message which can't be mapped to a known SIPp call").
 	-sd
-Dumps one of the default scenarios. Usage example: sipp -sd uas > uas.xml.   
+
+		Dumps one of the default scenarios. Usage example: sipp -sd uas > uas.xml.   
 
 
 # Tips
@@ -133,3 +152,6 @@ Use sox utility, like:
 
 
 
+# Similar projects
+
+  - https://github.com/sieteunoseis/sipp/blob/main/README.md
