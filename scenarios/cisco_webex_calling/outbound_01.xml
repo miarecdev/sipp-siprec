@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE scenario SYSTEM "sipp.dtd">
+
+<scenario name="Cisco Webex calling outbound call (mono for simplicity)">
+
+  <!-- 
+      // In Webex Calling environment, the <participant> element contains only internal broadworks user-id.
+      //
+      // INVITE sip:54.221.202.167:5060;transport=udp SIP/2.0 
+      // From: "MiaRecUser1 Loc1Test"<sip:+12102298545@199.19.196.53;user=phone>;tag=54625565-1715572582998-
+      // To: <sip:54.221.202.167:5060>
+      // ...
+      //
+      // 
+      // <?xml version="1.0" encoding="UTF-8"?>
+      // ...
+      // <participant id="urn:uuid:f94081c2-b2b0-41f5-ae23-660da97cd624" session="urn:uuid:d4781c04-5202-4b26-93f5-6907a8cd269d">
+      //    <aor>sip:yztpfzzvkq@44936045.int10.bcld.webex.com</aor>
+      // </participant>
+      // <participant id="urn:uuid:6fbfb898-6977-4a26-a9b3-a5a8f13cf4aa" session="urn:uuid:d4781c04-5202-4b26-93f5-6907a8cd269d">
+      //   <aor>sip:7733@10.155.7.148;user=phone</aor>
+      // </participant>
+      // <extensiondata id="urn:uuid:fdaf7212-eed8-48c3-91da-e621db9dc8cb" parent="urn:uuid:d4781c04-5202-4b26-93f5-6907a8cd269d">
+      //  <broadWorksRecordingMetadata xmlns="http://schema.broadsoft.com/broadworksCallRecording" version="3.0">
+      //     <extTrackingID>ef9a8967-b409-402c-86eb-1ff9ce761d77</extTrackingID>
+      //     <serviceProviderID>WBVDW867961</serviceProviderID>
+      //     <groupID>WBVDW867961L33739</groupID>
+      //     <userID>yztpfzzvkq@44936045.int10.bcld.webex.com</userID>
+      //     <callID>callhalf-36451319:1</callID>
+      //     <callType>
+      //        <origCall>
+      //           <callingPartyNumber>sip:+12102298545@10.155.7.148</callingPartyNumber>
+      //           <calledPartyNumber>sip:7733@10.155.7.148;user=phone</calledPartyNumber>
+      //           <dialedDigits>sip:7733@10.155.7.148</dialedDigits>
+      //        </origCall>
+      //     </callType>
+      //     <recordingType>on</recordingType>
+      //  </broadWorksRecordingMetadata>
+      // </extensiondata>
+      // ...
+      //
+      // In Broadworks-specific metadata (tab <broadworksRecordingMetadata>), we find:
+      //    - recorded BroadworksUserId is "yztpfzzvkq@44936045.int10.bcld.webex.com"
+      //    - direction is outbound (origCall)
+      //    - caller (recording user) has phone number +12102298545 
+      //    - called party party has an extension 7733
+      //
+      // Additionally, from the From" SIP header, we can find that 
+      // the recorded user display name is "MiaRecUser2 Loc1Test" and phone number +12102298545
+      //
+      // If parse <participant> elements as well, we find:
+      //    - the 1st participant our recorded user. SIP callerID is the same as BroadworksUserId (sip:yztpfzzvkq@44936045.int10.bcld.webex.com)
+      //    - the 2nd participant has a phone number 7733 (SIP callerId sip:7733@10.155.7.148)
+      //
+      // A few issues:
+      //    1. Cisco doesn't include caller display name in XML metadata. This can be extracted from SIP From header only
+      //    2. Cisco doesn't include recorded user's phone number nor extension in <participant> element
+      //
+      // If we have a simple call scenario, we can simply ignore <participant> tag,
+      // But in a conference or transfer scenario, Cisco sends UPDATE with a new list of participants (in <participant> tag),
+      // and we have to parse it.
+  -->
+  <send>
+    <![CDATA[
+    INVITE sip:[remote_ip]:[remote_port];transport=[transport] SIP/2.0
+    Accept: application/media_control+xml,application/sdp,application/x-broadworks-call-center+xml
+    Allow: ACK,BYE,CANCEL,INFO,INVITE,OPTIONS,PRACK,REFER,NOTIFY
+    Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+    Contact: <sip:[local_ip]:[local_port];transport=[transport];src>
+    From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
+    To: <sip:[remote_ip]:[remote_port]>
+    Session-ID: 0cc1b891ef26429b854a770f535a0499;remote=00000000000000000000000000000000
+    Content-Type: multipart/mixed;boundary=UniqueBroadWorksBoundary
+    Recv-Info: 
+    Privacy: none
+    MIME-Version: 1.0
+    Call-ID: [call_id]
+    CSeq: 610577336 INVITE
+    Route: <sip:CRP.Miarec.INT.Virginia:remote_port;lr>
+    Supported: 
+    Max-Forwards: 69
+    X-BroadWorks-Correlation-Info: 3a557048-ff7c-4575-94e1-355f7ee6f7f0
+    Content-Length: [len]
+
+    --UniqueBroadWorksBoundary
+    Content-Type:application/rs-metadata+xml
+    Content-Disposition:recording-session
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <recording_metadata xmlns="urn:ietf:params:xml:ns:siprec">
+      <dataMode>complete</dataMode>
+      <recording id="urn:uuid:cf006fb3-4103-42c9-ba78-11ce6dd55552">
+        <requestor>SRC</requestor>
+        <type>selective</type>
+      </recording>
+      <group id="urn:uuid:780b7731-2e25-47dc-a73b-846137107d15" recording="urn:uuid:cf006fb3-4103-42c9-ba78-11ce6dd55552">
+        <initiator>sip:yztpfzzvkq@44936045.int10.bcld.webex.com</initiator>
+      </group>
+      <session id="urn:uuid:a7eac613-5455-4cd5-b473-28cf5d740f8e" group="urn:uuid:780b7731-2e25-47dc-a73b-846137107d15">
+        <start-time>2024-05-05T12:45:05+00:00</start-time>
+      </session>
+      <participant id="urn:uuid:6e61a924-6264-4620-80e4-3fbb09c97f2e" session="urn:uuid:a7eac613-5455-4cd5-b473-28cf5d740f8e">
+        <aor>sip:yztpfzzvkq@44936045.int10.bcld.webex.com</aor>
+        <send>
+          <id>urn:uuid:b76f6e78-9ae4-456a-8771-2ef7c0b44065</id>
+        </send>
+      </participant>
+      <participant id="urn:uuid:7d46bbb5-9d18-4a77-93f2-dd48218acad2" session="urn:uuid:a7eac613-5455-4cd5-b473-28cf5d740f8e">
+        <aor>sip:7733@10.155.7.148;user=phone</aor>
+        <send>
+          <id>urn:uuid:aeac9cfa-4e3d-4958-a9e7-884e5cbc0d07</id>
+        </send>
+      </participant>
+      <stream id="urn:uuid:b76f6e78-9ae4-456a-8771-2ef7c0b44065" session="urn:uuid:a7eac613-5455-4cd5-b473-28cf5d740f8e">
+        <label>1</label>
+        <mode>separate</mode>
+      </stream>
+      <stream id="urn:uuid:aeac9cfa-4e3d-4958-a9e7-884e5cbc0d07" session="urn:uuid:a7eac613-5455-4cd5-b473-28cf5d740f8e">
+        <label>2</label>
+        <mode>separate</mode>
+      </stream>
+      <extensiondata id="urn:uuid:439df9a0-1244-412c-b9c4-61b6c50c536c" parent="urn:uuid:a7eac613-5455-4cd5-b473-28cf5d740f8e">
+        <broadWorksRecordingMetadata xmlns="http://schema.broadsoft.com/broadworksCallRecording" version="3.0">
+          <extTrackingID>3a557048-ff7c-4575-94e1-355f7ee6f7f0</extTrackingID>
+          <serviceProviderID>WBVDW867961</serviceProviderID>
+          <groupID>WBVDW867961L33739</groupID>
+          <userID>yztpfzzvkq@44936045.int10.bcld.webex.com</userID>
+          <callID>callhalf-33564295:1</callID>
+          <callType>
+            <origCall>
+              <callingPartyNumber>sip:+12102298545@10.155.7.148</callingPartyNumber>
+              <calledPartyNumber>sip:7733@10.155.7.148;user=phone</calledPartyNumber>
+              <dialedDigits>sip:+12142253167@10.155.7.148</dialedDigits>
+            </origCall>
+          </callType>
+          <recordingType>on</recordingType>
+        </broadWorksRecordingMetadata>
+      </extensiondata>
+    </recording_metadata>
+
+    --UniqueBroadWorksBoundary
+    Content-Type: application/sdp
+
+    v=0
+    o=BroadWorks 791782 1 IN IP4 [local_ip]
+    s=-
+    c=IN IP4 [local_ip]
+    t=0 0
+    m=audio [auto_media_port] RTP/AVP 111 101 0 8 9 107
+    a=rtpmap:0 PCMU/8000
+    a=rtpmap:8 PCMA/8000
+    a=rtpmap:9 G722/8000
+    a=rtpmap:111 opus/48000/2
+    a=fmtp:111 useinbandfec=1
+    a=rtpmap:101 telephone-event/8000
+    a=fmtp:101 0-15
+    a=rtpmap:107 telephone-event/48000
+    a=fmtp:107 0-15
+    a=ptime:20
+    a=maxptime:20
+    a=sendonly
+    a=label:1
+
+    --UniqueBroadWorksBoundary--
+
+    ]]>
+  </send>
+
+  <recv response="100" optional="true">
+  </recv>
+
+  <recv response="180" optional="true">
+  </recv>
+
+  <recv response="200" rtd="true" crlf="true">
+  </recv>
+
+  <!-- Packet lost can be simulated in any send/recv message by         -->
+  <!-- by adding the 'lost = "10"'. Value can be [1-100] percent.       -->
+  <send>
+    <![CDATA[
+      ACK sip:[remote_ip]:[remote_port] SIP/2.0
+      Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, INFO, UPDATE,REFER
+      Content-Length: 0
+      Contact: <sip:[local_ip]:[local_port];transport=[transport];src>
+      CSeq: 610577336 ACK
+      Call-ID: [call_id]
+      Session-ID: 0cc1b891ef26429b854a770f535a0499;remote=00000000000000000000000000000000
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+      From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
+      To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
+      X-BroadWorks-Correlation-Info: 3a557048-ff7c-4575-94e1-355f7ee6f7f0
+      Supported: replaces, 100rel
+      Max-Forwards: 69
+    ]]>
+  </send>
+
+  <pause milliseconds="20"/>
+
+  <!-- Play a pre-recorded audio file (RTP stream)                       -->
+  <nop>
+    <action>
+      <exec rtp_stream="audio_alaw.wav,-1,8,PCMA/8000"/>
+    </action>
+  </nop>
+  
+  <pause milliseconds="3000"/>
+
+
+  <!-- The 'crlf' option inserts a blank line in the statistics report. -->
+  <send retrans="500">
+    <![CDATA[
+    BYE sip:[remote_ip]:[remote_port] SIP/2.0
+    Content-Length: 0
+    Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+    From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
+    To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
+    Call-ID: [call_id]
+    CSeq: 610577337 BYE
+    Session-ID: 0cc1b891ef26429b854a770f535a0499;remote=00000000000000000000000000000000
+    X-BroadWorks-Correlation-Info: 3a557048-ff7c-4575-94e1-355f7ee6f7f0
+    ]]>
+  </send>
+
+  <recv response="200" crlf="true">
+  </recv>
+
+  <timewait milliseconds="2000"/>
+
+</scenario>
+
+
+
+
