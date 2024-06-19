@@ -10,7 +10,7 @@
     Accept: application/media_control+xml,application/sdp,application/x-broadworks-call-center+xml
     Allow: ACK,BYE,CANCEL,INFO,INVITE,OPTIONS,PRACK,REFER,NOTIFY
     Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
-    Contact: <sip:[local_ip]:[local_port];transport=[transport];src>
+    Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
     From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
     To: <sip:[remote_ip]:[remote_port]>
     Content-Type: multipart/mixed;boundary=UniqueBroadWorksBoundary
@@ -90,7 +90,7 @@
     s=-
     c=IN IP4 [local_ip]
     t=0 0
-    m=audio [auto_media_port] RTP/AVP 111 101 0 8 9 107
+    m=audio [media_port] RTP/AVP 111 101 0 8 9 107
     a=rtpmap:0 PCMU/8000
     a=rtpmap:8 PCMA/8000
     a=rtpmap:9 G722/8000
@@ -125,7 +125,7 @@
     <![CDATA[
       ACK sip:[remote_ip]:[remote_port] SIP/2.0
       Content-Length: 0
-      Contact: <sip:[local_ip]:[local_port];transport=[transport];src>
+      Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
       CSeq: 610644611 ACK
       Call-ID: [call_id]
       Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
@@ -156,7 +156,7 @@
     Accept: application/media_control+xml,application/sdp,application/x-broadworks-call-center+xml
     Allow: ACK,BYE,CANCEL,INFO,INVITE,OPTIONS,PRACK,REFER,NOTIFY
     Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
-    Contact: <sip:[local_ip]:[local_port];transport=[transport];src>
+    Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
     From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
     To: <sip:[remote_ip]:[remote_port]>[peer_tag_param]
     Content-Type: application/sdp
@@ -173,7 +173,7 @@
     s=-
     c=IN IP4 [local_ip]
     t=0 0
-    m=audio [auto_media_port] RTP/AVP 9
+    m=audio [media_port] RTP/AVP 9
     a=rtpmap:9 G722/8000
     a=label:1
     ]]>
@@ -194,7 +194,7 @@
     <![CDATA[
       ACK sip:[remote_ip]:[remote_port] SIP/2.0
       Content-Length: 0
-      Contact: <sip:[local_ip]:[local_port];transport=[transport];src>
+      Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
       CSeq: 610644612 ACK
       Call-ID: [call_id]
       Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
@@ -221,7 +221,7 @@
     Accept: application/media_control+xml,application/sdp,application/x-broadworks-call-center+xml
     Allow: ACK,BYE,CANCEL,INFO,INVITE,OPTIONS,PRACK,REFER,NOTIFY
     Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
-    Contact: <sip:[local_ip]:[local_port];transport=[transport];src>
+    Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
     From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
     To: <sip:[remote_ip]:[remote_port]>[peer_tag_param]
     Content-Type: multipart/mixed;boundary=UniqueBroadWorksBoundary
@@ -303,7 +303,7 @@
     s=-
     c=IN IP4 [local_ip]
     t=0 0
-    m=audio [auto_media_port] RTP/AVP 111 101 0 8 9 107
+    m=audio [media_port] RTP/AVP 111 101 0 8 9 107
     a=rtpmap:0 PCMU/8000
     a=rtpmap:8 PCMA/8000
     a=rtpmap:9 G722/8000
@@ -337,7 +337,7 @@
     <![CDATA[
       ACK sip:[remote_ip]:[remote_port] SIP/2.0
       Content-Length: 0
-      Contact: <sip:[local_ip]:[local_port];transport=[transport];src>
+      Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
       CSeq: 610644613 ACK
       Call-ID: [call_id]
       Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]

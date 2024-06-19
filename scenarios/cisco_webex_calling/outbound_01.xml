@@ -66,7 +66,7 @@
     Accept: application/media_control+xml,application/sdp,application/x-broadworks-call-center+xml
     Allow: ACK,BYE,CANCEL,INFO,INVITE,OPTIONS,PRACK,REFER,NOTIFY
     Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
-    Contact: <sip:[local_ip]:[local_port];transport=[transport];src>
+    Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
     From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
     To: <sip:[remote_ip]:[remote_port]>
     Session-ID: 0cc1b891ef26429b854a770f535a0499;remote=00000000000000000000000000000000
@@ -146,7 +146,7 @@
     s=-
     c=IN IP4 [local_ip]
     t=0 0
-    m=audio [auto_media_port] RTP/AVP 111 101 0 8 9 107
+    m=audio [media_port] RTP/AVP 111 101 0 8 9 107
     a=rtpmap:0 PCMU/8000
     a=rtpmap:8 PCMA/8000
     a=rtpmap:9 G722/8000
@@ -182,7 +182,7 @@
       ACK sip:[remote_ip]:[remote_port] SIP/2.0
       Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, INFO, UPDATE,REFER
       Content-Length: 0
-      Contact: <sip:[local_ip]:[local_port];transport=[transport];src>
+      Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
       CSeq: 610577336 ACK
       Call-ID: [call_id]
       Session-ID: 0cc1b891ef26429b854a770f535a0499;remote=00000000000000000000000000000000
