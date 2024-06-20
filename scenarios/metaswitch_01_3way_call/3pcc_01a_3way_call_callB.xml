@@ -20,8 +20,17 @@
 
 
 <!-- Run scenario -->
-<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -sf scenarios/metaswitch_01_3way_call/01a_3way_callB.xml -m 1-->
+<!-- See README.md -->
 
+  <!-- Wait for other SIPP instance to send command -->
+  <recvCmd>
+       <action>
+            <ereg regexp="Call-ID: new_([^\r]+)\r" search_in="msg" assign_to="1,callid" check_it="true"/>
+            <log message="Call-ID: [$callid]"/>
+            <!-- just log the [$1] otherwise SIPp complains that $1 isn't used -->
+            <log message="=======\nAll: [$1]\n======="/>
+       </action>
+  </recvCmd>
 
   <!-- Initial INVITE -->
   <send>
