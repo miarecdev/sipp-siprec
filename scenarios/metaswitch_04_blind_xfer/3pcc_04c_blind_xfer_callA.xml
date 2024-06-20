@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
-<scenario name="04-C Blind Transfer - Call A - Metaswitch CFS SIPREC">
+<scenario name="3pcc 04-C Blind Transfer - Call A - Metaswitch CFS SIPREC">
       <!-- Summary: Both parties recorded
            Description:
               1. Action: Set up call A from B
@@ -17,7 +17,7 @@
 <!-- This call: A - B -->
 
 <!-- Run scenario -->
-<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -sf scenarios/metaswitch_04_blind_xfer/04c_blind_xfer_callA.xml -m 1 -->
+<!-- See README.md -->
 
   <!-- Initial INVITE -->
   <send>
@@ -256,6 +256,16 @@
       Content-Length: 0
     ]]>
   </send>
+
+  <pause milliseconds="20"/>
+
+      <!-- Notify the second SIPP instance to start call scenario -->
+   <sendCmd>
+         <![CDATA[
+              Call-ID: new_[call_id]
+              New-call: yes
+         ]]>
+   </sendCmd>
 
   <pause milliseconds="20"/>
 

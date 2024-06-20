@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
-<scenario name="02-B Attended Transfer - Slave 1 - Metaswitch CFS SIPREC">
+<scenario name="3pcc 02-B Attended Transfer - Slave 1 - Metaswitch CFS SIPREC">
         <!-- Summary: Both parties recorded
               Setup: A and C provisioned on Recording Server
               Description

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
-<scenario name="3PCC 01-A 3 way call - Call A - Metaswitch CFS SIPREC">
+<scenario name="3pcc 01-A 3 way call - Call A - Metaswitch CFS SIPREC">
         <!-- Summary: 3-way call - recorded party in initial call
               Setup: Provision A on the Recording Server    7603213214 is the DN assigned to miarec
               Description:

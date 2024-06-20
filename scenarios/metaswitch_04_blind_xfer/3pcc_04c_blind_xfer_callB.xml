@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
-<scenario name="04-C Blind Transfer - Call B - Metaswitch CFS SIPREC">
+<scenario name="3pcc 04-C Blind Transfer - Call B - Metaswitch CFS SIPREC">
       <!-- Summary: Both parties recorded
            Description:
               1. Action: Set up call A from B
@@ -17,7 +17,17 @@
 <!-- This call: B - C -->
 
 <!-- Run scenario -->
-<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -sf scenarios/metaswitch_04_blind_xfer/04c_blind_xfer_callB.xml -m 1 -->
+<!-- See README.md -->
+
+  <!-- Wait for command from other SIPP instnance -->
+  <recvCmd>
+       <action>
+            <ereg regexp="Call-ID: new_([^\r]+)\r" search_in="msg" assign_to="1,callid" check_it="true"/>
+            <log message="Call-ID: [$callid]"/>
+            <!-- just log the [$1] otherwise SIPp complains that $1 isn't used -->
+            <log message="=======\nAll: [$1]\n======="/>
+       </action>
+  </recvCmd>
 
   <!-- Initial INVITE -->
   <send>
