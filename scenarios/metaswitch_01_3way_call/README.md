@@ -17,13 +17,22 @@ Provision A on the Recording Server
     - B - A call and final A,B,G call
     - A - G call and final A,B,G call
 
-### Run scenario
+### Run scenario - Call A
 
 `1.1.1.1` = miarec IP address
 `2.2.2.2` = local ip address
 
 ```
-sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -sf scenarios/metaswitch_01_3way_call/01a_3way_call.xml -m 1
+sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -sf scenarios/metaswitch_01_3way_call/01a_3way_call_callA.xml -m 1
+```
+
+### Run scenario - Call B
+
+`1.1.1.1` = miarec IP address
+`2.2.2.2` = local ip address
+
+```
+sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -sf scenarios/metaswitch_01_3way_call/01a_3way_call_callB.xml -m 1
 ```
 
 
@@ -85,5 +94,5 @@ Provision A on the Recording Server
 `2.2.2.2` = local ip address
 
 ```
-sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1  -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_01_3way_call/3pcc_01a_3way_call_callB.xml -m 1
+sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -sf scenarios/metaswitch_01_3way_call/01b_3way_call.xml -m 1
 ```
