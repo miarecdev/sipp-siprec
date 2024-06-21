@@ -101,9 +101,6 @@ sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -sf scenarios/metaswitch_05_call_park/05b_cal
 ```
 
 
-
-
-
 ## Test Case C
 Call parked by nonrecorded party and retreived by recorded pary
 
