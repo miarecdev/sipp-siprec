@@ -10,12 +10,8 @@
               3. Action: End Call
             Confirm: Call recorded, start and end time accurate -->
 
-<!-- Value Substitution -->
-<!-- A 7602922410 -> [field0 file="tenant-users.csv"]-->
-<!-- b 7602922411 -> [field0 file="tenant-users.csv" line=1]-->
-
 <!-- Run scenario -->
-<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_16_basic_call_recording/16b_basic_call_outbound.xml -m 1 -->
+<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -sf scenarios/metaswitch_16_basic_call_recording/16b_basic_call_outbound.xml -m 1 -->
 
   <!-- Initial INVITE -->
   <send>
@@ -24,7 +20,7 @@
       Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
       Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name
       Call-ID: [call_id]
-      From: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;tag=[pid]sipptag00[call_number]
+      From: <sip:7602922410@[local_ip]:[local_port]>;tag=[pid]sipptag00[call_number]
       To: <sip:7603213214@[remote_ip]:[remote_port]>
       CSeq: 536398519 INVITE
       Expires: 180
@@ -34,8 +30,8 @@
       Require: siprec
       Allow: INVITE, ACK, CANCEL, BYE, REGISTER, OPTIONS, PRACK, UPDATE, SUBSCRIBE, NOTIFY, REFER, INFO, PUBLISH
       Max-Forwards: 70
-      Contact: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;+sip.src
-      P-Asserted-Identity: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>
+      Contact: <sip:7602922410@[local_ip]:[local_port]>;+sip.src
+      P-Asserted-Identity: <sip:7602922410@[local_ip]:[local_port]>
       Content-Type: multipart/mixed; boundary=metaswitch-boundary
 
       --metaswitch-boundary
@@ -61,8 +57,8 @@
         <start-time>2017-01-24T23:17:38Z</start-time>
       </session>
       <participant participant_id="TA0qYuKLEeanqeyezQV3BA==">
-        <nameID aor="[field0 file="tenant-users.csv"]">
-        <name>[field0 file="tenant-users.csv"]</name>
+        <nameID aor="7602922410">
+        <name>7602922410</name>
         </nameID>
       </participant>
       <participantsessionassoc participant_id="TA0qYuKLEeanqeyezQV3BA==" session_id="TA0oUOKLEeanqeyezQV3BA==">
@@ -73,8 +69,8 @@
         <recv>TA0ojOKLEeanqeyezQV3BA==</recv>
       </participantstreamassoc>
       <participant participant_id="TA0rKuKLEeanqeyezQV3BA==">
-        <nameID aor="[field0 file="tenant-users.csv" line=1]">
-        <name>[field0 file="tenant-users.csv" line=1]</name>
+        <nameID aor="7602922411">
+        <name>7602922411</name>
         </nameID>
       </participant>
       <participantsessionassoc participant_id="TA0rKuKLEeanqeyezQV3BA==" session_id="TA0oUOKLEeanqeyezQV3BA==">
@@ -90,12 +86,12 @@
       <extensiondata>
         <metaswitchRecordingMetadata>
         <callType>originating</callType>
-        <recordedParty>+1[field0 file="tenant-users.csv"]</recordedParty>
-        <businessGroup>[field2 file="tenant-users.csv"]</businessGroup>
-        <userName>[field1 file="tenant-users.csv"]</userName>
-        <systemName>[field3 file="tenant-users.csv"]</systemName>
-        <callingPartyNumber>[field0 file="tenant-users.csv"]</callingPartyNumber>
-        <dialedDigits>1[field0 file="tenant-users.csv" line=1]</dialedDigits>
+        <recordedParty>+17602922410</recordedParty>
+        <businessGroup>MiaRec Inc. - 00004803</businessGroup>
+        <userName></userName>
+        <systemName>mammoth</systemName>
+        <callingPartyNumber>7602922410</callingPartyNumber>
+        <dialedDigits>17602922411</dialedDigits>
         </metaswitchRecordingMetadata>
       </extensiondata>
       </recording>
@@ -121,10 +117,10 @@
       Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name
       Max-Forwards: 70
       Call-ID: [call_id]
-      From: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;tag=[pid]sipptag00[call_number]
+      From: <sip:7602922410@[local_ip]:[local_port]>;tag=[pid]sipptag00[call_number]
       To: <sip:7603213214@[remote_ip]:[remote_port]>[peer_tag_param]
       CSeq: 536398519 ACK
-      Contact: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;+sip.src
+      Contact: <sip:7602922410@[local_ip]:[local_port]>;+sip.src
       Organization: Metaswitch Networks
       Content-Length: 0
     ]]>
@@ -149,7 +145,7 @@
       Allow-Events: message-summary, refer, dialog, line-seize, presence, call-info, as-feature-event, calling-name
       Max-Forwards: 70
       Call-ID: [call_id]
-      From: <sip:[field0 file="tenant-users.csv"]@[local_ip]:[local_port]>;tag=[pid]sipptag00[call_number]
+      From: <sip:7602922410@[local_ip]:[local_port]>;tag=[pid]sipptag00[call_number]
       To: <sip:7603213214@[remote_ip]:[remote_port]>[peer_tag_param]
       CSeq: 536398520 BYE
       Organization: Metaswitch Networks
