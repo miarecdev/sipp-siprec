@@ -10,13 +10,9 @@
             3. Confirm: Using packet sniffer (e.g. wireshark) media was sent to teh recording platform using G.726
             4. nfirm: Recording is made and can be listened to -->
 
-<!-- Value Substitution -->
-<!-- A 7602922410 -> 7602922410-->
-<!-- b 7602922411 -> 7602922411-->
-
 <!-- Run scenario -->
 <!-- NOTE: on WSL, this requires root privledge, https://github.com/SIPp/sipp/issues/369 -->
-<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_11_g721/11a_g721.xml -m 1 -->
+<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -sf scenarios/metaswitch_11_g721/11a_g721.xml -m 1 -->
 
   <!-- Initial INVITE -->
   <send>
