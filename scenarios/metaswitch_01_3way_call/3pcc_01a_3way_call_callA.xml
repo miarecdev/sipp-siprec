@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
-<scenario name="01-A 3 way call - Call A - Metaswitch CFS SIPREC">
+<scenario name="3pcc 01-A 3 way call - Call A - Metaswitch CFS SIPREC">
         <!-- Summary: 3-way call - recorded party in initial call
               Setup: Provision A on the Recording Server    7603213214 is the DN assigned to miarec
               Description:
@@ -20,8 +20,7 @@
 <!-- This call: B - A call and final A,B,G call -->
 
 <!-- Run scenario -->
-<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -sf scenarios/metaswitch_01_3way_call/01a_3way_callA.xml -m 1-->
-
+<!-- See README.md -->
 
   <!-- Initial INVITE -->
   <send>
@@ -270,6 +269,17 @@
        <exec rtp_stream="audio_alaw.wav"/>
     </action>
   </nop>
+
+  <pause milliseconds="4000"/>
+
+  <!-- Notify the second SIPP instance to start call scenario -->
+   <sendCmd>
+         <![CDATA[
+              Call-ID: new_[call_id]
+              New-call: yes
+         ]]>
+   </sendCmd>
+
 
   <pause milliseconds="10000"/>
 

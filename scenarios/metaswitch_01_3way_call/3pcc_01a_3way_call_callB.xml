@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
-<scenario name="3PCC 01-A 3 way call - Call B - Metaswitch CFS SIPREC">
+<scenario name="3pcc 01-A 3 way call - Call B - Metaswitch CFS SIPREC">
         <!-- Summary: 3-way call - recorded party in initial call
               Setup: Provision A on the Recording Server  7603213214 is the DN assigned to miarec
               Description:
@@ -20,8 +20,17 @@
 
 
 <!-- Run scenario -->
-<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -sf scenarios/metaswitch_01_3way_call/01a_3way_callB.xml -m 1-->
+<!-- See README.md -->
 
+  <!-- Wait for other SIPP instance to send command -->
+  <recvCmd>
+       <action>
+            <ereg regexp="Call-ID: new_([^\r]+)\r" search_in="msg" assign_to="1,callid" check_it="true"/>
+            <log message="Call-ID: [$callid]"/>
+            <!-- just log the [$1] otherwise SIPp complains that $1 isn't used -->
+            <log message="=======\nAll: [$1]\n======="/>
+       </action>
+  </recvCmd>
 
   <!-- Initial INVITE -->
   <send>

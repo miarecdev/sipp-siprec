@@ -20,7 +20,17 @@
 <!-- This call: One for B and E2 call -->
 
 <!-- Run scenario -->
-<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -sf scenarios/metaswitch_19_shared_line/19a_shared_line_callB.xml -m 1 -->
+<!-- See README.md -->
+
+  <recvCmd>
+       <action>
+            <ereg regexp="Call-ID: new_([^\r]+)\r" search_in="msg" assign_to="1,callid" check_it="true"/>
+            <log message="Call-ID: [$callid]"/>
+            <!-- just log the [$1] otherwise SIPp complains that $1 isn't used -->
+            <log message="=======\nAll: [$1]\n======="/>
+       </action>
+  </recvCmd>
+
 
   <send>
     <![CDATA[

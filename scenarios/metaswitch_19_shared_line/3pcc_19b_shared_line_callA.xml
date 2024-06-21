@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
-<scenario name="19-B Shared Line Call A - Metaswitch CFS SIPREC">
+<scenario name="3PCC 19-B Shared Line Call A - Metaswitch CFS SIPREC">
       <!-- Summary: Public call hold with a shared line is recorded
             Setup: Two phones registered to E (E1 and E2)
             Description:
@@ -18,8 +18,12 @@
 
 <!-- This call: B - E1 with Hold -->
 
+<!-- Value Substitution -->
+<!-- E 7602922414 -> 7602922414 -->
+<!-- B 7602922411 -> 7602922411-->
+
 <!-- Run scenario -->
-<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -sf scenarios/metaswitch_19_shared_line/19b_shared_line_callA.xml -m 1 -->
+<!-- see README.md -->
 
   <!-- Initial INVITE -->
   <send>
@@ -389,6 +393,16 @@
 
   <pause milliseconds="7000"/>
 
+
+  <!-- Start Second Call  -->
+  <sendCmd>
+         <![CDATA[
+              Call-ID: new_[call_id]
+              New-call: yes
+         ]]>
+  </sendCmd>
+
+  <pause milliseconds="20"/>
 
   <!-- Re-INVITE with audio resume -->
   <send>

@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
-<scenario name="01-B 3 way call - Metaswitch CFS SIPREC">
-        <!-- Summary: 3-way call - recorded party conferenced into call
-              Setup:  Provision A on the Recording Server
-              Description:
-                  1. Action: Setup call B calling G
-                  2. Action: Put G on hold and call A from B
-                  3. Action: Conference G into 3 way call
-                  4. Action: Speak into all phones
-                  5. Confirm: 3 way media
-                  6. Action: End call
-              Confirm: Single call recording. Two parts. A - B and A,B,G three way media -->
+<scenario name="02-B Attended Transfer - Slave 1 - Metaswitch CFS SIPREC">
+        <!-- Summary: Both parties recorded
+              Setup: A and C provisioned on Recording Server
+              Description
+                1. Action: Set up call from A to C
+                2. Coinfirm: Two way media
+                3. Action: Put C on hold and call B from A
+                4. Confirm: 2-way media between B and A
+                5. Confirm: 0-way media between A and C
+                6. Action: Transfer C to B
+                7. Confirm: A drops out of call, 2-way media between C and B
+                8. Action: Hang up call
+                9. Confirm: Three recordings:
+                      - A - C
+                      - A - B
+                      - C - A and C - B     -->
+
+<!-- This call:  A - C -->
 
 <!-- Run scenario -->
-<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_01_3way_call/01b_3way_call.xml -m 1-->
+<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -sf scenarios/metaswitch_02_attended_xfer/02b_attended_xfer_callB.xml -m 1 -->
 
-    <!-- Initial INVITE -->
+
+  <!-- Initial INVITE -->
   <send>
     <![CDATA[
         INVITE sip:7603213214@[remote_ip]:[remote_port] SIP/2.0
@@ -25,7 +33,7 @@
         Call-ID: [call_id]
         From: <sip:7602922410@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
         To: <sip:7603213214@[remote_ip]:[remote_port]>
-        CSeq: 667855288 INVITE
+        CSeq: 788291881 INVITE
         Expires: 180
         Organization: Metaswitch Networks
         Supported: resource-priority, siprec, 100rel
@@ -33,7 +41,7 @@
         Require: siprec
         Allow: INVITE, ACK, CANCEL, BYE, REGISTER, OPTIONS, PRACK, UPDATE, SUBSCRIBE, NOTIFY, REFER, INFO, PUBLISH
         Max-Forwards: 70
-        Contact: <sip:7602922410@[local_ip]:[local_port];+sip.src
+        Contact: <sip:7602922410@[local_ip]:[local_port]>;+sip.src
         P-Asserted-Identity: <sip:7602922410@[local_ip]:[local_port]>
         Content-Type: multipart/mixed; boundary=metaswitch-boundary
 
@@ -41,7 +49,7 @@
         Content-Type: application/sdp
 
         v=0
-        o=- 3450398590 3450398590 IN IP4 [local_ip]
+        o=- 3451553882 3451553882 IN IP4 [local_ip]
         s=-
         c=IN IP4 [local_ip]
         t=0 0
@@ -55,47 +63,47 @@
         Content-Type: application/rs-metadata
 
         <?xml version="1.0" encoding="UTF-8"?>
-        <recording id="qVOw4uHDEea+seyezQV3BA==" xmlns="urn:ietf:params:xml:ns:recording">
+        <recording id="We7vUOHGEea+seyezQV3BA==" xmlns="urn:ietf:params:xml:ns:recording">
         <datamode>complete</datamode>
-        <session session_id="qVOxKOHDEea+seyezQV3BA==">
-        <start-time>2017-01-23T23:28:35Z</start-time>
+        <session session_id="We7vvuHGEea+seyezQV3BA==">
+        <start-time>2017-01-23T23:47:50Z</start-time>
         </session>
-        <participant participant_id="qVOzHOHDEea+seyezQV3BA==">
-        <nameID aor="7602922411">
-        <name>7602922411</name>
-        </nameID>
-        </participant>
-        <participantsessionassoc participant_id="qVOzHOHDEea+seyezQV3BA==" session_id="qVOxKOHDEea+seyezQV3BA==">
-        <associate-time>2017-01-23T23:28:35Z</associate-time>
-        </participantsessionassoc>
-        <participantstreamassoc participant_id="qVOzHOHDEea+seyezQV3BA==">
-        <send>qVOxZOHDEea+seyezQV3BA==</send>
-        <recv>qVOxZOHDEea+seyezQV3BA==</recv>
-        </participantstreamassoc>
-        <participant participant_id="qVOz7uHDEea+seyezQV3BA==">
+        <participant participant_id="We7ymOHGEea+seyezQV3BA==">
         <nameID aor="7602922410">
         <name>7602922410</name>
         </nameID>
         </participant>
-        <participantsessionassoc participant_id="qVOz7uHDEea+seyezQV3BA==" session_id="qVOxKOHDEea+seyezQV3BA==">
-        <associate-time>2017-01-23T23:28:35Z</associate-time>
+        <participantsessionassoc participant_id="We7ymOHGEea+seyezQV3BA==" session_id="We7vvuHGEea+seyezQV3BA==">
+        <associate-time>2017-01-23T23:47:50Z</associate-time>
         </participantsessionassoc>
-        <participantstreamassoc participant_id="qVOz7uHDEea+seyezQV3BA==">
-        <send>qVOxZOHDEea+seyezQV3BA==</send>
-        <recv>qVOxZOHDEea+seyezQV3BA==</recv>
+        <participantstreamassoc participant_id="We7ymOHGEea+seyezQV3BA==">
+        <send>We7wGOHGEea+seyezQV3BA==</send>
+        <recv>We7wGOHGEea+seyezQV3BA==</recv>
         </participantstreamassoc>
-        <stream id="qVOxZOHDEea+seyezQV3BA==" session_id="qVOxKOHDEea+seyezQV3BA==">
+        <participant participant_id="We70CuHGEea+seyezQV3BA==">
+        <nameID aor="7602922412 ">
+        <name>7602922412 </name>
+        </nameID>
+        </participant>
+        <participantsessionassoc participant_id="We70CuHGEea+seyezQV3BA==" session_id="We7vvuHGEea+seyezQV3BA==">
+        <associate-time>2017-01-23T23:47:50Z</associate-time>
+        </participantsessionassoc>
+        <participantstreamassoc participant_id="We70CuHGEea+seyezQV3BA==">
+        <send>We7wGOHGEea+seyezQV3BA==</send>
+        <recv>We7wGOHGEea+seyezQV3BA==</recv>
+        </participantstreamassoc>
+        <stream id="We7wGOHGEea+seyezQV3BA==" session_id="We7vvuHGEea+seyezQV3BA==">
         <label>1</label>
         </stream>
         <extensiondata>
         <metaswitchRecordingMetadata>
-        <callType>terminating</callType>
+        <callType>originating</callType>
         <recordedParty>+17602922410</recordedParty>
-         <businessGroup>MiaRec Inc. - 00004803</businessGroup>
-         <userName></userName>
-         <systemName>mammoth</systemName>
-        <callingPartyNumber>7602922411</callingPartyNumber>
-        <dialedDigits>17602922410</dialedDigits>
+        <businessGroup>MiaRec Inc. - 00004803</businessGroup>
+        <userName></userName>
+        <systemName>mammoth</systemName>
+        <callingPartyNumber>7602922410</callingPartyNumber>
+        <dialedDigits>17602922412 </dialedDigits>
         </metaswitchRecordingMetadata>
         </extensiondata>
         </recording>
@@ -113,7 +121,7 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
-  <!-- send ACK -->
+  <!-- Send ACK -->
   <send>
     <![CDATA[
         ACK sip:[remote_ip]:[remote_port] SIP/2.0
@@ -123,8 +131,8 @@
         Call-ID: [call_id]
         From: <sip:7602922410@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
         To: <sip:7603213214@[remote_ip]:[remote_port]>[peer_tag_param]
-        CSeq: 667855288 ACK
-        Contact: <sip:7602922410@[local_ip]:[local_port];+sip.src
+        CSeq: 788291881 ACK
+        Contact: <sip:7602922410@192.91.191.185>;isup-oli=00;+sip.src
         Organization: Metaswitch Networks
         Content-Length: 0
     ]]>
@@ -151,9 +159,9 @@
         Call-ID: [call_id]
         From: <sip:7602922410@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
         To: <sip:7603213214@[remote_ip]:[remote_port]>[peer_tag_param]
-        CSeq: 667855289 INVITE
+        CSeq: 788291882 INVITE
         Expires: 180
-        Contact: <sip:7602922410@[local_ip]:[local_port];+sip.src
+        Contact: <sip:7602922410@192.91.191.185>;isup-oli=00;+sip.src
         Organization: Metaswitch Networks
         Supported: resource-priority, siprec, 100rel
         Content-Length: [len]
@@ -164,7 +172,7 @@
         Content-Type: application/sdp
 
         v=0
-        o=- 3450398590 3450398592 IN IP4 [local_ip]
+        o=- 3451553882 3451553884 IN IP4 [local_ip]
         s=-
         c=IN IP4 [local_ip]
         t=0 0
@@ -178,47 +186,47 @@
         Content-Type: application/rs-metadata
 
         <?xml version="1.0" encoding="UTF-8"?>
-        <recording id="qVOw4uHDEea+seyezQV3BA==" xmlns="urn:ietf:params:xml:ns:recording">
+        <recording id="We7vUOHGEea+seyezQV3BA==" xmlns="urn:ietf:params:xml:ns:recording">
         <datamode>complete</datamode>
-        <session session_id="qVOxKOHDEea+seyezQV3BA==">
-        <start-time>2017-01-23T23:28:35Z</start-time>
+        <session session_id="We7vvuHGEea+seyezQV3BA==">
+        <start-time>2017-01-23T23:47:50Z</start-time>
         </session>
-        <participant participant_id="qVOzHOHDEea+seyezQV3BA==">
-        <nameID aor="7602922411">
-        <name>7602922411</name>
-        </nameID>
-        </participant>
-        <participantsessionassoc participant_id="qVOzHOHDEea+seyezQV3BA==" session_id="qVOxKOHDEea+seyezQV3BA==">
-        <associate-time>2017-01-23T23:28:35Z</associate-time>
-        </participantsessionassoc>
-        <participantstreamassoc participant_id="qVOzHOHDEea+seyezQV3BA==">
-        <send>qVOxZOHDEea+seyezQV3BA==</send>
-        <recv>qVOxZOHDEea+seyezQV3BA==</recv>
-        </participantstreamassoc>
-        <participant participant_id="qVOz7uHDEea+seyezQV3BA==">
+        <participant participant_id="We7ymOHGEea+seyezQV3BA==">
         <nameID aor="7602922410">
         <name>7602922410</name>
         </nameID>
         </participant>
-        <participantsessionassoc participant_id="qVOz7uHDEea+seyezQV3BA==" session_id="qVOxKOHDEea+seyezQV3BA==">
-        <associate-time>2017-01-23T23:28:35Z</associate-time>
+        <participantsessionassoc participant_id="We7ymOHGEea+seyezQV3BA==" session_id="We7vvuHGEea+seyezQV3BA==">
+        <associate-time>2017-01-23T23:47:50Z</associate-time>
         </participantsessionassoc>
-        <participantstreamassoc participant_id="qVOz7uHDEea+seyezQV3BA==">
-        <send>qVOxZOHDEea+seyezQV3BA==</send>
-        <recv>qVOxZOHDEea+seyezQV3BA==</recv>
+        <participantstreamassoc participant_id="We7ymOHGEea+seyezQV3BA==">
+        <send>We7wGOHGEea+seyezQV3BA==</send>
+        <recv>We7wGOHGEea+seyezQV3BA==</recv>
         </participantstreamassoc>
-        <stream id="qVOxZOHDEea+seyezQV3BA==" session_id="qVOxKOHDEea+seyezQV3BA==">
+        <participant participant_id="We70CuHGEea+seyezQV3BA==">
+        <nameID aor="7602922412 ">
+        <name>7602922412 </name>
+        </nameID>
+        </participant>
+        <participantsessionassoc participant_id="We70CuHGEea+seyezQV3BA==" session_id="We7vvuHGEea+seyezQV3BA==">
+        <associate-time>2017-01-23T23:47:50Z</associate-time>
+        </participantsessionassoc>
+        <participantstreamassoc participant_id="We70CuHGEea+seyezQV3BA==">
+        <send>We7wGOHGEea+seyezQV3BA==</send>
+        <recv>We7wGOHGEea+seyezQV3BA==</recv>
+        </participantstreamassoc>
+        <stream id="We7wGOHGEea+seyezQV3BA==" session_id="We7vvuHGEea+seyezQV3BA==">
         <label>1</label>
         </stream>
         <extensiondata>
         <metaswitchRecordingMetadata>
-        <callType>terminating</callType>
+        <callType>originating</callType>
         <recordedParty>+17602922410</recordedParty>
-        <businessGroup>7602922410</businessGroup>
-        <userName>7602922410</userName>
-        <systemName>7602922410</systemName>
-        <callingPartyNumber>7602922411</callingPartyNumber>
-        <dialedDigits>17602922410</dialedDigits>
+        <businessGroup>MiaRec Inc. - 00004803</businessGroup>
+        <userName></userName>
+        <systemName>mammoth</systemName>
+        <callingPartyNumber>7602922410</callingPartyNumber>
+        <dialedDigits>17602922412 </dialedDigits>
         </metaswitchRecordingMetadata>
         </extensiondata>
         </recording>
@@ -236,7 +244,7 @@
   <recv response="200" rtd="true" crlf="true">
   </recv>
 
-  <!-- send ACK -->
+  <!-- Send ACK -->
   <send>
     <![CDATA[
         ACK sip:[remote_ip]:[remote_port] SIP/2.0
@@ -246,25 +254,17 @@
         Call-ID: [call_id]
         From: <sip:7602922410@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
         To: <sip:7603213214@[remote_ip]:[remote_port]>[peer_tag_param]
-        CSeq: 667855289 ACK
-        Contact: <sip:7602922410@[local_ip]:[local_port];+sip.src
+        CSeq: 788291882 ACK
+        Contact: <sip:7602922410@192.91.191.185>;isup-oli=00;+sip.src
         Organization: Metaswitch Networks
         Content-Length: 0
     ]]>
   </send>
 
-  <pause milliseconds="20"/>
+  <pause milliseconds="7000"/>
 
-  <!-- Play a pre-recorded audio file (RTP stream)                       -->
-  <nop>
-    <action>
-       <exec rtp_stream="audio_alaw.wav"/>
-    </action>
-  </nop>
 
-  <pause milliseconds="18000"/>
-
-  <!-- send BYE -->
+  <!-- send BYE. -->
   <send retrans="500">
     <![CDATA[
         BYE sip:[remote_ip]:[remote_port] SIP/2.0
@@ -274,7 +274,7 @@
         Call-ID: [call_id]
         From: <sip:7602922410@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
         To: <sip:7603213214@[remote_ip]:[remote_port]>[peer_tag_param]
-        CSeq: 667855290 BYE
+        CSeq: 220767409 BYE
         Organization: Metaswitch Networks
         Supported: resource-priority, siprec, 100rel
         Content-Length: 0

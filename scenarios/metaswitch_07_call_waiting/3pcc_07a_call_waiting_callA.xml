@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 
-<scenario name="07-A Call Waiting - Call A - Metaswitch CFS SIPREC">
+<scenario name="3pcc 07-A Call Waiting - Call A - Metaswitch CFS SIPREC">
         <!-- Summary: Call waiting on recorded party
               Setup:
               - Recording not enabled on A G.
@@ -23,7 +23,7 @@
 <!-- This call: G-E, hold G-E -->
 
 <!-- Run scenario -->
-<!-- sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -sf scenarios/metaswitch_07_call_waiting/07a_call_waiting_callA.xml -m 1-->
+<!-- See README.md -->
 
   <!-- Initial INVITE -->
   <send>
@@ -149,6 +149,14 @@
   </nop>
 
   <pause milliseconds="7000"/>
+
+  <!-- Notify the second SIPP instance to start call scenario -->
+   <sendCmd>
+         <![CDATA[
+              Call-ID: new_[call_id]
+              New-call: yes
+         ]]>
+   </sendCmd>
 
     <!-- reINVITE with new SDP -->
       <send>
