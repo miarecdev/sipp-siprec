@@ -54,10 +54,10 @@ Both parties recorded
 
 Start `call B`
 ```
-sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -3pcc 2.2.2.2:7777 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_04_blind_xfer/04c_blind_xfer_callB.xml -m 1
+sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -3pcc 2.2.2.2:7777 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_04_blind_xfer/3pcc_04c_blind_xfer_callB.xml -m 1
 ```
 
 Start `call A`
 ```
-sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -3pcc 2.2.2.2:7777 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_04_blind_xfer/04c_blind_xfer_callA.xml -m 1
+sipp 1.1.1.1:5080 -i 2.2.2.2 -t t1 -3pcc 2.2.2.2:7777 -inf scenarios/tenant-users.csv -sf scenarios/metaswitch_04_blind_xfer/3pcc_04c_blind_xfer_callA.xml -m 1
 ```
