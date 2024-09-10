@@ -134,6 +134,7 @@ SIP proxy will select final destination -->
     Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
     CSeq: 660944687 ACK
     Call-ID: [call_id]
+    Route: <sip:[remote_ip];lr>
     Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
     From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
     To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
@@ -167,6 +168,7 @@ SIP proxy will select final destination -->
     To: <sip:[remote_ip]:[remote_port]>[peer_tag_param]
     Content-Type: application/sdp
     Call-ID: [call_id]
+    Route: <sip:[remote_ip];lr>
     CSeq: 660944688 INVITE
     Supported:
     Max-Forwards: 69
@@ -215,6 +217,7 @@ SIP proxy will select final destination -->
       Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
       CSeq: 660944688 ACK
       Call-ID: [call_id]
+      Route: <sip:[remote_ip];lr>
       Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
       From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
       To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
@@ -243,6 +246,7 @@ SIP proxy will select final destination -->
     Content-Type: multipart/mixed;boundary=UniqueBroadWorksBoundary
     MIME-Version: 1.0
     Call-ID: [call_id]
+    Route: <sip:[remote_ip];lr>
     CSeq: 660944689 INVITE
     Supported:
     Max-Forwards: 69
@@ -357,6 +361,7 @@ SIP proxy will select final destination -->
     Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
     CSeq: 660944689 ACK
     Call-ID: [call_id]
+    Route: <sip:[remote_ip];lr>
     Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
     From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
     To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
@@ -390,6 +395,7 @@ SIP proxy will select final destination -->
     Content-Type: application/rs-metadata+xml
     Content-Disposition: recording-session
     Call-ID: [call_id]
+    Route: <sip:[remote_ip];lr>
     CSeq: 660944690 UPDATE
     Max-Forwards: 69
     Session-ID: 72fbf4fbee08498ca807018c30eab15e;remote=00000000000000000000000000000000
@@ -483,6 +489,7 @@ SIP proxy will select final destination -->
     Content-Type: application/rs-metadata+xml
     Content-Disposition: recording-session
     Call-ID: [call_id]
+    Route: <sip:[remote_ip];lr>
     CSeq: 660944691 UPDATE
     Max-Forwards: 69
     Session-ID: 72fbf4fbee08498ca807018c30eab15e;remote=00000000000000000000000000000000
@@ -576,6 +583,7 @@ SIP proxy will select final destination -->
     Content-Type: application/rs-metadata+xml
     Content-Disposition: recording-session
     Call-ID: [call_id]
+    Route: <sip:[remote_ip];lr>
     CSeq: 660944692 UPDATE
     Max-Forwards: 69
     Session-ID: 72fbf4fbee08498ca807018c30eab15e;remote=00000000000000000000000000000000
@@ -669,6 +677,7 @@ SIP proxy will select final destination -->
     Content-Type: application/rs-metadata+xml
     Content-Disposition: recording-session
     Call-ID: [call_id]
+    Route: <sip:[remote_ip];lr>
     CSeq: 660944693 UPDATE
     Max-Forwards: 69
     Session-ID: 72fbf4fbee08498ca807018c30eab15e;remote=00000000000000000000000000000000
@@ -758,6 +767,7 @@ SIP proxy will select final destination -->
     Content-Type: application/rs-metadata+xml
     Content-Disposition: recording-session
     Call-ID: [call_id]
+    Route: <sip:[remote_ip];lr>
     CSeq: 660944694 UPDATE
     Max-Forwards: 69
     Session-ID: 72fbf4fbee08498ca807018c30eab15e;remote=00000000000000000000000000000000
@@ -857,6 +867,7 @@ SIP proxy will select final destination -->
     Content-Type: application/rs-metadata+xml
     Content-Disposition: recording-session
     Call-ID: [call_id]
+    Route: <sip:[remote_ip];lr>
     CSeq: 660944695 UPDATE
     Max-Forwards: 69
     Session-ID: 72fbf4fbee08498ca807018c30eab15e;remote=00000000000000000000000000000000
@@ -955,6 +966,7 @@ SIP proxy will select final destination -->
     To: <sip:[remote_ip]:[remote_port]>[peer_tag_param]
     Content-Type: application/sdp
     Call-ID: [call_id]
+    Route: <sip:[remote_ip];lr>
     CSeq: 660944696 INVITE
     Supported:
     Max-Forwards: 69
@@ -1003,6 +1015,7 @@ SIP proxy will select final destination -->
       Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
       CSeq: 660944696 ACK
       Call-ID: [call_id]
+      Route: <sip:[remote_ip];lr>
       Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
       From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
       To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
@@ -1028,6 +1041,7 @@ SIP proxy will select final destination -->
     To: <sip:[remote_ip]:[remote_port]>[peer_tag_param]
     Content-Type: application/sdp
     Call-ID: [call_id]
+    Route: <sip:[remote_ip];lr>
     CSeq: 660944697 INVITE
     Supported:
     Max-Forwards: 69
@@ -1076,6 +1090,7 @@ SIP proxy will select final destination -->
       Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
       CSeq: 660944697 ACK
       Call-ID: [call_id]
+      Route: <sip:[remote_ip];lr>
       Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
       From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
       To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
@@ -1110,6 +1125,7 @@ SIP proxy will select final destination -->
     To: <sip:[remote_ip]:[remote_port]>[peer_tag_param]
     Content-Type: application/sdp
     Call-ID: [call_id]
+    Route: <sip:[remote_ip];lr>
     CSeq: 660944698 INVITE
     Supported:
     Max-Forwards: 69
@@ -1159,6 +1175,7 @@ SIP proxy will select final destination -->
     Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
     CSeq: 660944698 ACK
     Call-ID: [call_id]
+    Route: <sip:[remote_ip];lr>
     Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
     From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
     To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
@@ -1177,6 +1194,7 @@ SIP proxy will select final destination -->
     From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
     To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
     Call-ID: [call_id]
+    Route: <sip:[remote_ip];lr>
     CSeq: 610644699 BYE
     Session-ID: 72fbf4fbee08498ca807018c30eab15e;remote=00000000000000000000000000000000
     X-BroadWorks-Correlation-Info: fbd01a1d-47f2-40c9-8114-a6b399940459

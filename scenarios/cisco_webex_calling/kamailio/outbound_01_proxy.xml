@@ -191,6 +191,7 @@ SIP proxy will select final destination -->
       Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
       CSeq: 610577336 ACK
       Call-ID: [call_id]
+      Route: <sip:[remote_ip];lr>
       Session-ID: 0cc1b891ef26429b854a770f535a0499;remote=00000000000000000000000000000000
       Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
       From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
@@ -222,6 +223,7 @@ SIP proxy will select final destination -->
     From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
     To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
     Call-ID: [call_id]
+    Route: <sip:[remote_ip];lr>
     CSeq: 610577337 BYE
     Session-ID: 0cc1b891ef26429b854a770f535a0499;remote=00000000000000000000000000000000
     X-BroadWorks-Correlation-Info: 3a557048-ff7c-4575-94e1-355f7ee6f7f0

@@ -134,6 +134,7 @@ SIP proxy will select final destination -->
       Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
       CSeq: 610644611 ACK
       Call-ID: [call_id]
+      Route: <sip:[remote_ip];lr>
       Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
       From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
       To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
@@ -167,6 +168,7 @@ SIP proxy will select final destination -->
     To: <sip:[remote_ip]:[remote_port]>[peer_tag_param]
     Content-Type: application/sdp
     Call-ID: [call_id]
+    Route: <sip:[remote_ip];lr>
     CSeq: 610644612 INVITE
     Supported:
     Max-Forwards: 69
@@ -203,6 +205,7 @@ SIP proxy will select final destination -->
       Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
       CSeq: 610644612 ACK
       Call-ID: [call_id]
+      Route: <sip:[remote_ip];lr>
       Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
       From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
       To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
@@ -233,6 +236,7 @@ SIP proxy will select final destination -->
     Content-Type: multipart/mixed;boundary=UniqueBroadWorksBoundary
     MIME-Version: 1.0
     Call-ID: [call_id]
+    Route: <sip:[remote_ip];lr>
     CSeq: 610644613 INVITE
     Supported:
     Max-Forwards: 69
@@ -346,6 +350,7 @@ SIP proxy will select final destination -->
       Contact: <sip:[local_ip]:[local_port];transport=[transport]>;src
       CSeq: 610644613 ACK
       Call-ID: [call_id]
+      Route: <sip:[remote_ip];lr>
       Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
       From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
       To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
@@ -377,6 +382,7 @@ SIP proxy will select final destination -->
     From: "MiaRecUser1 Loc1Test"<sip:+12102298545@[local_ip];user=phone>;tag=[pid]SIPpTag00[call_number]
     To:<sip:[remote_ip]:[remote_port]>[peer_tag_param]
     Call-ID: [call_id]
+    Route: <sip:[remote_ip];lr>
     CSeq: 610644614 BYE
     Session-ID: 3cfe1e82a9a1457b9653579a9f38bde3;remote=00000000000000000000000000000000
     X-BroadWorks-Correlation-Info: 02e4a768-7d4f-40aa-9aaf-36441e92d2dc
