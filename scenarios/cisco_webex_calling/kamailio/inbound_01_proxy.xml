@@ -168,7 +168,7 @@
 SIP proxy will select final destination -->
   <recv response="200" start_rtd="true" rtd="true" crlf="true" rrs="true">
     <action>
-      <ereg regexp="sip:[^;]+;transport=tcp" search_in="hdr" header="Contact" assign_to="contact"/>
+      <ereg regexp="sip:[^>]+" search_in="hdr" header="Contact" assign_to="contact"/>
       <log message="[$contact]" />
     </action>
   </recv>
