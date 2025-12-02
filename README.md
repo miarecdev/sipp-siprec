@@ -6,7 +6,7 @@
 
 ## Example 1. Generate bulk calls (with a call concurrency)
 
-    docker run -it sipp -t t1 -inf scenarios/tenant-users.csv -inf scenarios/callee.csv -sf scenarios/16b_basic_calls_outbound.xml -m 1000 -r 5 -rp 1s -l 50 1.2.3.4:5080
+    docker run -it sipp -t tn -inf scenarios/tenant-users.csv -inf scenarios/callee.csv -sf scenarios/16b_basic_calls_outbound.xml -m 1000 -r 5 -rp 1s -l 50 1.2.3.4:5080
 
 This scenarios loads a list of tenants/subsribers from file `tenant-users.csv` and a random remote phone numbers from file `callee.csv`.
 
@@ -19,7 +19,7 @@ Replace:
 
 ## Example 2. Generate a single call
 
-    docker run -it -v $PWD/scenarios:/sipp/scenarios sipp -t t1 -sf scenarios/broadworks_redirect.xml -m 1 1.2.3.4:5080
+    docker run -it -v $PWD/scenarios:/sipp/scenarios sipp -t tn -sf scenarios/broadworks_redirect.xml -m 1 1.2.3.4:5080
 
 
 ## Tips for running SIPP in docker
@@ -31,14 +31,14 @@ Solution is to pass a randomly generated UUID as the `-cid_str` parameter to SIP
 
 Assuming `uuidgen` is installed on your box you can use something like this:
 
-    docker run -it -v $PWD/scenarios:/sipp/scenarios sipp -t t1 -sf scenarios/broadworks_redirect.xml -cid_str $(uuidgen)@%s -m 1 1.2.3.4:5080
+    docker run -it -v $PWD/scenarios:/sipp/scenarios sipp -t tn -sf scenarios/broadworks_redirect.xml -cid_str $(uuidgen)@%s -m 1 1.2.3.4:5080
 
 
 # Old example (without docker)
 
 Start single call scenario
 
-    sipp 192.168.1.5:5080 -i 192.168.1.106 -t t1 -inf scenarios/tenant-users.csv -inf scenarios/callee.csv -sf scenarios/16b_basic_calls_outbound.xml -m 1000 -r 5 -rp 1s -l 50
+    sipp 192.168.1.5:5080 -i 192.168.1.106 -t tn -inf scenarios/tenant-users.csv -inf scenarios/callee.csv -sf scenarios/16b_basic_calls_outbound.xml -m 1000 -r 5 -rp 1s -l 50
 
 This scenarios loads a list of tenants/subsribers from file `tenant-users.csv` and a random remote phone numbers from file `callee.csv`.
 
@@ -53,8 +53,8 @@ Replace:
 
 # 3PCC scenario
 
-    sipp 192.168.1.106:5080 -i 192.168.1.106 -m 1 -t t1 -3pcc 192.168.1.106:7777 -sf scenarios/01a_3way_call_initiator_recorded_2.xml
-    sipp 192.168.1.106:5080 -i 192.168.1.106 -m 1 -t t1 -3pcc 192.168.1.106:7777 -sf scenarios/01a_3way_call_initiator_recorded_1.xml
+    sipp 192.168.1.106:5080 -i 192.168.1.106 -m 1 -t tn -3pcc 192.168.1.106:7777 -sf scenarios/01a_3way_call_initiator_recorded_2.xml
+    sipp 192.168.1.106:5080 -i 192.168.1.106 -m 1 -t tn -3pcc 192.168.1.106:7777 -sf scenarios/01a_3way_call_initiator_recorded_1.xml
     
 Where:
 
@@ -64,8 +64,8 @@ Where:
 
 # Extended 3PCC scenario
 
-    sipp 192.168.1.106:5080 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 1slave.cfg -slave slave1 -sf scenarios/01a_3way_call_initiator_recorded_ext_2.xml
-    sipp 192.168.1.106:5080 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 1slave.cfg -master master -sf scenarios/01a_3way_call_initiator_recorded_ext_1.xml
+    sipp 192.168.1.106:5080 -i 192.168.1.106 -m 1 -t tn -slave_cfg 1slave.cfg -slave slave1 -sf scenarios/01a_3way_call_initiator_recorded_ext_2.xml
+    sipp 192.168.1.106:5080 -i 192.168.1.106 -m 1 -t tn -slave_cfg 1slave.cfg -master master -sf scenarios/01a_3way_call_initiator_recorded_ext_1.xml
 
 # Extended 3PCC scenario (Cisco BiB scenario)
 
@@ -75,12 +75,12 @@ SIPP capabilities are quite limited. It is doable, but not 100% accurate.
 
 First, run the slave instance:
 
-    sipp 192.168.1.111:5070 -m 1 -t t1 -slave_cfg 1slave.cfg -slave slave1 -sf scenarios/cisco_bib_call_slave1.xml
+    sipp 192.168.1.111:5070 -m 1 -t tn -slave_cfg 1slave.cfg -slave slave1 -sf scenarios/cisco_bib_call_slave1.xml
 
 
 Then, start a master instance:
 
-    sipp 192.168.1.111:5070 -m 1 -t t1 -slave_cfg 1slave.cfg -master master -sf scenarios/cisco_bib_call_master.xml
+    sipp 192.168.1.111:5070 -m 1 -t tn -slave_cfg 1slave.cfg -master master -sf scenarios/cisco_bib_call_master.xml
 
     
 # Run python script (basic 3PCC)
@@ -89,22 +89,22 @@ Then, start a master instance:
 
 # Extended 3PCC scenario (master + 3 slaves)
 
-    sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 3slaves.cfg -slave slave1 -sf scenarios/cisco_bib_call_slave1.xml
-    sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 3slaves.cfg -slave slave2 -sf scenarios/cisco_bib_call_slave2.xml
-    sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 3slaves.cfg -slave slave3 -sf scenarios/cisco_bib_call_slave3.xml
-    sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t t1 -slave_cfg 3slaves.cfg -master master -sf scenarios/cisco_bib_call_master.xml
+    sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t tn -slave_cfg 3slaves.cfg -slave slave1 -sf scenarios/cisco_bib_call_slave1.xml
+    sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t tn -slave_cfg 3slaves.cfg -slave slave2 -sf scenarios/cisco_bib_call_slave2.xml
+    sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t tn -slave_cfg 3slaves.cfg -slave slave3 -sf scenarios/cisco_bib_call_slave3.xml
+    sipp 192.168.1.106:5070 -i 192.168.1.106 -m 1 -t tn -slave_cfg 3slaves.cfg -master master -sf scenarios/cisco_bib_call_master.xml
 
 # Cisco CUBE Network-based recording
 
 ## Normal call
 
-    sipp 192.168.1.5:5080 -i 192.168.1.106 -m 1 -t t1 -sf scenarios/cisco_cube_network_based_normal_1.xml
+    sipp 192.168.1.5:5080 -i 192.168.1.106 -m 1 -t tn -sf scenarios/cisco_cube_network_based_normal_1.xml
 
 ## Outbound call, transferred to another party
 
 CUBE sends re-INVITE with the updated call participants info
 
-    sipp 192.168.1.5:5080 -i 192.168.1.106 -m 1 -t t1 -sf scenarios/cisco_cube_network_based_1.xml
+    sipp 192.168.1.5:5080 -i 192.168.1.106 -m 1 -t tn -sf scenarios/cisco_cube_network_based_1.xml
 
     
 # Some important command-line options:
@@ -155,3 +155,24 @@ Use sox utility, like:
 # Similar projects
 
   - https://github.com/sieteunoseis/sipp/blob/main/README.md
+
+
+# Known Issues
+
+## TCP transport `-t t1` fails with "Address already in use"
+
+When using SIPP 3.7.x with TCP single-socket mode (`-t t1`), you may encounter the error:
+
+    Unable to bind TCP socket, errno = 48 (Address already in use)
+
+This is a known bug in SIPP versions 3.7.x (confirmed in 3.7.3 and 3.7.5). The issue is a regression from version 3.6.0 where TCP `-t t1` mode worked correctly.
+
+**Root cause:** In `-t t1` mode, SIPP creates both a main socket and a "twin" tcp_multiplex socket, and attempts to bind both to the same local port, causing the second bind to fail.
+
+**Workaround:** Use `-t tn` (TCP with one socket per call) instead of `-t t1`:
+
+    sipp -t tn -sf scenarios/example.xml -m 1 192.168.1.5:5080
+
+References:
+  - https://github.com/SIPp/sipp/issues/774
+  - https://github.com/SIPp/sipp/issues/661
